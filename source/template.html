@@ -115,8 +115,36 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 #dq button { flex: 1.2; padding: .7em 0; background: none; box-shadow: none; color: #e8fbff; font-size: 1.1em; }
 #dq button:hover { background: #ff5e3c33; }
 #dq .on { background: linear-gradient(#ffb59e, #ff5e3c); box-shadow: inset 0 -.2em #0003; color: #2d0a03; }
-#dq button:last-child.on { background: linear-gradient(#ff8fd8, #c4142c); color: #fff; }
+#dq button:nth-child(5).on { background: linear-gradient(#ff8fd8, #c4142c); color: #fff; }
+#dq button:last-child { color: #ffd84a; }
+#dq button:last-child.on { background: linear-gradient(#fff2a8, #ffb21a 45%, #b3132c); color: #2d0a03; box-shadow: inset 0 -.2em #0003, 0 0 1em #ffb21acc; }
 #dr { margin-top: -.6em; font-size: .75em; text-align: center; color: #ffd2c4; }
+/* boss: health bar, warning and charge edges */
+#ub { position: absolute; top: 4.9em; left: 50%; width: min(36em, 80%); transform: translateX(-50%); display: none; text-align: center; }
+#u.boss #ub { display: block; }
+#ubn { margin: 0 0 .25em; font: italic 900 1em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .15em; color: #ff8fc0; }
+#ubv { height: .8em; border-radius: .4em; background: #1a0310cc; box-shadow: 0 0 0 2px #ff3c8c99, 0 0 1em #ff3c8c55; overflow: hidden; }
+#ubb { display: block; height: 100%; background: linear-gradient(90deg, #7c3cff, #ff3c8c); transform-origin: 0; transition: transform .15s; }
+#ubb.ph2 { background: linear-gradient(90deg, #ff3c1e, #ffb21a); }
+#u.warn::after, #u.charge::after { content: ''; position: absolute; inset: 0; background: radial-gradient(#0000 45%, #ff1e3cbb); animation: wrn .35s ease-in-out infinite alternate; }
+@keyframes wrn { from { opacity: .2; } to { opacity: 1; } }
+#u.warn #un { color: #ff4a5a; }
+.ci .nw, #upc .nw { justify-self: start; padding: .05em .45em; border-radius: .3em; font-size: .7em; background: #ff3c8c; color: #fff; animation: px .5s; }
+/* codex */
+#dxb { padding: .55em; font-size: .9em; background: linear-gradient(#e2c8ff, #9b6bff); color: #1c0a3a; box-shadow: inset 0 -.2em #0003; }
+#dx { position: absolute; inset: 0; z-index: 9; display: none; place-content: center; justify-items: center; gap: 1em; padding: 1em; overflow: auto; background: #03131cf2; }
+#dx.on { display: grid; }
+#dx h2 { margin: 0; font: italic 900 2.2em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .1em; color: #ffd84a; }
+#dxn { margin: 0; color: #9ff6ff; letter-spacing: .1em; }
+#dxl { display: flex; flex-wrap: wrap; justify-content: center; gap: .7em; max-width: min(64em, 96vw); }
+.de { display: grid; gap: .3em; align-content: start; width: 11em; min-height: 7.5em; padding: .8em; border-radius: .6em; text-align: left; background: linear-gradient(#0b3a4d, #03222d); box-shadow: inset 0 0 0 2px #7ff3ff60; }
+.de em { font-style: normal; font-size: .65em; font-weight: 900; letter-spacing: .2em; color: #ffd84a; }
+.de strong { color: #ffe066; } .de span { font-size: .78em; font-weight: 600; color: #bfe9f2; } .de small { font-size: .7em; color: #c8a8ff; font-weight: 700; }
+.de.rare { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a; }
+.de.evo { background: linear-gradient(135deg, #5b1a6b, #103a5a); box-shadow: inset 0 0 0 2px #fff, 0 0 1.2em #c86bff88; } .de.evo strong { color: #fff; }
+.de.boss { background: linear-gradient(135deg, #3a0a22, #1a1050); box-shadow: inset 0 0 0 2px #ff3c8c; } .de.boss strong { color: #ff8fc0; }
+.de.no { opacity: .55; } .de.no strong { color: #7aa; letter-spacing: .2em; }
+#dxc { padding: .7em 2.6em; background: linear-gradient(#9ff6ff, #19c3d6); color: #03222d; }
 #uol { margin: 0 auto; padding: 0; list-style: none; font-size: .9em; line-height: 1.6; }
 #uol .me { color: #ffe066; font-weight: 800; }
 #sq { display: flex; align-items: center; gap: .8em; padding: .4em; font-size: .8em; letter-spacing: .08em; }
@@ -179,7 +207,10 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 #uc { position: absolute; left: 50%; top: 50%; width: 1.4em; height: 1.4em; margin: -.7em; border: 2px solid #e8fbffcc; border-radius: 50%; box-shadow: 0 0 3px #000, inset 0 0 3px #000; }
 #uc::after { content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: #fff; }
 #uk { position: absolute; left: 50%; top: 50%; width: 2.6em; height: 2.6em; margin: -1.3em; opacity: 0; border: 2px solid #ffe066; border-radius: 50%; }
-#us { position: absolute; top: .9em; left: 0; right: 0; text-align: center; font-size: .9em; }
+#uxp { position: absolute; top: .45em; left: 50%; width: min(28em, 70%); height: .7em; transform: translateX(-50%); border-radius: .35em; background: #03131cb3; box-shadow: 0 0 0 2px #7ff3ff60; overflow: hidden; }
+#uxpb { display: block; height: 100%; background: linear-gradient(90deg, #3ce0ff, #ffe066); transform-origin: 0; transform: scaleX(0); transition: transform .12s; }
+#uxpt { position: absolute; top: 1.4em; left: 0; right: 0; text-align: center; font: italic 900 .85em/1 Impact, 'Arial Black', system-ui, sans-serif; color: #ffe066; letter-spacing: .1em; }
+#us { position: absolute; top: 3.1em; left: 0; right: 0; text-align: center; font-size: .9em; }
 #uv { position: absolute; left: 1.2em; bottom: 1.2em; width: 14em; height: 1.1em; border-radius: .6em; background: #03131cb3; box-shadow: 0 0 0 2px #7ff3ff80; overflow: hidden; }
 #uhb { display: block; height: 100%; background: linear-gradient(90deg, #14a9c4, #9ff6ff); transform-origin: 0; transition: transform .15s; }
 #uhb.lo { background: linear-gradient(90deg, #c4142c, #ff7a6b); }
@@ -209,6 +240,67 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 @keyframes uc { 0% { opacity: 0; transform: translateY(1.5em) scale(.9); } }
 #upc b { justify-self: start; padding: .1em .55em; border-radius: .3em; background: #e8fbff; color: #03222d; }
 #upc strong { font-size: 1.15em; color: #ffe066; }
+#upc button.rare { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a, 0 0 1.6em #ffd84a99, 0 .4em 1.4em #000a; }
+#upc button.rare strong { color: #ffd84a; }
+#upc em, .ci em { font-style: normal; font-size: .7em; font-weight: 900; letter-spacing: .2em; color: #ffd84a; }
+#upc small, .ci small { font-size: .7em; color: #c8a8ff; font-weight: 700; }
+/* 時間減速: blue edges */
+#u.slow::before { content: ''; position: absolute; inset: 0; background: radial-gradient(#0000 50%, #3c7dffaa); }
+/* treasure chest overlay: the chest drops, shakes, bursts open (flash, rays, gold), then the upgrades spin and land */
+#cb { position: absolute; inset: 0; display: none; place-content: center; justify-items: center; gap: .8em; overflow: hidden; pointer-events: auto;
+  background: radial-gradient(#3a2a00a8, #03131ce6 70%); }
+#cb.on { display: grid; animation: cbin .3s; }
+@keyframes cbin { from { opacity: 0; } }
+#cbr { position: absolute; left: 50%; top: 40%; width: 160vmax; height: 160vmax; margin: -80vmax; border-radius: 50%; opacity: 0;
+  background: repeating-conic-gradient(#ffd84a40 0 6deg, #0000 6deg 18deg); -webkit-mask-image: radial-gradient(#000 8%, #0000 55%); mask-image: radial-gradient(#000 8%, #0000 55%); }
+#cb.on #cbr { animation: cbo .8s 1.4s forwards, cbs 14s 1.4s linear infinite; }
+#cb.n5 #cbr { background: repeating-conic-gradient(#ff5e3c50 0 5deg, #ffd84a50 5deg 10deg, #3ce0ff50 10deg 15deg, #c86bff50 15deg 20deg, #0000 20deg 30deg); }
+@keyframes cbo { to { opacity: 1; } }
+@keyframes cbs { to { transform: rotate(360deg); } }
+#cbf { position: absolute; inset: 0; background: #fff8dc; opacity: 0; pointer-events: none; }
+#cb.on #cbf { animation: cbfl .7s 1.4s; }
+@keyframes cbfl { 0% { opacity: 0; } 8% { opacity: .9; } 100% { opacity: 0; } }
+#cbx { position: relative; width: 7em; height: 5.4em; margin-top: 1em; }
+#cb.on #cbx { animation: cbd .5s cubic-bezier(.3, 1.6, .6, 1) backwards, cbk .9s .5s; }
+@keyframes cbd { from { transform: translateY(-60vh); } }
+@keyframes cbk { 0%, 100% { transform: none; } 10%, 30%, 50%, 70%, 90% { transform: rotate(-6deg) scale(1.04); } 20%, 40%, 60%, 80% { transform: rotate(6deg) scale(1.04); } }
+#cbx::after { content: ''; position: absolute; left: 10%; right: 10%; top: 1.4em; height: 1.2em; border-radius: 50%; background: #fff; filter: blur(.6em); opacity: 0; }
+#cb.on #cbx::after { animation: cbo .3s 1.45s forwards; }
+#cbb { position: absolute; left: 0; right: 0; bottom: 0; height: 3.4em; border-radius: .3em; background: linear-gradient(#b8741a, #6b3b08);
+  box-shadow: inset 0 0 0 .25em #ffd84a, 0 .5em 1.5em #000a; }
+#cbb::before, #cbb::after { content: ''; position: absolute; top: 0; bottom: 0; width: .6em; background: #ffd84a; }
+#cbb::before { left: 1.3em; } #cbb::after { right: 1.3em; }
+#cbl { position: absolute; left: -.2em; right: -.2em; top: 0; height: 2.1em; border-radius: 1.4em 1.4em .3em .3em; z-index: 1;
+  background: linear-gradient(#ffe27a, #c98a1c); box-shadow: inset 0 0 0 .25em #fff2b0; transform-origin: 8% 100%; }
+#cb.on #cbl { animation: cbli .7s 1.4s cubic-bezier(.2, 1.4, .5, 1) forwards; }
+@keyframes cbli { to { transform: translate(-.2em, -.4em) rotate(-62deg); } }
+#cbg { position: absolute; left: 50%; top: 1.6em; width: 1.1em; height: 1.3em; margin-left: -.55em; border-radius: .2em; z-index: 2; background: #fff6c8; box-shadow: 0 0 1em #ffd84a; }
+#cb.on #cbg { animation: cbo .2s 1.4s reverse forwards; }
+#cbc { position: absolute; left: 50%; top: 42%; }
+#cbc i { position: absolute; width: .8em; height: .8em; margin: -.4em; border-radius: .15em; opacity: 0; background: linear-gradient(135deg, #fff6c8, #ffb21a); box-shadow: 0 0 .5em #ffd84a; }
+#cb.on #cbc i { animation: cbc 1.3s cubic-bezier(.2, .8, .4, 1); animation-fill-mode: forwards; }
+@keyframes cbc { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); } }
+#cbt { margin: 0; font: italic 900 2.6em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .08em; color: #ffd84a; text-shadow: 0 0 .4em #ff9a1a, .05em .05em 0 #000; }
+#cb.on #cbt { animation: cbti .5s 1.5s backwards; }
+#cb.n5 #cbt { color: #0000; text-shadow: none; background: linear-gradient(90deg, #ff5e3c, #ffd84a, #3ce0ff, #c86bff, #ff5e3c) 0 0 / 200%;
+  -webkit-background-clip: text; background-clip: text; animation: cbti .5s 1.5s backwards, rbw 1s linear infinite; }
+@keyframes cbti { from { opacity: 0; transform: scale(2.2); } }
+@keyframes rbw { to { background-position: 200% 0; } }
+#cbi { display: flex; flex-wrap: wrap; justify-content: center; gap: .7em; max-width: min(62em, 94vw); min-height: 6.5em; }
+.ci { display: grid; gap: .35em; align-content: start; width: 11em; padding: .8em; border-radius: .6em; text-align: left; visibility: hidden;
+  background: linear-gradient(#0b3a4d, #03222d); box-shadow: inset 0 0 0 2px #7ff3ff80; }
+.ci.spin { visibility: visible; } .ci.spin strong { filter: blur(1.5px); color: #9ff6ff; }
+.ci.on { visibility: visible; animation: cion .4s; }
+@keyframes cion { 0% { transform: scale(1.4); filter: brightness(2.5); } }
+.ci strong { font-size: 1.05em; color: #ffe066; } .ci span { font-size: .8em; font-weight: 600; color: #bfe9f2; } .ci i { font-style: normal; font-size: .7em; color: #7ff3ff; }
+.ci.rare.on { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a, 0 0 1.5em #ffd84a88; }
+.ci.evo.on { background: linear-gradient(135deg, #5b1a6b, #103a5a); box-shadow: inset 0 0 0 2px #fff, 0 0 2.2em #c86bffcc; }
+.ci.evo em { color: #fff; }
+.ci.evo.on strong { color: #fff; font-size: 1.2em; animation: evg .6s linear infinite alternate; }
+@keyframes evg { from { text-shadow: 0 0 .3em #ff5e3c, 0 0 .8em #c86bff; } to { text-shadow: 0 0 .3em #3ce0ff, 0 0 .8em #ffd84a; } }
+#cbk { margin: 0; min-height: 1.3em; font-size: .85em; color: #e8fbff; }
+#cb.skip *, #cb.skip { animation-duration: 0s !important; animation-delay: 0s !important; }
+#cb.skip .ci.on, #cb.skip #cbt { animation: none !important; }
 #upc span { font-weight: 600; font-size: .85em; color: #bfe9f2; }
 #upc i { font-style: normal; font-size: .75em; color: #7ff3ff; }
 #ug { position: absolute; left: 0; right: 0; bottom: 4.2em; text-align: center; font-size: .85em; opacity: 0; transition: opacity 1s; }
@@ -217,7 +309,13 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 @keyframes un { 0% { opacity: 0; transform: scale(1.3); } 15%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 #ud { position: absolute; inset: 0; opacity: 0; background: radial-gradient(#0000 45%, #c4142ccc); }
 #uo { position: absolute; inset: 0; display: none; place-content: center; gap: 1em; text-align: center; background: #1a030899; }
-#uo.on { display: grid; }
+#uo.on { display: grid; pointer-events: auto; overflow: auto; }
+#uo { padding: 1em; justify-items: center; }
+#shi { width: min(30em, 86vw); border-radius: .6em; box-shadow: 0 0 0 2px #7ff3ff80, 0 .6em 2em #000c; }
+#shb { display: flex; flex-wrap: wrap; justify-content: center; gap: .6em; }
+#shb button { padding: .7em 1.4em; font-size: 1em; letter-spacing: .05em; text-transform: none; }
+#shx { background: #000; color: #fff; box-shadow: inset 0 0 0 2px #fff8; }
+#shs, #shf { background: linear-gradient(#9ff6ff, #19c3d6); color: #03222d; }
 #uo h2 { margin: 0; font: 900 3.4em/1 system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #ff7a6b; }
 #uo b { padding: .1em .5em; border-radius: .35em; background: #e8fbff; color: #03222d; text-shadow: none; }
 </style>
@@ -230,14 +328,15 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
     <div id=l>
       <div id=lw><button id=lm aria-label="つつく"></button><span id=ly></span></div>
       <div id=p><i id=b></i></div><p id=s>潜航準備中…</p>
-      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：被弾するとコンボが途切れる</span><span>ヒント：ウェーブを越えるたびに強化を1つ選べる</span><span>豆知識：この海の生き物はすべてコードで描かれている</span><span>待ってる間、そのキューブをつついてもいい</span></p>
+      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：宝箱に触れると強化が手に入る。組み合わせ次第で「進化」も</span><span>ヒント：敵を倒して経験値をためるとレベルアップ、強化を1つ選べる</span><span>ヒント：5ウェーブごとに巨大な何かがやってくる。頭と尾が弱点</span><span>待ってる間、そのキューブをつついてもいい</span></p>
       <p id=lc hidden></p>
       <p id=w hidden>Google Chrome / Edge での起動を推奨します</p>
     </div>
     <div id=g>
-      <p id=dq><span>難易度</span><button type=button>低</button><button type=button>中</button><button type=button>高</button><button type=button>鬼</button></p>
+      <p id=dq><span>難易度</span><button type=button>低</button><button type=button>中</button><button type=button>高</button><button type=button>鬼</button><button type=button>龍</button></p>
       <p id=dr></p>
       <button id=x>バトル開始</button>
+      <button id=dxb type=button>図鑑</button>
       <button id=d>のんびり探索</button>
       <p id=sq><label for=sv><span>視点感度</span></label><input id=sv type=range min=0.2 max=3 step=0.1 value=1><output id=so for=sv>1.0</output></p>
       <p id=q><span>画質</span><button>低</button><button>中</button><button>高</button></p>
@@ -279,6 +378,8 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 <div id=u>
   <i id=ud></i>
   <i id=uc></i><i id=uk></i>
+  <div id=ub><p id=ubn></p><div id=ubv><i id=ubb></i></div></div>
+  <div id=uxp><i id=uxpb></i></div><p id=uxpt></p>
   <p id=us></p>
   <p id=un></p>
   <canvas id=ur width=160 height=160></canvas>
@@ -287,9 +388,11 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
   <div id=ux><div id=uxn></div><div id=uxm></div><div id=uxb></div></div>
   <i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i>
   <p id=ug></p>
-  <div id=up><h2>強化を選べ</h2><div id=upc></div><p id=upk></p></div>
-  <div id=uo><h2>Signal lost</h2><p id=uos></p><ol id=uol></ol><p id=uor></p><button id=uoa type=button>もう一回</button><p id=uok></p></div>
+  <div id=cb><i id=cbr></i><i id=cbf></i><div id=cbc></div><div id=cbx><i id=cbl></i><i id=cbb></i><i id=cbg></i></div><p id=cbt></p><div id=cbi></div><p id=cbk></p></div>
+  <div id=up><h2 id=upt>LEVEL UP!</h2><div id=upc></div><p id=upk></p></div>
+  <div id=uo><h2>Signal lost</h2><p id=uos></p><img id=shi alt="結果カード"><div id=shb><button id=shx type=button>𝕏 でシェア</button><button id=shf type=button hidden>画像つきでシェア</button><button id=shs type=button>画像を保存</button><button id=uoa type=button>もう一回</button></div><ol id=uol></ol><p id=uor></p><p id=uok></p><canvas id=shc width=1200 height=630 hidden></canvas></div>
 </div>
+<div id=dx><h2>図鑑</h2><p id=dxn></p><div id=dxl></div><button id=dxc type=button>閉じる</button></div>
 <div id=tc><div id=js><i id=jk></i></div><div id=tb><button id=tr type=button aria-label=リロード>R</button><button id=tu type=button aria-label=上昇>▲</button><button id=td type=button aria-label=下降>▼</button></div></div>
 <pre id=i></pre>
 <script>

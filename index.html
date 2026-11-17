@@ -115,8 +115,36 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 #dq button { flex: 1.2; padding: .7em 0; background: none; box-shadow: none; color: #e8fbff; font-size: 1.1em; }
 #dq button:hover { background: #ff5e3c33; }
 #dq .on { background: linear-gradient(#ffb59e, #ff5e3c); box-shadow: inset 0 -.2em #0003; color: #2d0a03; }
-#dq button:last-child.on { background: linear-gradient(#ff8fd8, #c4142c); color: #fff; }
+#dq button:nth-child(5).on { background: linear-gradient(#ff8fd8, #c4142c); color: #fff; }
+#dq button:last-child { color: #ffd84a; }
+#dq button:last-child.on { background: linear-gradient(#fff2a8, #ffb21a 45%, #b3132c); color: #2d0a03; box-shadow: inset 0 -.2em #0003, 0 0 1em #ffb21acc; }
 #dr { margin-top: -.6em; font-size: .75em; text-align: center; color: #ffd2c4; }
+/* boss: health bar, warning and charge edges */
+#ub { position: absolute; top: 4.9em; left: 50%; width: min(36em, 80%); transform: translateX(-50%); display: none; text-align: center; }
+#u.boss #ub { display: block; }
+#ubn { margin: 0 0 .25em; font: italic 900 1em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .15em; color: #ff8fc0; }
+#ubv { height: .8em; border-radius: .4em; background: #1a0310cc; box-shadow: 0 0 0 2px #ff3c8c99, 0 0 1em #ff3c8c55; overflow: hidden; }
+#ubb { display: block; height: 100%; background: linear-gradient(90deg, #7c3cff, #ff3c8c); transform-origin: 0; transition: transform .15s; }
+#ubb.ph2 { background: linear-gradient(90deg, #ff3c1e, #ffb21a); }
+#u.warn::after, #u.charge::after { content: ''; position: absolute; inset: 0; background: radial-gradient(#0000 45%, #ff1e3cbb); animation: wrn .35s ease-in-out infinite alternate; }
+@keyframes wrn { from { opacity: .2; } to { opacity: 1; } }
+#u.warn #un { color: #ff4a5a; }
+.ci .nw, #upc .nw { justify-self: start; padding: .05em .45em; border-radius: .3em; font-size: .7em; background: #ff3c8c; color: #fff; animation: px .5s; }
+/* codex */
+#dxb { padding: .55em; font-size: .9em; background: linear-gradient(#e2c8ff, #9b6bff); color: #1c0a3a; box-shadow: inset 0 -.2em #0003; }
+#dx { position: absolute; inset: 0; z-index: 9; display: none; place-content: center; justify-items: center; gap: 1em; padding: 1em; overflow: auto; background: #03131cf2; }
+#dx.on { display: grid; }
+#dx h2 { margin: 0; font: italic 900 2.2em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .1em; color: #ffd84a; }
+#dxn { margin: 0; color: #9ff6ff; letter-spacing: .1em; }
+#dxl { display: flex; flex-wrap: wrap; justify-content: center; gap: .7em; max-width: min(64em, 96vw); }
+.de { display: grid; gap: .3em; align-content: start; width: 11em; min-height: 7.5em; padding: .8em; border-radius: .6em; text-align: left; background: linear-gradient(#0b3a4d, #03222d); box-shadow: inset 0 0 0 2px #7ff3ff60; }
+.de em { font-style: normal; font-size: .65em; font-weight: 900; letter-spacing: .2em; color: #ffd84a; }
+.de strong { color: #ffe066; } .de span { font-size: .78em; font-weight: 600; color: #bfe9f2; } .de small { font-size: .7em; color: #c8a8ff; font-weight: 700; }
+.de.rare { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a; }
+.de.evo { background: linear-gradient(135deg, #5b1a6b, #103a5a); box-shadow: inset 0 0 0 2px #fff, 0 0 1.2em #c86bff88; } .de.evo strong { color: #fff; }
+.de.boss { background: linear-gradient(135deg, #3a0a22, #1a1050); box-shadow: inset 0 0 0 2px #ff3c8c; } .de.boss strong { color: #ff8fc0; }
+.de.no { opacity: .55; } .de.no strong { color: #7aa; letter-spacing: .2em; }
+#dxc { padding: .7em 2.6em; background: linear-gradient(#9ff6ff, #19c3d6); color: #03222d; }
 #uol { margin: 0 auto; padding: 0; list-style: none; font-size: .9em; line-height: 1.6; }
 #uol .me { color: #ffe066; font-weight: 800; }
 #sq { display: flex; align-items: center; gap: .8em; padding: .4em; font-size: .8em; letter-spacing: .08em; }
@@ -179,7 +207,10 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 #uc { position: absolute; left: 50%; top: 50%; width: 1.4em; height: 1.4em; margin: -.7em; border: 2px solid #e8fbffcc; border-radius: 50%; box-shadow: 0 0 3px #000, inset 0 0 3px #000; }
 #uc::after { content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: #fff; }
 #uk { position: absolute; left: 50%; top: 50%; width: 2.6em; height: 2.6em; margin: -1.3em; opacity: 0; border: 2px solid #ffe066; border-radius: 50%; }
-#us { position: absolute; top: .9em; left: 0; right: 0; text-align: center; font-size: .9em; }
+#uxp { position: absolute; top: .45em; left: 50%; width: min(28em, 70%); height: .7em; transform: translateX(-50%); border-radius: .35em; background: #03131cb3; box-shadow: 0 0 0 2px #7ff3ff60; overflow: hidden; }
+#uxpb { display: block; height: 100%; background: linear-gradient(90deg, #3ce0ff, #ffe066); transform-origin: 0; transform: scaleX(0); transition: transform .12s; }
+#uxpt { position: absolute; top: 1.4em; left: 0; right: 0; text-align: center; font: italic 900 .85em/1 Impact, 'Arial Black', system-ui, sans-serif; color: #ffe066; letter-spacing: .1em; }
+#us { position: absolute; top: 3.1em; left: 0; right: 0; text-align: center; font-size: .9em; }
 #uv { position: absolute; left: 1.2em; bottom: 1.2em; width: 14em; height: 1.1em; border-radius: .6em; background: #03131cb3; box-shadow: 0 0 0 2px #7ff3ff80; overflow: hidden; }
 #uhb { display: block; height: 100%; background: linear-gradient(90deg, #14a9c4, #9ff6ff); transform-origin: 0; transition: transform .15s; }
 #uhb.lo { background: linear-gradient(90deg, #c4142c, #ff7a6b); }
@@ -209,6 +240,67 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 @keyframes uc { 0% { opacity: 0; transform: translateY(1.5em) scale(.9); } }
 #upc b { justify-self: start; padding: .1em .55em; border-radius: .3em; background: #e8fbff; color: #03222d; }
 #upc strong { font-size: 1.15em; color: #ffe066; }
+#upc button.rare { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a, 0 0 1.6em #ffd84a99, 0 .4em 1.4em #000a; }
+#upc button.rare strong { color: #ffd84a; }
+#upc em, .ci em { font-style: normal; font-size: .7em; font-weight: 900; letter-spacing: .2em; color: #ffd84a; }
+#upc small, .ci small { font-size: .7em; color: #c8a8ff; font-weight: 700; }
+/* 時間減速: blue edges */
+#u.slow::before { content: ''; position: absolute; inset: 0; background: radial-gradient(#0000 50%, #3c7dffaa); }
+/* treasure chest overlay: the chest drops, shakes, bursts open (flash, rays, gold), then the upgrades spin and land */
+#cb { position: absolute; inset: 0; display: none; place-content: center; justify-items: center; gap: .8em; overflow: hidden; pointer-events: auto;
+  background: radial-gradient(#3a2a00a8, #03131ce6 70%); }
+#cb.on { display: grid; animation: cbin .3s; }
+@keyframes cbin { from { opacity: 0; } }
+#cbr { position: absolute; left: 50%; top: 40%; width: 160vmax; height: 160vmax; margin: -80vmax; border-radius: 50%; opacity: 0;
+  background: repeating-conic-gradient(#ffd84a40 0 6deg, #0000 6deg 18deg); -webkit-mask-image: radial-gradient(#000 8%, #0000 55%); mask-image: radial-gradient(#000 8%, #0000 55%); }
+#cb.on #cbr { animation: cbo .8s 1.4s forwards, cbs 14s 1.4s linear infinite; }
+#cb.n5 #cbr { background: repeating-conic-gradient(#ff5e3c50 0 5deg, #ffd84a50 5deg 10deg, #3ce0ff50 10deg 15deg, #c86bff50 15deg 20deg, #0000 20deg 30deg); }
+@keyframes cbo { to { opacity: 1; } }
+@keyframes cbs { to { transform: rotate(360deg); } }
+#cbf { position: absolute; inset: 0; background: #fff8dc; opacity: 0; pointer-events: none; }
+#cb.on #cbf { animation: cbfl .7s 1.4s; }
+@keyframes cbfl { 0% { opacity: 0; } 8% { opacity: .9; } 100% { opacity: 0; } }
+#cbx { position: relative; width: 7em; height: 5.4em; margin-top: 1em; }
+#cb.on #cbx { animation: cbd .5s cubic-bezier(.3, 1.6, .6, 1) backwards, cbk .9s .5s; }
+@keyframes cbd { from { transform: translateY(-60vh); } }
+@keyframes cbk { 0%, 100% { transform: none; } 10%, 30%, 50%, 70%, 90% { transform: rotate(-6deg) scale(1.04); } 20%, 40%, 60%, 80% { transform: rotate(6deg) scale(1.04); } }
+#cbx::after { content: ''; position: absolute; left: 10%; right: 10%; top: 1.4em; height: 1.2em; border-radius: 50%; background: #fff; filter: blur(.6em); opacity: 0; }
+#cb.on #cbx::after { animation: cbo .3s 1.45s forwards; }
+#cbb { position: absolute; left: 0; right: 0; bottom: 0; height: 3.4em; border-radius: .3em; background: linear-gradient(#b8741a, #6b3b08);
+  box-shadow: inset 0 0 0 .25em #ffd84a, 0 .5em 1.5em #000a; }
+#cbb::before, #cbb::after { content: ''; position: absolute; top: 0; bottom: 0; width: .6em; background: #ffd84a; }
+#cbb::before { left: 1.3em; } #cbb::after { right: 1.3em; }
+#cbl { position: absolute; left: -.2em; right: -.2em; top: 0; height: 2.1em; border-radius: 1.4em 1.4em .3em .3em; z-index: 1;
+  background: linear-gradient(#ffe27a, #c98a1c); box-shadow: inset 0 0 0 .25em #fff2b0; transform-origin: 8% 100%; }
+#cb.on #cbl { animation: cbli .7s 1.4s cubic-bezier(.2, 1.4, .5, 1) forwards; }
+@keyframes cbli { to { transform: translate(-.2em, -.4em) rotate(-62deg); } }
+#cbg { position: absolute; left: 50%; top: 1.6em; width: 1.1em; height: 1.3em; margin-left: -.55em; border-radius: .2em; z-index: 2; background: #fff6c8; box-shadow: 0 0 1em #ffd84a; }
+#cb.on #cbg { animation: cbo .2s 1.4s reverse forwards; }
+#cbc { position: absolute; left: 50%; top: 42%; }
+#cbc i { position: absolute; width: .8em; height: .8em; margin: -.4em; border-radius: .15em; opacity: 0; background: linear-gradient(135deg, #fff6c8, #ffb21a); box-shadow: 0 0 .5em #ffd84a; }
+#cb.on #cbc i { animation: cbc 1.3s cubic-bezier(.2, .8, .4, 1); animation-fill-mode: forwards; }
+@keyframes cbc { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); } }
+#cbt { margin: 0; font: italic 900 2.6em/1 Impact, 'Arial Black', system-ui, sans-serif; letter-spacing: .08em; color: #ffd84a; text-shadow: 0 0 .4em #ff9a1a, .05em .05em 0 #000; }
+#cb.on #cbt { animation: cbti .5s 1.5s backwards; }
+#cb.n5 #cbt { color: #0000; text-shadow: none; background: linear-gradient(90deg, #ff5e3c, #ffd84a, #3ce0ff, #c86bff, #ff5e3c) 0 0 / 200%;
+  -webkit-background-clip: text; background-clip: text; animation: cbti .5s 1.5s backwards, rbw 1s linear infinite; }
+@keyframes cbti { from { opacity: 0; transform: scale(2.2); } }
+@keyframes rbw { to { background-position: 200% 0; } }
+#cbi { display: flex; flex-wrap: wrap; justify-content: center; gap: .7em; max-width: min(62em, 94vw); min-height: 6.5em; }
+.ci { display: grid; gap: .35em; align-content: start; width: 11em; padding: .8em; border-radius: .6em; text-align: left; visibility: hidden;
+  background: linear-gradient(#0b3a4d, #03222d); box-shadow: inset 0 0 0 2px #7ff3ff80; }
+.ci.spin { visibility: visible; } .ci.spin strong { filter: blur(1.5px); color: #9ff6ff; }
+.ci.on { visibility: visible; animation: cion .4s; }
+@keyframes cion { 0% { transform: scale(1.4); filter: brightness(2.5); } }
+.ci strong { font-size: 1.05em; color: #ffe066; } .ci span { font-size: .8em; font-weight: 600; color: #bfe9f2; } .ci i { font-style: normal; font-size: .7em; color: #7ff3ff; }
+.ci.rare.on { background: linear-gradient(#5a4108, #2a1c02); box-shadow: inset 0 0 0 2px #ffd84a, 0 0 1.5em #ffd84a88; }
+.ci.evo.on { background: linear-gradient(135deg, #5b1a6b, #103a5a); box-shadow: inset 0 0 0 2px #fff, 0 0 2.2em #c86bffcc; }
+.ci.evo em { color: #fff; }
+.ci.evo.on strong { color: #fff; font-size: 1.2em; animation: evg .6s linear infinite alternate; }
+@keyframes evg { from { text-shadow: 0 0 .3em #ff5e3c, 0 0 .8em #c86bff; } to { text-shadow: 0 0 .3em #3ce0ff, 0 0 .8em #ffd84a; } }
+#cbk { margin: 0; min-height: 1.3em; font-size: .85em; color: #e8fbff; }
+#cb.skip *, #cb.skip { animation-duration: 0s !important; animation-delay: 0s !important; }
+#cb.skip .ci.on, #cb.skip #cbt { animation: none !important; }
 #upc span { font-weight: 600; font-size: .85em; color: #bfe9f2; }
 #upc i { font-style: normal; font-size: .75em; color: #7ff3ff; }
 #ug { position: absolute; left: 0; right: 0; bottom: 4.2em; text-align: center; font-size: .85em; opacity: 0; transition: opacity 1s; }
@@ -217,7 +309,13 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 @keyframes un { 0% { opacity: 0; transform: scale(1.3); } 15%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 #ud { position: absolute; inset: 0; opacity: 0; background: radial-gradient(#0000 45%, #c4142ccc); }
 #uo { position: absolute; inset: 0; display: none; place-content: center; gap: 1em; text-align: center; background: #1a030899; }
-#uo.on { display: grid; }
+#uo.on { display: grid; pointer-events: auto; overflow: auto; }
+#uo { padding: 1em; justify-items: center; }
+#shi { width: min(30em, 86vw); border-radius: .6em; box-shadow: 0 0 0 2px #7ff3ff80, 0 .6em 2em #000c; }
+#shb { display: flex; flex-wrap: wrap; justify-content: center; gap: .6em; }
+#shb button { padding: .7em 1.4em; font-size: 1em; letter-spacing: .05em; text-transform: none; }
+#shx { background: #000; color: #fff; box-shadow: inset 0 0 0 2px #fff8; }
+#shs, #shf { background: linear-gradient(#9ff6ff, #19c3d6); color: #03222d; }
 #uo h2 { margin: 0; font: 900 3.4em/1 system-ui, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #ff7a6b; }
 #uo b { padding: .1em .5em; border-radius: .35em; background: #e8fbff; color: #03222d; text-shadow: none; }
 </style>
@@ -230,14 +328,15 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
     <div id=l>
       <div id=lw><button id=lm aria-label="つつく"></button><span id=ly></span></div>
       <div id=p><i id=b></i></div><p id=s>潜航準備中…</p>
-      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：被弾するとコンボが途切れる</span><span>ヒント：ウェーブを越えるたびに強化を1つ選べる</span><span>豆知識：この海の生き物はすべてコードで描かれている</span><span>待ってる間、そのキューブをつついてもいい</span></p>
+      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：宝箱に触れると強化が手に入る。組み合わせ次第で「進化」も</span><span>ヒント：敵を倒して経験値をためるとレベルアップ、強化を1つ選べる</span><span>ヒント：5ウェーブごとに巨大な何かがやってくる。頭と尾が弱点</span><span>待ってる間、そのキューブをつついてもいい</span></p>
       <p id=lc hidden></p>
       <p id=w hidden>Google Chrome / Edge での起動を推奨します</p>
     </div>
     <div id=g>
-      <p id=dq><span>難易度</span><button type=button>低</button><button type=button>中</button><button type=button>高</button><button type=button>鬼</button></p>
+      <p id=dq><span>難易度</span><button type=button>低</button><button type=button>中</button><button type=button>高</button><button type=button>鬼</button><button type=button>龍</button></p>
       <p id=dr></p>
       <button id=x>バトル開始</button>
+      <button id=dxb type=button>図鑑</button>
       <button id=d>のんびり探索</button>
       <p id=sq><label for=sv><span>視点感度</span></label><input id=sv type=range min=0.2 max=3 step=0.1 value=1><output id=so for=sv>1.0</output></p>
       <p id=q><span>画質</span><button>低</button><button>中</button><button>高</button></p>
@@ -279,6 +378,8 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
 <div id=u>
   <i id=ud></i>
   <i id=uc></i><i id=uk></i>
+  <div id=ub><p id=ubn></p><div id=ubv><i id=ubb></i></div></div>
+  <div id=uxp><i id=uxpb></i></div><p id=uxpt></p>
   <p id=us></p>
   <p id=un></p>
   <canvas id=ur width=160 height=160></canvas>
@@ -287,9 +388,11 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
   <div id=ux><div id=uxn></div><div id=uxm></div><div id=uxb></div></div>
   <i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i><i class=uf></i>
   <p id=ug></p>
-  <div id=up><h2>強化を選べ</h2><div id=upc></div><p id=upk></p></div>
-  <div id=uo><h2>Signal lost</h2><p id=uos></p><ol id=uol></ol><p id=uor></p><button id=uoa type=button>もう一回</button><p id=uok></p></div>
+  <div id=cb><i id=cbr></i><i id=cbf></i><div id=cbc></div><div id=cbx><i id=cbl></i><i id=cbb></i><i id=cbg></i></div><p id=cbt></p><div id=cbi></div><p id=cbk></p></div>
+  <div id=up><h2 id=upt>LEVEL UP!</h2><div id=upc></div><p id=upk></p></div>
+  <div id=uo><h2>Signal lost</h2><p id=uos></p><img id=shi alt="結果カード"><div id=shb><button id=shx type=button>𝕏 でシェア</button><button id=shf type=button hidden>画像つきでシェア</button><button id=shs type=button>画像を保存</button><button id=uoa type=button>もう一回</button></div><ol id=uol></ol><p id=uor></p><p id=uok></p><canvas id=shc width=1200 height=630 hidden></canvas></div>
 </div>
+<div id=dx><h2>図鑑</h2><p id=dxn></p><div id=dxl></div><button id=dxc type=button>閉じる</button></div>
 <div id=tc><div id=js><i id=jk></i></div><div id=tb><button id=tr type=button aria-label=リロード>R</button><button id=tu type=button aria-label=上昇>▲</button><button id=td type=button aria-label=下降>▼</button></div></div>
 <pre id=i></pre>
 <script>
@@ -2020,7 +2123,7 @@ const pSnow = scenePipe(mSpr, 'vsSnow', 'fsSnow', [ibSnow], { strip: true, blend
 const pGl = scenePipe(mLeaf, 'vsGl', 'fsGl', [ibBub], { strip: true, blend: ADD, constants: { ROWS: 7 } });
 // battle mode: instanced boxes (enemies, bolts, debris, tracers), filled by game.js every frame
 const pCube = scenePipe(mod(W_CUBE), 'vs', 'fs', [ibCubeL]);
-const CUBEMAX = 768, CUBE = new Float32Array(CUBEMAX * 16);
+const CUBEMAX = 2048, CUBE = new Float32Array(CUBEMAX * 16);
 const ibCubeB = device.createBuffer({ size: CUBE.byteLength, usage: BU.VERTEX | BU.COPY_DST });
 let nCube = 0;
 const pSolidSh = shadowPipe(mSolid, 'vs', [vbSolid, ibSolid]), pTerrSh = shadowPipe(mSolid, 'vs', [vbSolid, ibSolid], { cull: 'front' });
@@ -2466,7 +2569,9 @@ function frame(now) {
     dynN = dynT = dynG = dynGN = 0; resize();
   }
   F[TIME] += dt;
-  {
+  // while an upgrade is being chosen the diver holds still: no swimming, no turning, input is dropped
+  if (battle && gameFrozen()) { mdx = mdy = lkx = lky = l2x = l2y = 0; F[VX] = F[VY] = F[VZ] = 0; }
+  else {
     // mouse look through two cascaded low-pass stages
     const kq = 1 - exp(-dt * 30); lkx += mdx * 0.0022; lky += mdy * 0.0022; mdx = 0; mdy = 0;
     const ax = lkx * kq, ay = lky * kq; lkx -= ax; lky -= ay; l2x += ax; l2y += ay;
@@ -2570,7 +2675,11 @@ const go = (fight) => {
 bDive.onclick = () => go(false); bBattle.onclick = () => go(true); $('o').onclick = () => ui(true);
 // detail buttons: the current level is lit, the others reload the page with theirs
 $('q').querySelectorAll('button').forEach((b, i) => { if (i === 2 - LV) b.className = 'on'; else b.onclick = () => { keep('abyssal', 2 - i); location.reload(); }; });
-document.addEventListener('pointerlockchange', () => ui(!document.pointerLockElement));
+// losing the mouse opens the menu, except when the game-over screen let it go on purpose (for its buttons)
+document.addEventListener('pointerlockchange', () => {
+  if (!document.pointerLockElement && battle && gameOverRelease()) { ui(false); return; }
+  ui(!document.pointerLockElement);
+});
 
 // draw the first frame and wait for the GPU to finish it (pipelines get compiled on first use) before the reveal
 lookAt(...POSES[0]);
@@ -2653,25 +2762,38 @@ const mute = () => { muted = !muted; OUT.gain.setTargetAtTime(muted ? 0 : VOL, A
 document.addEventListener('visibilitychange', () => { if (AC) document.hidden ? AC.suspend() : AC.resume(); });
 
 // ============================================================================
-// battle mode: cube drones attack in waves; hitscan harpoon gun, HUD, radar, sound effects
+// battle mode: cube drones attack in waves; hitscan energy gun, HUD, radar, sound effects
 // ============================================================================
 // Rules
 //   - Waves: wave n sends 3 + 2n enemies, at most 14 at once, spawned 40-70 m away where they can reach you. Clearing
-//     a wave heals 25 HP and offers an upgrade. Enemies get a little faster every wave (up to +50 %).
+//     a wave heals 25 HP and gives bonus score. Enemies get a little faster every wave (up to +50 %).
 //   - Enemy types (unlocked by wave):
-//       Drone   (red, w1+)    3 HP, rams you for 12
-//       Dart    (yellow, w2+) 1 HP, fast, rams you for 8
-//       Brute   (purple, w3+) 12 HP, big and slow, rams you for 28
-//       Spitter (green, w4+)  4 HP, keeps 18-28 m away and spits orange bolts (10 damage, they can be shot down)
-//   - Gun: 24 rounds, 9 shots/s, 1 damage per hit, 120 m range, rock blocks shots. R reloads (1.4 s), empty reloads itself.
+//       Drone   (red, w1+)    30 HP, rams you for 12
+//       Dart    (yellow, w2+) 10 HP, fast, rams you for 8
+//       Brute   (purple, w3+) 120 HP, big and slow, rams you for 28
+//       Spitter (green, w4+)  40 HP, keeps 18-28 m away and spits orange bolts (10 damage, they can be shot down)
+//   - Gun: 24 rounds, 9 shots/s, 10 damage per hit (the shotgun upgrade splits it into pellets), 120 m range, rock blocks shots. R reloads (1 s), empty reloads itself.
 //   - You: 100 HP; after 5 s without damage you heal 4 HP/s. 0 HP ends the run; Enter starts again.
 //   - Score: Drone 100, Dart 150, Brute 400, Spitter 250, bolt 25, wave clear 500 x wave, all kill/bolt points times
 //     the combo multiplier. Best score is kept.
 //   - Combo: every hit within the combo window (2 s, upgradable) adds 1; multiplier = 1 + 0.5 per 5 combo, max x8.
 //     Taking damage or letting the window run out resets it.
-//   - Roguelike: after each cleared wave the game pauses and offers 3 random upgrades (keys 1-3 or tap); stacks
-//     up to each upgrade's limit. A run starts with no upgrades.
-//   - Difficulty (低 / 中 / 高 / 鬼, chosen in the menu, kept): scales enemy count, speed, HP and damage, healing and
+//   - Roguelike (Vampire Survivors style): kills give XP (Drone 10, Dart 15, Brute 40, Spitter 25, times the XP combo
+//     bonus 1 + 0.1 per 5 combo, max x2). A full XP bar pauses the game and offers 3 random upgrades (keys 1-3 or
+//     tap); the next level needs 1.25x more (first 50). Several levels at once are offered one after another.
+//   - Rare upgrades (gold cards): each level-up card is rare with 5 % chance; the level-ups to Lv 5 and Lv 10 always
+//     show one. Treasure chests: scored kills may drop one (Brute 25 %, Spitter 10 %, others 3 %, at most 4 lying
+//     around); touching it opens it with a show and grants 1 (70 %), 3 (25 %) or 5 (5 %) upgrades. A chest only
+//     gives evolutions (first, when a recipe is met: a maxed upgrade + a partner, see UPS kind 'e') or another stack
+//     of an upgrade you already own and have not maxed; with nothing left it gives score and a full heal.
+//   - Boss: every BOSSW-th wave キューブリヴァイアサン joins a few minions. It assembles (2.4 s, untouchable), circles you,
+//     spits a fan of bolts, and every few seconds roars (eyes flare, the screen edge pulses red) and charges. Head
+//     and tail fin are weak points (x2). Each body segment has its own HP; breaking one shortens the body and costs
+//     the boss 4 % of its HP. Below 50 % it enrages (faster, wider fans, summons jellies). It drops a big chest
+//     (3 upgrades, 25 % 5). Chests drop only from Lv 2 on; the first is guaranteed (last enemy of wave 1, or the
+//     first kill after reaching Lv 2).
+//   - Codex (図鑑, menu): rares, evolutions and the boss you have found, kept in this browser (cubeAbyssDex).
+//   - Difficulty (低 / 中 / 高 / 鬼 / 龍, chosen in the menu, kept): scales enemy count, speed, HP and damage, healing and
 //     score; 中 is the base values above. See DIFFS.
 //   - Ranking: top 10 runs per difficulty, kept in this browser (localStorage cubeAbyssRank).
 // Pathing: enemies that can see you head straight for you; the others follow a flow field (breadth-first distances
@@ -2679,11 +2801,14 @@ document.addEventListener('visibilitychange', () => { if (AC) document.hidden ? 
 // Pools are preallocated; the frame loop only allocates strings when a HUD value changes and nodes for sound effects.
 
 const FT = [ // hp, speed, half size, contact damage, colour, edge glow, points
-  { hp: 3, sp: 6.5, s: 0.9, dmg: 12, r: 1, g: 0.22, b: 0.12, gl: 2.4, pts: 100 },
-  { hp: 1, sp: 11, s: 0.5, dmg: 8, r: 1, g: 0.8, b: 0.1, gl: 2.8, pts: 150 },
-  { hp: 12, sp: 3.6, s: 1.9, dmg: 28, r: 0.7, g: 0.25, b: 1, gl: 2, pts: 400 },
-  { hp: 4, sp: 5, s: 1.0, dmg: 10, r: 0.15, g: 1, b: 0.55, gl: 2.4, pts: 250 },
+  { hp: 30, sp: 6.5, s: 0.9, dmg: 12, r: 1, g: 0.22, b: 0.12, gl: 2.4, pts: 100, xp: 10 },
+  { hp: 10, sp: 11, s: 0.5, dmg: 8, r: 1, g: 0.8, b: 0.1, gl: 2.8, pts: 150, xp: 15 },
+  { hp: 120, sp: 3.6, s: 1.9, dmg: 28, r: 0.7, g: 0.25, b: 1, gl: 2, pts: 400, xp: 40 },
+  { hp: 40, sp: 5, s: 1.0, dmg: 10, r: 0.15, g: 1, b: 0.55, gl: 2.4, pts: 250, xp: 25 },
 ];
+const SPBASE = 0.85; // every enemy's base speed is scaled by this (difficulty multiplies on top)
+// level-ups: XP needed for the first level, growth per level, XP combo bonus per 5 combo and its cap
+const XP0 = 40, XPGROW = 1.25, XPCOMBO = 0.1, XPCMAX = 2;
 const RANGE = 120, BOLTDMG = 10, BOLTSP = 14;
 // difficulty: name, enemy count, speed, HP, damage, alive at once, spitter fire interval, regen delay (s, Infinity =
 // none), regen per s, wave clear heal, score multiplier
@@ -2692,8 +2817,10 @@ const DIFFS = [
   { id: 'normal', name: '中', cnt: 1, sp: 1, hp: 1, dmg: 1, alive: 14, cd: 1, rd: 5, rr: 4, heal: 25, sc: 1 },
   { id: 'hard', name: '高', cnt: 1.3, sp: 1.2, hp: 1.3, dmg: 1.5, alive: 17, cd: 0.8, rd: 7, rr: 3, heal: 15, sc: 1.5 },
   { id: 'oni', name: '鬼', cnt: 2.6, sp: 1.6, hp: 1.6, dmg: 2, alive: 22, cd: 0.6, rd: Infinity, rr: 0, heal: 10, sc: 3.5 },
+  // 龍: 鬼 with enemy HP x1.5, count x1.2, damage x1.2
+  { id: 'ryu', name: '龍', cnt: 3.12, sp: 1.6, hp: 2.4, dmg: 2.4, alive: 22, cd: 0.6, rd: Infinity, rr: 0, heal: 10, sc: 5 },
 ];
-let DI = 1; try { const v = +localStorage.cubeAbyssDiff; if (v >= 0 && v < 4) DI = v; } catch {}
+let DI = 1; try { const v = +localStorage.cubeAbyssDiff; if (v >= 0 && v < DIFFS.length) DI = v; } catch {}
 let DF = DIFFS[DI], ALIVE = DF.alive;
 // local ranking: { easy: [{ s, w, t }], ... }, best first, 10 each
 let RANK = {}; try { RANK = JSON.parse(localStorage.cubeAbyssRank || '{}') || {}; } catch { RANK = {}; }
@@ -2704,28 +2831,58 @@ function rankAdd(d, s, w) {
   L.push(e); L.sort((a, b) => b.s - a.s || b.w - a.w || a.t - b.t); L.length = min(L.length, 10);
   keep('cubeAbyssRank', JSON.stringify(RANK)); return L.indexOf(e) + 1;
 }
-// upgradable stats (reset per run) and the upgrade list: id, name, description, max stacks, apply
-let MAXHP = 100, MAG = 24, FIRE = 1 / 9, RELOAD = 1.4, DMG = 1, PIERCE = 0, MULTI = 0, BOOM = 0, LEECH = 0, CWIN = 2;
+// upgradable stats (reset per run) and the upgrade list: id, name, description (text or function), max stacks, apply,
+// kind (none = normal, 'r' = rare, 'e' = evolution: only from chests), recipe check and recipe text for evolutions
+let MAXHP = 100, MAG = 24, FIRE = 1 / 9, RELOAD = 1, DMG = 10, PIERCE = 0, MULTI = 0, BOOM = 0, LEECH = 0, CWIN = 2;
+let SPLIT = 0, FRENZY = 0, RICO = 0, HOMING = 0, UNDY = 0, SLOWUP = 0, CHAIN = 0, EVSHOT = 0, EVBOOM = 0, EVRATE = 0;
+const RARE_P = 0.05, RARE_LV = [5, 10], CHEST_P = [0.03, 0.03, 0.25, 0.1], EVO_MAT = ['rate', 'combo', 'multi', 'dmg', 'boom', 'pierce'];
 const UPS = [
   ['rate', '高速連射', '連射速度 +25%', 4, () => { FIRE /= 1.25; }],
-  ['dmg', '強装弾', '1発のダメージ +1', 3, () => { DMG++; }],
-  ['pierce', '貫通銛', '弾が敵を +1体 貫通', 3, () => { PIERCE++; }],
-  ['multi', '拡散射撃', '同時に撃つ弾 +2（広がる）', 2, () => { MULTI++; }],
+  ['dmg', '強装弾', '1発のダメージ +10', 3, () => { DMG += 10; }],
+  ['pierce', '貫通弾', '弾が敵を +1体 貫通', 3, () => { PIERCE++; }],
+  ['multi', '散弾化', () => { const n = SHOT[(owned.multi || 0) + 1]; return `弾が ${n.n} 発に分かれて広がる。1発の威力 ${Math.round(n.mul * 100)}%、連射 ${Math.round(n.rate * 100)}%`; }, 3, () => { MULTI++; }],
   ['boom', '連鎖爆破', '撃破時に周囲へ爆発ダメージ（重ねると範囲・威力アップ）', 3, () => { BOOM++; }],
   ['leech', '吸収', '撃破するたびにHP +3', 3, () => { LEECH++; }],
   ['mag', '大型弾倉', '装弾数 +12', 3, () => { MAG += 12; ammo = MAG; }],
   ['reload', '早業', 'リロード時間 -35%', 2, () => { RELOAD *= 0.65; }],
   ['hp', '装甲強化', '最大HP +30、全回復', 3, () => { MAXHP += 30; hp = MAXHP; }],
   ['combo', '集中', 'コンボ猶予 +1秒', 2, () => { CWIN += 1; }],
+  ['split', '分裂弾', () => (owned.split ? '発動率 70%、追加の弾 3発に' : '撃つたびに40%で、ランダムな方向へ追加の弾が2発（威力60%）'), 2, () => { SPLIT++; }, 'r'],
+  ['frenzy', '狂乱', 'コンボ倍率 x4 以上の間、連射速度 2倍', 1, () => { FRENZY = 1; }, 'r'],
+  ['rico', '跳弾', () => (owned.rico ? '跳ね返り +1回（合計2回）' : '岩に当たった弾が1回跳ね返る'), 2, () => { RICO++; }, 'r'],
+  ['homing', '磁力弾', '照準の近くにいる敵へ弾が曲がる', 1, () => { HOMING = 1; }, 'r'],
+  ['undying', '不屈', 'HPが0になったとき、1回だけ HP50 で耐える', 1, () => { UNDY = 1; }, 'r'],
+  ['slow', '時間減速', '15体撃破するごとに、3秒間 敵の動きが遅くなる', 1, () => { SLOWUP = 1; }, 'r'],
+  ['chain', '連鎖雷', '命中した敵から近くの敵へ電撃が最大3回飛ぶ（威力60%）', 1, () => { CHAIN = 1; }, 'r'],
+  ['evoShot', '破砕砲', '散弾の威力 +50%、全弾がさらに1体貫通', 1, () => { EVSHOT = 1; }, 'e', () => owned.multi === 3 && owned.dmg >= 1, '散弾化 MAX ＋ 強装弾'],
+  ['evoBoom', '誘爆連鎖', '爆発の範囲 +3m、爆発の威力 2倍', 1, () => { EVBOOM = 1; }, 'e', () => owned.boom === 3 && owned.pierce >= 1, '連鎖爆破 MAX ＋ 貫通弾'],
+  ['evoRate', '無限機関', '連射速度 さらに +40%、コンボ猶予 +2秒', 1, () => { EVRATE = 1; CWIN += 2; }, 'e', () => owned.rate === 4 && owned.combo >= 1, '高速連射 MAX ＋ 集中'],
+];
+const udesc = (u) => (typeof u[2] === 'function' ? u[2]() : u[2]);
+// shotgun steps (散弾化 stacks): pellets per shot, damage per pellet, cone half-angle (rad), fire-rate factor.
+// Per trigger the total grows (x1, x2.2, x2.8, x3.2) but each pellet is weaker and the cone wider.
+const SHOT = [
+  { n: 1, mul: 1, cone: 0, rate: 1 },
+  { n: 4, mul: 0.55, cone: 0.035, rate: 0.9 },
+  { n: 7, mul: 0.4, cone: 0.055, rate: 0.8 },
+  { n: 10, mul: 0.32, cone: 0.075, rate: 0.7 },
 ];
 const owned = {}; let choosing = false, choices = [];
+let chestOpen = false, chestDone = false, chestReady = 0, chestTimers = [], chestItems = [], chestNew = [], firstChest = 0;
+let undyUsed = 0, killN = 0, slowT = 0, chainT = 0, frenzyOn = false;
+function gameFrozen() { return choosing || chestOpen; } // main.js stops the camera while this is true
 let combo = 0, comboT = 0, mult = 1;
+let xp = 0, xpNeed = XP0, level = 1, pending = 0; // pending: level-ups still to be chosen
 const R_ = (a, b) => a + (b - a) * Math.random();
 const pool = (n, f) => Array.from({ length: n }, f);
-const foes = pool(24, () => ({ on: 0, k: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, hp: 0, fl: 0, ph: 0, wf: 0, side: 1, cd: 0, ax: 0, ay: 1, az: 0, sp: 0, an: 0, q0: 0, q1: 0, q2: 0, q3: 1, los: 0, lt: 0 }));
+// look: TRN trail points per enemy (tentacles / body segments); beyond LODD only a few boxes are drawn; SPAWNFX
+// would assemble new enemies from scattered parts over ASM seconds (off: they just appear; the boss always assembles)
+const TRN = 20, LODD = RANGE, SPAWNFX = false, ASM = 0.7;
+const foes = pool(24, () => ({ on: 0, k: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, hp: 0, fl: 0, ph: 0, wf: 0, side: 1, cd: 0, ax: 0, ay: 1, az: 0, sp: 0, an: 0, q0: 0, q1: 0, q2: 0, q3: 1, los: 0, lt: 0, yw: 0, pt: 0, rl: 0, mh: 1, hs: 0, born: 1, pl: 8, tr: new Float32Array(TRN * 3) }));
 const bolts = pool(48, () => ({ on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, an: 0 }));
-const debris = pool(220, () => ({ on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, l0: 1, s: 0, r: 0, g: 0, b: 0, an: 0, sp: 0, ax: 0, ay: 1, az: 0 }));
-const tracers = pool(24, () => ({ on: 0, x: 0, y: 0, z: 0, l: 0, q0: 0, q1: 0, q2: 0, q3: 1, life: 0 }));
+const debris = pool(480, () => ({ on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, l0: 1, sx: 0, sy: 0, sz: 0, q0: 0, q1: 0, q2: 0, q3: 1, r: 0, g: 0, b: 0, gl: 4, an: 0, sp: 0, ax: 0, ay: 1, az: 0 }));
+const tracers = pool(48, () => ({ on: 0, x: 0, y: 0, z: 0, l: 0, q0: 0, q1: 0, q2: 0, q3: 1, life: 0, cr: 0.5, cg: 1, cb: 1 }));
+const chests = pool(4, () => ({ on: 0, x: 0, y: 0, z: 0, t: 0, big: 0 }));
 let hp = MAXHP, score = 0, wave = 0, toSpawn = 0, spawnT = 0, restT = -1, ammo = MAG, reloadT = 0, fireT = 0, firing = 0;
 let calm = 0, over = false, gtime = 0, spMul = 1, hurtFx = 0, hitFx = 0;
 const V3 = new Float64Array(3);
@@ -2834,7 +2991,7 @@ function flowDir(x, y, z) {
 
 // ---------------------------------------------------------------- sound effects (Web Audio, through the master gain)
 let NZB = null;
-function sfx(kind) {
+function sfx(kind, p = 0) {
   if (!AC || !OUT || AC.state !== 'running') return;
   const t = AC.currentTime + 0.01;
   const env = (g, v, a, d) => { g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + a); g.gain.setTargetAtTime(0, t + a, d / 4); };
@@ -2859,6 +3016,21 @@ function sfx(kind) {
     case 'reload': tone('square', 2200, 1800, 0.02, 0.03); tone('square', 1600, 1400, 0.03, 0.03, 0.25); tone('square', 2400, 2000, 0.03, 0.04, RELOAD - 0.1); break;
     case 'wave': tone('sine', 587.3, 587.3, 0.6, 0.07); tone('sine', 880, 880, 0.9, 0.06, 0.18); break;
     case 'over': tone('sine', 440, 110, 1.6, 0.1); break;
+    case 'drop': tone('triangle', 880, 1760, 0.25, 0.06); tone('sine', 1320, 1320, 0.4, 0.05, 0.12); tone('sine', 1760, 1760, 0.5, 0.04, 0.24); break;
+    case 'roll': for (let i = 0; i < 14; i++) tone('square', 150 + i * 14, 110 + i * 14, 0.05, 0.035, i * 0.095); break;
+    case 'open': [523.3, 659.3, 784, 1046.5].forEach((f, i) => tone('triangle', f, f, 0.4, 0.08, i * 0.08)); tone('sine', 2093, 2093, 0.9, 0.05, 0.32); noise(5000, 300, 0.8, 0.25); break;
+    case 'item': { const f = 660 * 2 ** (p / 4); tone('sine', f, f * 1.5, 0.12, 0.08); tone('triangle', f * 2, f * 2, 0.3, 0.04, 0.06); break; }
+    case 'rare': for (let i = 0; i < 6; i++) tone('sine', 1568 * 2 ** (i / 6), 1568 * 2 ** (i / 6), 0.15, 0.05, i * 0.045); break;
+    case 'evo': tone('sawtooth', 110, 880, 0.7, 0.05); [523.3, 659.3, 784, 987.8, 1318.5].forEach((f, i) => tone('triangle', f, f, 0.9, 0.06, 0.55 + i * 0.03)); break;
+    case 'zap': tone('square', 2200, 280, 0.09, 0.035); noise(7000, 1500, 0.09, 0.08); break;
+    case 'slow': tone('sine', 700, 120, 0.9, 0.09); break;
+    case 'siren': for (let i = 0; i < 3; i++) tone('sawtooth', 380, 760, 0.45, 0.05, i * 0.75); break;
+    case 'roar': noise(500, 70, 1.1, 0.4); tone('sawtooth', 75, 42, 1.1, 0.13); tone('square', 110, 55, 0.9, 0.05, 0.05); break;
+    case 'dash': noise(2600, 200, 0.7, 0.3); tone('sine', 220, 55, 0.6, 0.12); break;
+    case 'crit': tone('square', 1900, 2600, 0.05, 0.04); break;
+    case 'segbreak': noise(1800, 120, 0.5, 0.35); tone('sine', 160, 50, 0.4, 0.2); tone('triangle', 1200, 600, 0.15, 0.06); break;
+    case 'bossdie': tone('sawtooth', 220, 28, 2.6, 0.13); noise(1600, 50, 2.6, 0.5); [392, 523.3, 659.3, 784, 1046.5].forEach((f, i) => tone('triangle', f, f, 1.2, 0.06, 1.6 + i * 0.1)); break;
+    case 'undying': tone('sine', 220, 880, 0.5, 0.1); tone('triangle', 1318.5, 1318.5, 0.8, 0.05, 0.4); break;
   }
 }
 
@@ -2866,9 +3038,10 @@ function sfx(kind) {
 const hud2 = {
   stat: $('us'), hpBar: $('uhb'), hpTxt: $('uht'), ammo: $('ua'), banner: $('un'), hit: $('uk'), dmg: $('ud'), over: $('uo'), overTxt: $('uos'),
   radar: $('ur').getContext('2d'), cx: $('ux'), cxn: $('uxn'), cxm: $('uxm'), cxb: $('uxb'), pop: [...document.querySelectorAll('.uf')],
-  up: $('up'), upc: $('upc'), upk: $('upk'), hint: $('ug'), overR: $('uor'), overK: $('uok'), rank: $('uol'),
+  root: $('u'), bb: $('ubb'), bn: $('ubn'), cb: $('cb'), cbi: $('cbi'), cbt: $('cbt'), cbk: $('cbk'),
+  up: $('up'), upc: $('upc'), upk: $('upk'), upt: $('upt'), xpBar: $('uxpb'), xpTxt: $('uxpt'), hint: $('ug'), overR: $('uor'), overK: $('uok'), rank: $('uol'),
 };
-let shown = '', shownHp = -1, shownAmmo = '', shownCombo = -1, popI = 0;
+let shownBoss = -2, shownCharge = false, shownSlow = false, shownXp = -1, shown = '', shownHp = -1, shownAmmo = '', shownCombo = -1, popI = 0;
 const popup = (txt, big) => {
   const e = hud2.pop[popI++ % hud2.pop.length]; e.textContent = txt; e.style.fontSize = big ? '1.8em' : '';
   e.style.marginLeft = `${1.4 + Math.random() * 1.5}em`; e.classList.remove('on'); void e.offsetWidth; e.classList.add('on');
@@ -2886,6 +3059,8 @@ function hudUpdate() {
     if (combo > 1) { hud2.cxn.textContent = `${combo} COMBO`; hud2.cxm.textContent = `x${mult.toFixed(1)}`; hud2.cxm.style.color = mult >= 4 ? '#ff3ccf' : mult >= 2.5 ? '#ff5e3c' : '#ffb59e'; }
     if (up) { hud2.cx.classList.remove('pop'); void hud2.cx.offsetWidth; hud2.cx.classList.add('pop'); }
   }
+  const xr = Math.floor(xp / xpNeed * 200);
+  if (xr !== shownXp) { shownXp = xr; hud2.xpBar.style.transform = `scaleX(${xr / 200})`; hud2.xpTxt.textContent = `Lv ${level - pending}`; }
   hud2.cxb.style.transform = `scaleX(${max(0, comboT / CWIN)})`;
   const am = reloadT > 0 ? 'RELOADING…' : `${ammo} / ${MAG}`;
   if (am !== shownAmmo) { shownAmmo = am; hud2.ammo.textContent = am; }
@@ -2902,17 +3077,29 @@ function hudUpdate() {
   };
   for (const f of foes) if (f.on) dot(f.x, f.y, f.z, f.k === 2 ? 5 : 3.5, f.k === 0 ? '#ff5a3c' : f.k === 1 ? '#ffd21a' : f.k === 2 ? '#b862ff' : '#30ff95');
   for (const b of bolts) if (b.on) dot(b.x, b.y, b.z, 2, '#ff9a30');
+  for (const c of chests) if (c.on) dot(c.x, c.y, c.z, 5, '#ffd84a');
+  if (boss.on) { for (let i = 1; i <= boss.n; i += 2) dot(BPX[i], BPY[i], BPZ[i], 2.5, '#7c8cff'); dot(boss.x, boss.y, boss.z, 6.5, '#ff3c8c'); }
+  const bh = boss.on ? Math.ceil(max(0, boss.hp) / boss.mh * 300) : -1;
+  if (bh !== shownBoss) {
+    shownBoss = bh; hud2.root.classList.toggle('boss', bh >= 0);
+    if (bh >= 0) { hud2.bb.style.transform = `scaleX(${bh / 300})`; hud2.bb.className = boss.ph2 ? 'ph2' : ''; hud2.bn.textContent = boss.ph2 ? 'キューブリヴァイアサン ― 激昂' : 'キューブリヴァイアサン'; }
+  }
+  const chg = boss.on && boss.st === 2; if (chg !== shownCharge) { shownCharge = chg; hud2.root.classList.toggle('charge', chg); }
+  if ((slowT > 0) !== shownSlow) { shownSlow = slowT > 0; hud2.root.classList.toggle('slow', shownSlow); }
   c.globalAlpha = 1; c.fillStyle = '#e8fbff'; c.beginPath(); c.moveTo(80, 73); c.lineTo(85, 85); c.lineTo(75, 85); c.fill();
 }
 
 // ---------------------------------------------------------------- game flow
-function clearAll() { for (const a of [foes, bolts, debris, tracers]) for (const o of a) o.on = 0; nCube = 0; }
+function clearAll() { for (const a of [foes, bolts, debris, tracers, chests]) for (const o of a) o.on = 0; nCube = 0; chestClose(); boss.on = 0; bossT = 0; }
 function gameStart() {
   clearAll();
-  MAXHP = 100; MAG = 24; FIRE = 1 / 9; RELOAD = 1.4; DMG = 1; PIERCE = 0; MULTI = 0; BOOM = 0; LEECH = 0; CWIN = 2;
+  MAXHP = 100; MAG = 24; FIRE = 1 / 9; RELOAD = 1; DMG = 10; PIERCE = 0; MULTI = 0; BOOM = 0; LEECH = 0; CWIN = 2;
+  SPLIT = FRENZY = RICO = HOMING = UNDY = SLOWUP = CHAIN = EVSHOT = EVBOOM = EVRATE = 0;
+  undyUsed = 0; killN = 0; slowT = 0; chainT = 0; frenzyOn = false; firstChest = 0; bossKills = 0; maxCombo = 0;
   for (const k in owned) delete owned[k];
   hp = MAXHP; score = 0; wave = 0; ammo = MAG; reloadT = fireT = 0; firing = 0; calm = 0; over = false; hurtFx = hitFx = 0; restT = -1;
   combo = 0; comboT = 0; mult = 1; choosing = false; hud2.up.classList.remove('on');
+  xp = 0; xpNeed = XP0; level = 1; pending = 0; shownXp = -1;
   hud2.over.classList.remove('on');
   hud2.hint.innerHTML = mob ? '左側で移動（端まで倒すと加速）・右側で視点・照準を敵に重ねると自動射撃' : '<b>左クリック</b> 射撃　<b>R</b> リロード　<b>Space</b>/<b>Ctrl</b> 上下　<b>Shift</b> 加速';
   hud2.hint.classList.add('on'); setTimeout(() => hud2.hint.classList.remove('on'), 7000);
@@ -2921,30 +3108,116 @@ function gameStart() {
   nextWave();
 }
 function gameEnd() { clearAll(); over = false; choosing = false; hud2.over.classList.remove('on'); hud2.up.classList.remove('on'); hud2.cx.classList.remove('on'); shownCombo = -1; combo = 0; }
+// XP: the combo raises it a little; every full bar is one pending level-up (offered from gameStep)
+function gainXp(base) {
+  xp += base * min(1 + XPCOMBO * Math.floor(combo / 5), XPCMAX);
+  while (xp >= xpNeed) { xp -= xpNeed; xpNeed = Math.round(xpNeed * XPGROW); level++; pending++; }
+}
 // combo bookkeeping: hit() on every hit, the window runs down in gameStep
-function hit() { combo++; comboT = CWIN; mult = min(1 + 0.5 * Math.floor(combo / 5), 8); }
-// upgrade draft: 3 distinct upgrades that are not maxed out
+function hit() { if (combo + 1 > maxCombo) maxCombo = combo + 1; combo++; comboT = CWIN; mult = min(1 + 0.5 * Math.floor(combo / 5), 8); }
+// upgrade draft: 3 distinct upgrades that are not maxed out; each card may be a rare one (gold), and the level-ups to
+// RARE_LV always include one
+function card(u) { // the inner HTML of an upgrade card (level-up and chest)
+  const n = owned[u[0]] || 0, mat = !u[5] && EVO_MAT.includes(u[0]);
+  return `${u[5] === 'r' ? '<em>RARE</em>' : u[5] === 'e' ? '<em>EVOLUTION</em>' : ''}<strong>${u[1]}</strong><span>${udesc(u)}</span>` +
+    (u[5] === 'e' ? `<small>${u[7]}</small>` : `<i>${'■'.repeat(n)}${'□'.repeat(u[3] - n)}</i>`) + (mat ? '<small>◆ 進化素材</small>' : '');
+}
 function offer() {
-  const pool2 = UPS.filter((u) => (owned[u[0]] || 0) < u[3]);
+  const normal = UPS.filter((u) => !u[5] && (owned[u[0]] || 0) < u[3]), rare = UPS.filter((u) => u[5] === 'r' && (owned[u[0]] || 0) < u[3]);
+  const nl = level - pending + 1, force = RARE_LV.includes(nl);
   choices = [];
-  while (choices.length < 3 && pool2.length) choices.push(pool2.splice(Math.random() * pool2.length | 0, 1)[0]);
-  if (!choices.length) { restT = 2; return; }
+  for (let i = 0; i < 3; i++) {
+    const src = rare.length && ((force && i === 0) || Math.random() < RARE_P || !normal.length) ? rare : normal;
+    if (!src.length) break;
+    choices.push(src.splice(Math.random() * src.length | 0, 1)[0]);
+  }
+  if (!choices.length) { pending = 0; return; } // everything maxed out
+  for (let i = choices.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0, t = choices[i]; choices[i] = choices[j]; choices[j] = t; }
   choosing = true; firing = 0;
   hud2.upc.replaceChildren(...choices.map((u, i) => {
-    const b = document.createElement('button'); b.type = 'button';
-    b.innerHTML = `<b>${i + 1}</b><strong>${u[1]}</strong><span>${u[2]}</span><i>${'■'.repeat(owned[u[0]] || 0)}${'□'.repeat(u[3] - (owned[u[0]] || 0))}</i>`;
+    const b = document.createElement('button'); b.type = 'button'; if (u[5] === 'r') b.className = 'rare';
+    b.innerHTML = `<b>${i + 1}</b>` + card(u);
     b.addEventListener('click', () => pick(i)); return b;
   }));
-  hud2.upk.textContent = mob ? 'タップで選択' : 'キー 1 / 2 / 3 で選択';
+  hud2.upt.textContent = `LEVEL UP!  Lv ${level - pending} → ${level - pending + 1}`;
+  hud2.upk.textContent = (mob ? 'タップで選択' : 'キー 1 / 2 / 3 で選択') + (pending > 1 ? `（あと ${pending - 1} 回）` : '');
   hud2.up.classList.add('on');
+  if (choices.some((u) => u[5] === 'r')) sfx('rare');
 }
 function pick(i) {
   if (!choosing || !choices[i]) return;
-  const u = choices[i]; owned[u[0]] = (owned[u[0]] || 0) + 1; u[4]();
-  choosing = false; hud2.up.classList.remove('on'); restT = 1.5; shownHp = -1; sfx('wave'); banner(u[1]);
+  const u = choices[i], nw = !!u[5] && !DEX[u[0]]; owned[u[0]] = (owned[u[0]] || 0) + 1; u[4](); if (u[5]) dexAdd(u[0]);
+  choosing = false; hud2.up.classList.remove('on'); shownHp = -1; shownAmmo = ''; shownXp = -1; sfx('wave'); banner(nw ? `NEW!  ${u[1]}` : u[1]);
+  if (--pending > 0) offer();
+}
+// ---------------------------------------------------------------- treasure chests
+function dropChest(x, y, z, big) {
+  const c = chests.find((o) => !o.on) || (big ? chests[0] : null); if (!c) return;
+  c.on = 1; c.x = x; c.y = y; c.z = z; c.t = 0; c.big = big ? 1 : 0; sfx('drop'); popup(big ? 'BIG TREASURE!' : 'TREASURE!', true);
+}
+// one upgrade for a chest: an evolution whose recipe is met comes first, then rare (25 %) or normal
+function chestRoll() {
+  const ev = UPS.find((u) => u[5] === 'e' && !owned[u[0]] && u[6]()); if (ev) return ev;
+  // only upgrades you already picked (never a new one you did not choose), and only those not maxed out
+  const mine = UPS.filter((u) => u[5] !== 'e' && owned[u[0]] && owned[u[0]] < u[3]);
+  return mine.length ? mine[Math.random() * mine.length | 0] : null;
+}
+// opens a chest: the upgrades are granted at once, the overlay then reveals them one by one (any click / Enter skips)
+function openChest(c) {
+  c.on = 0; chestOpen = true; chestDone = false; firing = 0; chestReady = performance.now() + 450;
+  const r = Math.random(), n = c.big ? (r < 0.25 ? 5 : 3) : r < 0.05 ? 5 : r < 0.3 ? 3 : 1;
+  chestItems = []; chestNew = [];
+  for (let i = 0; i < n; i++) {
+    const u = chestRoll(); if (!u) break;
+    owned[u[0]] = (owned[u[0]] || 0) + 1; u[4](); chestItems.push(u); chestNew.push(!!u[5] && !DEX[u[0]]); if (u[5]) dexAdd(u[0]);
+  }
+  const gold = chestItems.length ? 0 : Math.round(2000 * DF.sc); // nothing left to give
+  if (gold) { score += gold; hp = MAXHP; }
+  shownHp = -1; shownAmmo = '';
+  const box = hud2.cb; box.className = ''; void box.offsetWidth; box.className = 'on n' + n;
+  hud2.cbt.textContent = n >= 5 ? 'JACKPOT!!' : n >= 3 ? 'TREASURE ×3!' : 'TREASURE!';
+  hud2.cbk.textContent = '';
+  const cards = chestItems.map((u) => { const d = document.createElement('div'); d.className = 'ci' + (u[5] === 'e' ? ' evo' : u[5] === 'r' ? ' rare' : ''); return d; });
+  if (gold) { const d = document.createElement('div'); d.className = 'ci on'; d.innerHTML = `<strong>ボーナス</strong><span>+${gold} 点・HP全回復</span>`; cards.push(d); }
+  hud2.cbi.replaceChildren(...cards);
+  chestTimers.forEach(clearTimeout); chestTimers = [];
+  const T = (ms, f) => chestTimers.push(setTimeout(f, ms));
+  sfx('roll'); T(1400, () => sfx('open'));
+  const names = UPS.filter((u) => owned[u[0]]).map((u) => u[1]); if (!names.length) names.push('？？？'); // roulette shows only your own
+  chestItems.forEach((u, i) => {
+    const d = cards[i], t0 = 1900 + i * 700;
+    for (let j = 0; j < 9; j++) T(t0 - 640 + j * 70, () => { d.className = d.className.replace(' on', '') + (d.classList.contains('spin') ? '' : ' spin'); d.innerHTML = `<strong>${names[(Math.random() * names.length) | 0]}</strong><span>…</span>`; if (j % 2) sfx('hit'); });
+    T(t0, () => chestReveal(d, u, i));
+  });
+  T(1900 + chestItems.length * 700, chestFinish);
+}
+function chestReveal(d, u, i) {
+  d.classList.remove('spin'); d.classList.add('on'); d.innerHTML = card(u) + (chestNew[i] ? '<b class=nw>NEW!</b>' : '');
+  sfx(u[5] === 'e' ? 'evo' : u[5] === 'r' ? 'rare' : 'item', i);
+  if (u[5] === 'e') banner(`進化！ ${u[1]}`);
+}
+function chestFinish() {
+  chestTimers.forEach(clearTimeout); chestTimers = []; chestDone = true;
+  hud2.cbk.textContent = mob ? 'タップで続ける' : 'クリック / Enter で続ける';
+}
+function chestAdvance() {
+  if (!chestOpen || performance.now() < chestReady) return;
+  if (!chestDone) { // skip: everything lands at once
+    const cards = [...hud2.cbi.children]; chestItems.forEach((u, i) => { if (cards[i] && !cards[i].classList.contains('on')) chestReveal(cards[i], u, i); });
+    hud2.cb.classList.add('skip'); chestFinish(); chestReady = performance.now() + 250; return;
+  }
+  chestClose();
+}
+function chestClose() {
+  chestTimers.forEach(clearTimeout); chestTimers = []; chestOpen = false; chestDone = false; hud2.cb.className = ''; shownHp = -1; shownAmmo = '';
 }
 function nextWave() {
   wave++; restT = -1; toSpawn = Math.round((3 + 2 * wave) * DF.cnt); spawnT = 2; spMul = min(1 + 0.05 * (wave - 1), 1.5) * DF.sp;
+  if (wave % BOSSW === 0) { // boss wave: a few minions, the boss after a warning
+    toSpawn = Math.round(3 * DF.cnt); spawnT = 5; bossT = 2.6;
+    banner('WARNING!!'); sfx('siren'); hud2.root.classList.add('warn'); setTimeout(() => hud2.root.classList.remove('warn'), 2600);
+    return;
+  }
   banner(`WAVE ${wave}`); sfx('wave');
 }
 function pickType() {
@@ -2961,22 +3234,31 @@ function spawn() {
     const a = Math.random() * TAU, d = R_(40, 70), x = F[CX] + cos(a) * d, z = F[CZ] + sin(a) * d, y = clamp(F[CY] + R_(-4, 8), -48, -4);
     if (hypot(x, z) > 140 || rockAt(x, y, z) > -0.99) continue;
     const c = cellOf(x, y, z); if (c < 0 || !OPEN[c] || DA[c] === FAR) continue;
-    const k = pickType(), t = FT[k];
-    f.on = 1; f.k = k; f.x = x; f.y = y; f.z = z; f.vx = f.vy = f.vz = 0; f.hp = Math.round(t.hp * DF.hp); f.fl = 0; f.los = 0; f.lt = Math.random() * 0.2;
-    f.ph = Math.random() * TAU; f.wf = R_(0.6, 1.4); f.side = Math.random() < 0.5 ? -1 : 1; f.cd = R_(2, 4);
-    const ax = R_(-1, 1), ay = R_(-1, 1), az = R_(-1, 1), l = hypot(ax, ay, az) || 1;
-    f.ax = ax / l; f.ay = ay / l; f.az = az / l; f.sp = R_(0.6, 2) * (k === 1 ? 2.5 : 1); f.an = Math.random() * TAU;
+    initFoe(f, pickType(), x, y, z);
     return true;
   }
   return false;
 }
+// a new enemy of type k at (x, y, z)
+function initFoe(f, k, x, y, z) {
+  {
+    const t = FT[k];
+    f.on = 1; f.k = k; f.x = x; f.y = y; f.z = z; f.vx = f.vy = f.vz = 0; f.hp = Math.round(t.hp * DF.hp); f.fl = 0; f.los = 0; f.lt = Math.random() * 0.2;
+    f.ph = Math.random() * TAU; f.wf = R_(0.6, 1.4); f.side = Math.random() < 0.5 ? -1 : 1; f.cd = R_(2, 4);
+    const ax = R_(-1, 1), ay = R_(-1, 1), az = R_(-1, 1), l = hypot(ax, ay, az) || 1;
+    f.ax = ax / l; f.ay = ay / l; f.az = az / l; f.sp = R_(0.6, 2) * (k === 1 ? 2.5 : 1); f.an = Math.random() * TAU;
+    f.mh = f.hp; f.yw = atan2(F[CX] - x, z - F[CZ]); f.pt = 0; f.rl = 0; f.born = SPAWNFX ? 0 : 1; f.pl = 8;
+    for (let j = 0; j < TRN; j++) { f.tr[j * 3] = x; f.tr[j * 3 + 1] = y - j * 0.3; f.tr[j * 3 + 2] = z; }
+  }
+}
 function hurt(d) {
   if (over) return;
   hp -= d * DF.dmg; calm = 0; combo = 0; comboT = 0; mult = 1; hurtFx = min(1, hurtFx + 0.35 + d / 60); sfx('hurt');
+  if (hp <= 0 && UNDY && !undyUsed) { undyUsed = 1; hp = 50; hurtFx = 0; banner('不屈！  HP 50'); sfx('undying'); return; }
   if (hp <= 0) {
     hp = 0; over = true; firing = 0;
     const place = rankAdd(DF, score, wave), L = rankOf(DF);
-    hud2.overTxt.textContent = `難易度 ${DF.name}  ·  WAVE ${wave}  ·  SCORE ${score}` + (place === 1 ? '  ·  自己ベスト更新！' : place ? `  ·  ${place}位` : '');
+    hud2.overTxt.textContent = `難易度 ${DF.name}  ·  WAVE ${wave}  ·  Lv ${level}  ·  SCORE ${score}` + (place === 1 ? '  ·  自己ベスト更新！' : place ? `  ·  ${place}位` : '');
     hud2.rank.replaceChildren(...L.slice(0, 5).map((e, i) => {
       const li = document.createElement('li'); li.textContent = `${i + 1}. ${e.s}　WAVE ${e.w}`; if (i === place - 1) li.className = 'me'; return li;
     }));
@@ -2985,6 +3267,8 @@ function hurt(d) {
     hud2.overR.textContent = got ? `取った強化：${got}` : '強化なし';
     hud2.overK.innerHTML = mob ? '右上の ≡ でメニュー' : '<b>Enter</b> でもリトライ ・ <b>Esc</b> でメニュー';
     hud2.over.classList.add('on'); sfx('over');
+    shareMake(place);
+    if (document.pointerLockElement) { overRelease = true; document.exitPointerLock(); } // free the mouse for the buttons
   }
 }
 function burst(x, y, z, n, size, spd, r, g, b) {
@@ -2992,96 +3276,171 @@ function burst(x, y, z, n, size, spd, r, g, b) {
     const p = debris.find((o) => !o.on); if (!p) return;
     const ax = R_(-1, 1), ay = R_(-1, 1), az = R_(-1, 1), l = hypot(ax, ay, az) || 1, v = R_(0.4, 1) * spd;
     p.on = 1; p.x = x + ax / l * size * 0.5; p.y = y + ay / l * size * 0.5; p.z = z + az / l * size * 0.5;
-    p.vx = ax / l * v; p.vy = ay / l * v; p.vz = az / l * v; p.l0 = p.life = R_(0.6, 1.2); p.s = R_(0.08, 0.2) * (0.6 + size * 0.5);
+    p.vx = ax / l * v; p.vy = ay / l * v; p.vz = az / l * v; p.l0 = p.life = R_(0.6, 1.2); p.sx = p.sy = p.sz = R_(0.08, 0.2) * (0.6 + size * 0.5);
+    p.q0 = p.q1 = p.q2 = 0; p.q3 = 1; p.gl = 4;
     p.r = r; p.g = g; p.b = b; p.ax = ax / l; p.ay = ay / l; p.az = az / l; p.sp = R_(4, 12); p.an = 0;
   }
 }
 function kill(f, scored) {
-  const t = FT[f.k]; f.on = 0;
-  burst(f.x, f.y, f.z, 10 + (t.s * 8 | 0), t.s, 7 + t.s * 3, t.r, t.g, t.b); sfx('kill');
+  const t = FT[f.k];
+  shatter(f, 5 + t.s * 2.5); f.on = 0; // its own parts fly apart
+  burst(f.x, f.y, f.z, 6, t.s, 6 + t.s * 3, t.r, t.g, t.b); sfx('kill');
   if (!scored) return;
   const pts = Math.round(t.pts * mult * DF.sc); score += pts; popup(`+${pts}`, mult >= 2.5);
+  gainXp(t.xp);
+  // chests only drop once you have levelled up at least once (they give stacks of upgrades you own). The first one is
+  // guaranteed: on the last enemy of wave 1, or, if you had not levelled by then, on your first kill after it.
+  if (level >= 2) {
+    if (!firstChest && (wave > 1 || (toSpawn === 0 && !foes.some((o) => o.on)))) { firstChest = 1; dropChest(f.x, f.y, f.z, false); banner('宝箱に触れて開けよう！'); }
+    else if (Math.random() < CHEST_P[f.k]) dropChest(f.x, f.y, f.z, false);
+  }
+  if (SLOWUP && ++killN % 15 === 0) { slowT = 3; banner('時間減速'); sfx('slow'); }
   if (LEECH) hp = min(MAXHP, hp + 3 * LEECH);
   if (BOOM) { // chain explosion: damages everything near, kills can chain further
-    const R = 3 + 1.5 * BOOM; burst(f.x, f.y, f.z, 14, R * 0.6, R * 2.2, 1, 0.6, 0.15);
-    for (const o of foes) if (o.on && hypot(o.x - f.x, o.y - f.y, o.z - f.z) < R + FT[o.k].s) { o.hp -= 1 + BOOM; o.fl = 1; hit(); if (o.hp <= 0) kill(o, true); }
+    const R = 3 + 1.5 * BOOM + (EVBOOM ? 3 : 0), bd = 10 * (1 + BOOM) * (EVBOOM ? 2 : 1); burst(f.x, f.y, f.z, EVBOOM ? 22 : 14, R * 0.6, R * 2.2, 1, 0.6, 0.15);
+    for (const o of foes) if (o.on && hypot(o.x - f.x, o.y - f.y, o.z - f.z) < R + FT[o.k].s) { o.hp -= bd; o.fl = 1; hit(); if (o.hp <= 0) kill(o, true); }
   }
 }
-// fires one trigger pull: 1 + 2 x MULTI harpoons in a fan; each passes through PIERCE enemies, rock stops it
-const HITS = [];
+// tracer: a thin glowing box from (sx, sy, sz) to (tx, ty, tz)
+let trI = 0;
+function tracer(sx, sy, sz, tx, ty, tz, r, g, b, life = 0.06) {
+  const tr = tracers.find((o) => !o.on) || tracers[trI++ % tracers.length];
+  let ex = tx - sx, ey = ty - sy, ez = tz - sz; const l = hypot(ex, ey, ez) || 1; ex /= l; ey /= l; ez /= l;
+  let q0 = -ey, q1 = ex, q2 = 0, q3 = 1 + ez; const ql = hypot(q0, q1, q2, q3); if (ql < 1e-4) { q0 = 0; q1 = 1; q3 = 0; } else { q0 /= ql; q1 /= ql; q3 /= ql; }
+  tr.on = 1; tr.life = life; tr.l = l * 0.5; tr.x = sx + ex * l * 0.5; tr.y = sy + ey * l * 0.5; tr.z = sz + ez * l * 0.5; tr.q0 = q0; tr.q1 = q1; tr.q2 = q2; tr.q3 = q3;
+  tr.cr = r; tr.cg = g; tr.cb = b;
+}
+// one shot ray from (ox, oy, oz) along d; the tracer starts at (sx, sy, sz). It hits up to 1 + PIERCE (+1 破砕砲)
+// enemies or bolts, rock stops it or, with 跳弾, bounces it off the surface. The combo counts each enemy once per trigger.
+const HITS = []; let shotId = 0, hitSnd = 0, firstHit = null;
+function ray(sx, sy, sz, ox, oy, oz, dx, dy, dz, pd, range, bounce, cr, cg, cb) {
+  const rk = rayRock(ox, oy, oz, dx, dy, dz, range), bt = rk >= 0 ? rk : range;
+  HITS.length = 0;
+  for (const f of foes) if (f.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, f.x, f.y, f.z, FT[f.k].s * 1.15, f.q0, f.q1, f.q2, f.q3, bt); if (t >= 0) HITS.push(t, f); }
+  for (const b of bolts) if (b.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, b.x, b.y, b.z, 0.5, 0, 0, 0, 1, bt); if (t >= 0) HITS.push(t, b); }
+  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i <= boss.n + 1; i++) {
+    const t = rayBox(ox, oy, oz, dx, dy, dz, BPX[i], BPY[i], BPZ[i], BPS[i], BPQ[i * 4], BPQ[i * 4 + 1], BPQ[i * 4 + 2], BPQ[i * 4 + 3], bt);
+    if (t >= 0) HITS.push(t, BPROX[i]);
+  }
+  const order = []; for (let i = 0; i < HITS.length; i += 2) order.push(i); order.sort((p, q) => HITS[p] - HITS[q]);
+  let left = 1 + PIERCE + EVSHOT, end = bt;
+  for (const i of order) {
+    const t = HITS[i], o = HITS[i + 1]; if (!o.on) continue;
+    if (o.bp) { if (!boss.on || boss.st === 4 || o.i > boss.n + 1) continue; bossHit(o.i, pd); }
+    else if ('k' in o) {
+      o.hp -= pd; o.fl = 1; if (o.hs !== shotId) { o.hs = shotId; hit(); } if (!firstHit) firstHit = o;
+      if (o.hp <= 0) kill(o, true); else if (!hitSnd++) sfx('hit');
+    }
+    else { o.on = 0; score += Math.round(25 * mult * DF.sc); hit(); sfx('bolt'); burst(o.x, o.y, o.z, 5, 0.3, 4, 1, 0.55, 0.1); }
+    hitFx = 1; end = t; if (--left <= 0) break;
+  }
+  if (left > 0) end = bt;
+  tracer(sx, sy, sz, ox + dx * end, oy + dy * end, oz + dz * end, cr, cg, cb);
+  if (left > 0 && rk >= 0) {
+    const hx = ox + dx * rk, hy = oy + dy * rk, hz = oz + dz * rk;
+    burst(hx, hy, hz, 3, 0.2, 3, 0.5, 0.45, 0.4);
+    if (bounce > 0 && range - rk > 1 && rockGrad(hx, hy, hz)) { // mirror off the surface (V3 points into the rock)
+      const nx = -V3[0], ny = -V3[1], nz = -V3[2], dn = dx * nx + dy * ny + dz * nz;
+      const bx = hx + nx * 0.35, by = hy + ny * 0.35, bz = hz + nz * 0.35;
+      ray(bx, by, bz, bx, by, bz, dx - 2 * dn * nx, dy - 2 * dn * ny, dz - 2 * dn * nz, pd, range - rk, bounce - 1, 1, 0.85, 0.4);
+    }
+  }
+}
+// 磁力弾: bends a direction towards the enemy nearest to it within ~6° (result in V3)
+function homing(dx, dy, dz) {
+  let best = 0.9945, bx = dx, by = dy, bz = dz;
+  for (const f of foes) if (f.on) {
+    const ex = f.x - F[CX], ey = f.y - F[CY], ez = f.z - F[CZ], l = hypot(ex, ey, ez); if (l > RANGE || l < 0.1) continue;
+    const c = (ex * dx + ey * dy + ez * dz) / l; if (c > best) { best = c; bx = ex / l; by = ey / l; bz = ez / l; }
+  }
+  const x = dx * 0.25 + bx * 0.75, y = dy * 0.25 + by * 0.75, z = dz * 0.25 + bz * 0.75, l = hypot(x, y, z) || 1;
+  V3[0] = x / l; V3[1] = y / l; V3[2] = z / l;
+}
+// 連鎖雷: from the first enemy hit, lightning jumps to up to 3 more enemies within 12 m
+const ZAP = [];
+function chainZap(f0) {
+  let fx = f0.x, fy = f0.y, fz = f0.z; const dmg = max(1, Math.round(DMG * 0.6)); ZAP.length = 0; ZAP.push(f0);
+  for (let j = 0; j < 3; j++) {
+    let bd = 12, bn = null;
+    for (const o of foes) if (o.on && !ZAP.includes(o)) { const d = hypot(o.x - fx, o.y - fy, o.z - fz); if (d < bd) { bd = d; bn = o; } }
+    if (!bn) break;
+    const mx = (fx + bn.x) / 2 + R_(-0.7, 0.7), my = (fy + bn.y) / 2 + R_(-0.7, 0.7), mz = (fz + bn.z) / 2 + R_(-0.7, 0.7);
+    tracer(fx, fy, fz, mx, my, mz, 1, 1, 0.55, 0.12); tracer(mx, my, mz, bn.x, bn.y, bn.z, 1, 1, 0.55, 0.12);
+    ZAP.push(bn); fx = bn.x; fy = bn.y; fz = bn.z;
+    bn.hp -= dmg; bn.fl = 1; hit(); if (bn.hp <= 0) kill(bn, true);
+  }
+  if (ZAP.length > 1) sfx('zap');
+}
+// fires one trigger pull: SHOT[MULTI].n pellets in a cone (+ 分裂弾 extras), each one ray()
 function shoot() {
-  ammo--; fireT = FIRE; sfx('shot'); mdy -= 2.2; // a little recoil
+  gunPose(); const mx = GP[0] + GMZ[0], my = GP[1] + GMZ[1], mz = GP[2] + GMZ[2]; // muzzle, before the kick
+  const sh = SHOT[MULTI], pd = max(1, Math.round(DMG * sh.mul * (EVSHOT ? 1.5 : 1))); shotId++; hitSnd = 0; firstHit = null;
+  ammo--; fireT = FIRE / sh.rate / (frenzyOn ? 2 : 1) / (EVRATE ? 1.4 : 1); sfx('shot'); mdy -= 2.2; gRec = 1; gFlash = 0.05; // recoil
   camDir(); const cx0 = V3[0], cy0 = V3[1], cz0 = V3[2], ox = F[CX], oy = F[CY], oz = F[CZ];
   const rx = cos(F[YAW]), rz = sin(F[YAW]), ux = -rz * cy0, uy = rz * cx0 - rx * cz0, uz = rx * cy0; // right and up of the view
-  const n = 1 + 2 * MULTI;
-  for (let k = 0; k < n; k++) {
-    const a = (k - (n - 1) / 2) * 0.045, e = k ? (Math.random() - 0.5) * 0.03 : 0;
+  const extra = SPLIT && Math.random() < (SPLIT > 1 ? 0.7 : 0.4) ? (SPLIT > 1 ? 3 : 2) : 0, sd = max(1, Math.round(DMG * 0.6));
+  for (let k = 0; k < sh.n + extra; k++) {
+    const sp = k >= sh.n, rr = sp ? R_(0.04, 0.14) : k ? sh.cone * sqrt(Math.random()) : 0, th = Math.random() * TAU, a = rr * cos(th), e = rr * sin(th);
     let dx = cx0 + rx * a + ux * e, dy = cy0 + uy * e, dz = cz0 + rz * a + uz * e; const dl = hypot(dx, dy, dz); dx /= dl; dy /= dl; dz /= dl;
-    const rk = rayRock(ox, oy, oz, dx, dy, dz, RANGE), bt = rk >= 0 ? rk : RANGE;
-    HITS.length = 0;
-    for (const f of foes) if (f.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, f.x, f.y, f.z, FT[f.k].s * 1.15, f.q0, f.q1, f.q2, f.q3, bt); if (t >= 0) HITS.push(t, f); }
-    for (const b of bolts) if (b.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, b.x, b.y, b.z, 0.5, 0, 0, 0, 1, bt); if (t >= 0) HITS.push(t, b); }
-    const order = []; for (let i = 0; i < HITS.length; i += 2) order.push(i); order.sort((p, q) => HITS[p] - HITS[q]);
-    let left = 1 + PIERCE, end = bt;
-    for (const i of order) {
-      const t = HITS[i], o = HITS[i + 1]; if (!o.on) continue;
-      if ('k' in o) { o.hp -= DMG; o.fl = 1; hit(); if (o.hp <= 0) kill(o, true); else sfx('hit'); }
-      else { o.on = 0; score += Math.round(25 * mult * DF.sc); hit(); sfx('bolt'); burst(o.x, o.y, o.z, 5, 0.3, 4, 1, 0.55, 0.1); }
-      hitFx = 1; end = t; if (--left <= 0) break;
-    }
-    if (left > 0) { end = bt; if (rk >= 0) burst(ox + dx * rk, oy + dy * rk, oz + dz * rk, 3, 0.2, 3, 0.5, 0.45, 0.4); }
-    // tracer from just below-right of the eye to where the harpoon stopped
-    const tr = tracers.find((o) => !o.on) || tracers[k % tracers.length];
-    const sx = ox + rx * 0.28 - ux * 0.22 + cx0 * 0.6, sy = oy - uy * 0.22 + cy0 * 0.6, sz = oz + rz * 0.28 - uz * 0.22 + cz0 * 0.6;
-    let ex = ox + dx * end - sx, ey = oy + dy * end - sy, ez = oz + dz * end - sz; const l = hypot(ex, ey, ez) || 1; ex /= l; ey /= l; ez /= l;
-    let q0 = -ey, q1 = ex, q2 = 0, q3 = 1 + ez; const ql = hypot(q0, q1, q2, q3); if (ql < 1e-4) { q0 = 0; q1 = 1; q3 = 0; } else { q0 /= ql; q1 /= ql; q3 /= ql; }
-    tr.on = 1; tr.life = 0.06; tr.l = l * 0.5; tr.x = sx + ex * l * 0.5; tr.y = sy + ey * l * 0.5; tr.z = sz + ez * l * 0.5; tr.q0 = q0; tr.q1 = q1; tr.q2 = q2; tr.q3 = q3;
+    if (HOMING) { homing(dx, dy, dz); dx = V3[0]; dy = V3[1]; dz = V3[2]; }
+    ray(mx, my, mz, ox, oy, oz, dx, dy, dz, sp ? sd : pd, RANGE, RICO, sp ? 1 : 0.5, sp ? 0.55 : 1, 1);
   }
+  if (CHAIN && firstHit && gtime >= chainT) { chainT = gtime + 0.2; chainZap(firstHit); }
 }
 // touch screens have no trigger: the gun fires by itself while an enemy is under the crosshair
 function onTarget() {
   camDir(); const dx = V3[0], dy = V3[1], dz = V3[2];
   for (const f of foes) if (f.on && rayBox(F[CX], F[CY], F[CZ], dx, dy, dz, f.x, f.y, f.z, FT[f.k].s * 1.3, f.q0, f.q1, f.q2, f.q3, 70) >= 0) return true;
+  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i <= boss.n + 1; i++)
+    if (rayBox(F[CX], F[CY], F[CZ], dx, dy, dz, BPX[i], BPY[i], BPZ[i], BPS[i] * 1.2, BPQ[i * 4], BPQ[i * 4 + 1], BPQ[i * 4 + 2], BPQ[i * 4 + 3], 70) >= 0) return true;
   return false;
 }
 
 function gameStep(dt) {
   gtime += dt; hurtFx = max(0, hurtFx - dt * 1.5); hitFx = max(0, hitFx - dt * 6);
+  gRec *= exp(-dt * 14); gFlash = max(0, gFlash - dt); gBob += dt * min(hypot(F[VX], F[VY], F[VZ]), 26) * 0.9;
   for (const p of debris) if (p.on) {
     const k = exp(-dt * 2.2); p.vx *= k; p.vy = p.vy * k - 1.2 * dt; p.vz *= k;
     p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt; p.an += p.sp * dt; if ((p.life -= dt) <= 0) p.on = 0;
+    p.sp *= exp(-dt * 0.8);
   }
   for (const t of tracers) if (t.on && (t.life -= dt) <= 0) t.on = 0;
-  if (over || choosing) return;
+  if (over || choosing || chestOpen) return;
+  if (pending > 0) { offer(); if (choosing) return; }
   if (combo && (comboT -= dt) <= 0) { combo = 0; mult = 1; }
+  const fz = FRENZY && mult >= 4; if (fz && !frenzyOn) banner('狂乱！  連射 2倍'); frenzyOn = fz;
+  slowT = max(0, slowT - dt);
   // flow field: keep refilling from where you are
   if (!navBusy) navBegin(); else navStep(NAV_BUDGET);
   const cx = F[CX], cy = F[CY], cz = F[CZ];
   // waves
   let alive = 0; for (const f of foes) alive += f.on;
-  if (restT === -2) { if ((spawnT -= dt) <= 0) offer(); }
-  else if (restT >= 0) { if ((restT -= dt) < 0) nextWave(); }
+  if (bossT > 0 && (bossT -= dt) <= 0) bossSpawn();
+  if (restT >= 0) { if ((restT -= dt) < 0) nextWave(); }
   else if (toSpawn > 0) { if ((spawnT -= dt) <= 0 && alive < ALIVE) { if (spawn()) toSpawn--; spawnT = max(0.35, 1.5 - wave * 0.1); } }
-  else if (!alive) { const b = Math.round(500 * wave * DF.sc); restT = -2; spawnT = 1.6; hp = min(MAXHP, hp + DF.heal); score += b; banner(`WAVE ${wave} CLEAR  +${b}`); }
+  else if (!alive && !boss.on && bossT <= 0) { const b = Math.round(500 * wave * DF.sc); restT = 3; hp = min(MAXHP, hp + DF.heal); score += b; banner(`WAVE ${wave} CLEAR  +${b}`); }
   // you
   if ((calm += dt) > DF.rd) hp = min(MAXHP, hp + DF.rr * dt);
   fireT -= dt;
   if (reloadT > 0 && (reloadT -= dt) <= 0) ammo = MAG;
   if (!ammo && reloadT <= 0) { reloadT = RELOAD; sfx('reload'); }
   if ((firing || (mob && onTarget())) && fireT <= 0 && reloadT <= 0 && ammo > 0) shoot();
-  // enemies
+  // treasure chests: touch to open
+  for (const c of chests) if (c.on) { c.t += dt; if (hypot(c.x - cx, c.y - cy, c.z - cz) < 2.6) { openChest(c); return; } }
+  // enemies (and their bolts) run on edt: slowed by 時間減速
+  const edt = slowT > 0 ? dt * 0.35 : dt;
   for (const f of foes) if (f.on) {
-    const t = FT[f.k], sp = t.sp * spMul;
+    const t = FT[f.k], sp = t.sp * SPBASE * spMul;
     let dx = cx - f.x, dy = cy - f.y, dz = cz - f.z; const d = hypot(dx, dy, dz) || 1; dx /= d; dy /= d; dz /= d;
     // line of sight, refreshed 5 times a second (staggered by the random start)
-    if ((f.lt -= dt) <= 0) { f.lt = 0.2; f.los = rayRock(f.x, f.y, f.z, dx, dy, dz, d) < 0 ? 1 : 0; }
+    if ((f.lt -= edt) <= 0) { f.lt = 0.2; f.los = rayRock(f.x, f.y, f.z, dx, dy, dz, d) < 0 ? 1 : 0; }
     const hl = hypot(dx, dz) || 1, px = -dz / hl, pz = dx / hl; // horizontal sideways
     let tx, ty, tz;
     if (!f.los && flowDir(f.x, f.y, f.z)) { tx = V3[0]; ty = V3[1]; tz = V3[2]; } // around the rock
     else if (f.k === 3) { // spitter: hold 18-28 m and circle
       const w = d < 18 ? -1 : d > 28 ? 1 : 0;
       tx = dx * w + px * f.side * 0.8; ty = dy * w * 0.5 + 0.2 * sin(gtime + f.ph); tz = dz * w + pz * f.side * 0.8;
-      if ((f.cd -= dt) <= 0 && d < 45 && f.los) {
+      if ((f.cd -= edt) <= 0 && d < 45 && f.los) {
         f.cd = R_(2.2, 3.4) * DF.cd;
         const b = bolts.find((o) => !o.on);
         if (b) {
@@ -3093,7 +3452,7 @@ function gameStep(dt) {
       const w = sin(gtime * f.wf + f.ph) * (d > 8 ? 0.6 : 0.15);
       tx = dx + px * w; ty = dy + 0.25 * sin(gtime * 1.3 + f.ph); tz = dz + pz * w;
     }
-    const tl = hypot(tx, ty, tz) || 1, kk = 1 - exp(-dt * 2.5);
+    const tl = hypot(tx, ty, tz) || 1, kk = 1 - exp(-edt * 2.5);
     f.vx += (tx / tl * sp - f.vx) * kk; f.vy += (ty / tl * sp - f.vy) * kk; f.vz += (tz / tl * sp - f.vz) * kk;
     // steer away from rock ahead, push out of rock it is already in
     const ra = rockAt(f.x + f.vx * 0.5, f.y + f.vy * 0.5, f.z + f.vz * 0.5);
@@ -3101,57 +3460,550 @@ function gameStep(dt) {
       const vn = f.vx * V3[0] + f.vy * V3[1] + f.vz * V3[2];
       if (vn > 0) { f.vx -= V3[0] * vn * 1.4; f.vy -= V3[1] * vn * 1.4; f.vz -= V3[2] * vn * 1.4; }
     }
-    f.x += f.vx * dt; f.y += f.vy * dt; f.z += f.vz * dt;
+    f.x += f.vx * edt; f.y += f.vy * edt; f.z += f.vz * edt;
     const thr = -min(t.s * 0.6, 0.9), r0 = rockAt(f.x, f.y, f.z);
     if (r0 > thr && rockGrad(f.x, f.y, f.z)) { f.x -= V3[0] * (r0 - thr); f.y -= V3[1] * (r0 - thr); f.z -= V3[2] * (r0 - thr); }
     const rr2 = hypot(f.x, f.z); if (rr2 > 148) { f.x *= 148 / rr2; f.z *= 148 / rr2; }
     f.y = clamp(f.y, -51, -2);
-    f.an += f.sp * dt; f.fl = max(0, f.fl - dt * 8);
-    const h = sin(f.an / 2); f.q0 = f.ax * h; f.q1 = f.ay * h; f.q2 = f.az * h; f.q3 = cos(f.an / 2);
+    f.an += edt; f.fl = max(0, f.fl - edt * 8);
+    // face you (the dart faces where it flies), turning smoothly; this is also the hit box's rotation
+    let hx = dx, hy = dy, hz = dz;
+    if (f.k === 1) { const vl = hypot(f.vx, f.vy, f.vz); if (vl > 0.5) { hx = f.vx / vl; hy = f.vy / vl; hz = f.vz / vl; } }
+    const ty0 = atan2(hx, -hz), tp0 = atan2(hy, hypot(hx, hz)), kt = min(1, edt * (f.k === 1 ? 10 : 5));
+    f.yw += atan2(sin(ty0 - f.yw), cos(ty0 - f.yw)) * kt; f.pt += (tp0 - f.pt) * kt;
+    f.rl = f.k === 1 ? f.rl + edt * 7 : f.k === 3 ? f.rl + edt * 0.8 : f.k === 0 ? 0.35 * sin(gtime * 1.7 + f.ph) : 0;
+    qlook(f.yw, f.pt, f.rl); f.q0 = QB[0]; f.q1 = QB[1]; f.q2 = QB[2]; f.q3 = QB[3];
+    f.born = min(1, f.born + edt / ASM);
+    foeTrail(f);
+    if (f.k === 2) { // the shell loses a plate for every 1/8 of its HP; the plate flies off
+      const want = Math.ceil(8 * max(0, f.hp) / f.mh);
+      while (f.pl > want && f.pl > 0) { f.pl--; plateOff(f, f.pl); }
+    }
     if (f.k !== 3 && d < t.s + 0.8) { hurt(t.dmg); kill(f, false); }
     else if (f.k === 3 && d < t.s + 0.8) { hurt(t.dmg); f.vx = -dx * 12; f.vy = -dy * 12; f.vz = -dz * 12; }
   }
+  if (boss.on) bossStep(edt, cx, cy, cz);
   // bolts
   for (const b of bolts) if (b.on) {
-    b.x += b.vx * dt; b.y += b.vy * dt; b.z += b.vz * dt; b.an += dt * 6;
+    b.x += b.vx * edt; b.y += b.vy * edt; b.z += b.vz * edt; b.an += edt * 6;
     if (hypot(b.x - cx, b.y - cy, b.z - cz) < 0.9) { b.on = 0; hurt(BOLTDMG); burst(b.x, b.y, b.z, 5, 0.3, 4, 1, 0.55, 0.1); }
-    else if ((b.life -= dt) <= 0 || rockAt(b.x, b.y, b.z) > 0) { b.on = 0; burst(b.x, b.y, b.z, 4, 0.3, 3, 1, 0.55, 0.1); }
+    else if ((b.life -= edt) <= 0 || rockAt(b.x, b.y, b.z) > 0) { b.on = 0; burst(b.x, b.y, b.z, 4, 0.3, 3, 1, 0.55, 0.1); }
   }
 }
 
+// ---------------------------------------------------------------- boss: キューブリヴァイアサン
+// A head and BSEG body segments that follow it on a trail (fixed spacing BSP), then a tail fin. States (st):
+// 0 assembling, 1 circling (spits fans of bolts), 2 roaring before a charge, 3 charging, 4 dying (blows up tail first)
+const BOSSW = 5, BSEG = 22, BSP = 2.3, BHS = 2.2;
+const boss = { on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, yw: 0, pt: 0, hp: 1, mh: 1, n: 0, born: 0, st: 0, stT: 0, th: 0, side: 1,
+  ph2: 0, cd: 0, spT: 0, sumT: 0, hitT: 0, fl: 0, dT: 0, hs: 0, an: 0, jaw: 0, gx: 0, gy: 0, gz: 0, critT: 0,
+  tr: new Float32Array((BSEG + 2) * 3), shp: new Float32Array(BSEG), sfl: new Float32Array(BSEG) };
+let bossT = 0; // > 0: seconds until the boss of this wave appears
+// hit boxes, 0 head, 1..n segments, n + 1 tail fin (cube half size BPS, rotation BPQ), refreshed by bossPose()
+const BPX = new Float64Array(BSEG + 2), BPY = new Float64Array(BSEG + 2), BPZ = new Float64Array(BSEG + 2), BPS = new Float64Array(BSEG + 2), BPQ = new Float64Array((BSEG + 2) * 4);
+const BPROX = pool(BSEG + 2, (_, i) => ({ on: 1, bp: 1, i })); // stand-ins for the boss boxes in ray()
+const CAPO = { x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0 }; // capture origin when the boss breaks apart
+const segS = (i) => BHS * 0.78 * (1 - 0.5 * (i - 1) / BSEG); // half size of segment i (1-based)
+
+function bossSpawn() {
+  const B = boss;
+  let x = 0, y = -25, z = 0;
+  for (let i = 0; i < 60; i++) { // open, reachable water 45-60 m out, preferably in front of you
+    camDir(); const a = atan2(V3[2], V3[0]) + R_(-1, 1) * (i < 30 ? 0.8 : PI), d = R_(45, 60);
+    const px = F[CX] + cos(a) * d, pz = F[CZ] + sin(a) * d, py = clamp(F[CY] + R_(-3, 6), -40, -10);
+    if (hypot(px, pz) > 135 || rockAt(px, py, pz) > -0.99) continue;
+    const c = cellOf(px, py, pz); if (c < 0 || !OPEN[c] || DA[c] === FAR) continue;
+    x = px; y = py; z = pz; break;
+  }
+  B.on = 1; B.x = x; B.y = y; B.z = z; B.vx = B.vy = B.vz = 0; B.st = 0; B.born = 0; B.n = BSEG; B.ph2 = 0; B.fl = 0; B.an = 0; B.jaw = 0;
+  B.mh = B.hp = Math.round(3600 * DF.hp * (1 + 0.6 * (wave / BOSSW - 1)));
+  for (let i = 0; i < BSEG; i++) { B.shp[i] = Math.round(B.mh * 0.055); B.sfl[i] = 0; }
+  B.yw = atan2(F[CX] - x, -(F[CZ] - z)); B.pt = 0; B.th = atan2(z - F[CZ], x - F[CX]); B.side = Math.random() < 0.5 ? -1 : 1;
+  B.cd = 7; B.spT = 3.5; B.sumT = 6; B.hitT = 0;
+  const bx = -sin(B.yw), bz = cos(B.yw); // behind the head
+  for (let j = 0; j < BSEG + 2; j++) { B.tr[j * 3] = x + bx * (BHS + j * BSP); B.tr[j * 3 + 1] = y; B.tr[j * 3 + 2] = z + bz * (BHS + j * BSP); }
+  bossPose(); sfx('roar');
+}
+// head heading → trail → hit boxes
+function bossPose() {
+  const B = boss, T = B.tr;
+  qlook(B.yw, B.pt, 0.15 * sin(B.an * 1.3));
+  BPX[0] = B.x; BPY[0] = B.y; BPZ[0] = B.z; BPS[0] = BHS; BPQ[0] = QB[0]; BPQ[1] = QB[1]; BPQ[2] = QB[2]; BPQ[3] = QB[3];
+  GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3]; brot(0, 0, BHS * 1.05);
+  T[0] = B.x + V3[0]; T[1] = B.y + V3[1]; T[2] = B.z + V3[2];
+  for (let j = 1; j <= B.n + 1; j++) {
+    const o = j * 3; let dx = T[o] - T[o - 3], dy = T[o + 1] - T[o - 2], dz = T[o + 2] - T[o - 1];
+    const l = hypot(dx, dy, dz) || 1, sp = j === 1 ? BSP * 0.6 : BSP;
+    T[o] = T[o - 3] + dx / l * sp; T[o + 1] = T[o - 2] + dy / l * sp; T[o + 2] = T[o - 1] + dz / l * sp;
+  }
+  for (let i = 1; i <= B.n + 1; i++) { // box i sits on trail point i, facing point i - 1
+    const o = i * 3, dx = T[o - 3] - T[o], dy = T[o - 2] - T[o + 1], dz = T[o - 1] - T[o + 2], l = hypot(dx, dy, dz) || 1;
+    qlook(atan2(dx / l, -dz / l), atan2(dy / l, hypot(dx, dz) / l), 0);
+    BPX[i] = T[o]; BPY[i] = T[o + 1]; BPZ[i] = T[o + 2]; BPS[i] = i > B.n ? 1.1 : segS(i);
+    BPQ[i * 4] = QB[0]; BPQ[i * 4 + 1] = QB[1]; BPQ[i * 4 + 2] = QB[2]; BPQ[i * 4 + 3] = QB[3];
+  }
+}
+function bossStep(dt, cx, cy, cz) {
+  const B = boss; B.an += dt; B.fl = max(0, B.fl - dt * 8);
+  for (let i = 0; i < B.n; i++) B.sfl[i] = max(0, B.sfl[i] - dt * 8);
+  if (B.st === 4) { // dying: segments burst from the tail to the head, then the head
+    if ((B.dT -= dt) <= 0) { if (B.n > 0) { B.dT = 0.075; bossBreak(B.n - 1, false); } else bossDie(); }
+    return;
+  }
+  if (B.st === 0 && (B.born = min(1, B.born + dt / 2.4)) >= 1) { B.st = 1; banner('キューブリヴァイアサン'); }
+  let dx = cx - B.x, dy = cy - B.y, dz = cz - B.z; const d = hypot(dx, dy, dz) || 1; dx /= d; dy /= d; dz /= d;
+  if (!B.ph2 && B.hp < B.mh * 0.5) { B.ph2 = 1; banner('激昂！'); sfx('roar'); }
+  const rage = B.ph2 ? 1.22 : 1, base = 9.5 * rage * (0.8 + 0.2 * DF.sp);
+  let gx, gy, gz, spd = base, turn = 1.4;
+  if (B.st === 3) { gx = B.gx; gy = B.gy; gz = B.gz; spd = 30 * rage; turn = 5; }
+  else if (B.st === 2) { gx = dx; gy = dy; gz = dz; spd = 2; turn = 3.5; }
+  else { // circle you at 26-34 m, bobbing up and down
+    const R = 30 + 4 * sin(B.an * 0.3); B.th += dt * base / R * B.side * (B.st === 0 ? 0.3 : 1);
+    gx = cx + cos(B.th) * R - B.x; gy = clamp(cy + 5 * sin(B.an * 0.45), -44, -7) - B.y; gz = cz + sin(B.th) * R - B.z;
+    const l = hypot(gx, gy, gz) || 1; gx /= l; gy /= l; gz /= l;
+    if (B.st === 0) spd = 2;
+  }
+  // rock ahead: follow the flow field round it (or rise); a charge that would hit rock ends
+  const vl = hypot(B.vx, B.vy, B.vz) || 1, fx = B.vx / vl, fy = B.vy / vl, fz = B.vz / vl;
+  if (rockAt(B.x + fx * 4, B.y + fy * 4, B.z + fz * 4) > -0.99 || rockAt(B.x + fx * 7, B.y + fy * 7, B.z + fz * 7) > -0.99) {
+    if (B.st === 3) { B.st = 1; B.cd = R_(4, 6); }
+    if (flowDir(B.x, B.y, B.z)) { gx = V3[0]; gy = V3[1] + 0.3; gz = V3[2]; } else { gx *= 0.3; gy = 1; gz *= 0.3; }
+  }
+  const k = 1 - exp(-dt * turn);
+  B.vx += (gx * spd - B.vx) * k; B.vy += (gy * spd - B.vy) * k; B.vz += (gz * spd - B.vz) * k;
+  B.x += B.vx * dt; B.y += B.vy * dt; B.z += B.vz * dt;
+  const r0 = rockAt(B.x, B.y, B.z); if (r0 > -1 && rockGrad(B.x, B.y, B.z)) { B.x -= V3[0] * (r0 + 1); B.y -= V3[1] * (r0 + 1); B.z -= V3[2] * (r0 + 1); }
+  const rr = hypot(B.x, B.z); if (rr > 140) { B.x *= 140 / rr; B.z *= 140 / rr; }
+  B.y = clamp(B.y, -47, -5);
+  // heading follows the velocity (or faces you while roaring / assembling)
+  const hx = B.st === 2 || B.st === 0 ? dx : B.vx, hy = B.st === 2 || B.st === 0 ? dy : B.vy, hz = B.st === 2 || B.st === 0 ? dz : B.vz, hl = hypot(hx, hy, hz);
+  if (hl > 0.3) {
+    const kt = min(1, dt * (B.st === 3 ? 8 : 3));
+    B.yw += atan2(sin(atan2(hx, -hz) - B.yw), cos(atan2(hx, -hz) - B.yw)) * kt; B.pt += (atan2(hy, hypot(hx, hz)) - B.pt) * kt;
+  }
+  B.jaw += ((B.st === 2 ? 0.75 : B.st === 3 ? 0.5 : B.spT < 0.6 ? 0.45 : 0.08) - B.jaw) * min(1, dt * 8);
+  bossPose();
+  if (B.st === 0) return;
+  // attacks
+  const near = d < 70;
+  if (B.st === 1) {
+    if ((B.spT -= dt) <= 0) { // fan of bolts from the mouth
+      B.spT = (B.ph2 ? 3.8 : 5) * DF.cd;
+      if (near && rayRock(B.x, B.y, B.z, dx, dy, dz, d) < 0) {
+        const m = B.ph2 ? 7 : 5, mx = B.x + dx * BHS * 1.3, my = B.y + dy * BHS * 1.3, mz = B.z + dz * BHS * 1.3;
+        for (let j = 0; j < m; j++) {
+          const b = bolts.find((o) => !o.on); if (!b) break;
+          const a = (j - (m - 1) / 2) * 0.13, ca = cos(a), sa = sin(a), vx = dx * ca - dz * sa, vz = dx * sa + dz * ca;
+          b.on = 1; b.x = mx; b.y = my; b.z = mz; b.vx = vx * BOLTSP; b.vy = dy * BOLTSP; b.vz = vz * BOLTSP; b.life = 6; b.an = j;
+        }
+        sfx('spit');
+      }
+    }
+    if ((B.cd -= dt) <= 0 && near) { B.st = 2; B.stT = 1.15; sfx('roar'); }
+    if (B.ph2 && (B.sumT -= dt) <= 0) { // enraged: calls jellies
+      B.sumT = 7;
+      let alive = 0; for (const f of foes) alive += f.on;
+      for (let j = 0; j < 2 && alive < ALIVE; j++) {
+        const f = foes.find((o) => !o.on); if (!f) break;
+        const x = B.x + R_(-3, 3), y = B.y + R_(1, 3), z = B.z + R_(-3, 3); if (rockAt(x, y, z) > -0.99) continue;
+        initFoe(f, 0, x, y, z); alive++;
+      }
+    }
+  } else if (B.st === 2 && (B.stT -= dt) <= 0) { B.st = 3; B.stT = 1.6; B.gx = dx; B.gy = dy; B.gz = dz; sfx('dash'); }
+  else if (B.st === 3 && (B.stT -= dt) <= 0) { B.st = 1; B.cd = R_(5, 7) / rage; }
+  // touching it hurts (the head more, most while charging) and knocks you away
+  if ((B.hitT -= dt) <= 0) {
+    let hitI = -1;
+    if (hypot(cx - B.x, cy - B.y, cz - B.z) < BHS + 1.3) hitI = 0;
+    else for (let i = 1; i <= B.n; i++) if (hypot(cx - BPX[i], cy - BPY[i], cz - BPZ[i]) < BPS[i] + 0.9) { hitI = i; break; }
+    if (hitI >= 0) {
+      hurt(hitI ? 10 : B.st === 3 ? 30 : 18); B.hitT = 1;
+      let px = cx - BPX[hitI], py = cy - BPY[hitI], pz = cz - BPZ[hitI]; const pl = hypot(px, py, pz) || 1;
+      F[VX] += px / pl * 16; F[VY] += py / pl * 16; F[VZ] += pz / pl * 16;
+      if (B.st === 3) { B.st = 1; B.cd = R_(5, 7); }
+    }
+  }
+}
+// a hit on boss box i (0 head, n + 1 tail: weak points x2)
+function bossHit(i, pd) {
+  const B = boss; if (B.st === 0 || B.st === 4) return;
+  const weak = i === 0 || i === B.n + 1;
+  B.hp -= weak ? pd * 2 : pd; if (B.hs !== shotId) { B.hs = shotId; hit(); }
+  if (weak) { B.fl = 1; if (!hitSnd++) sfx('crit'); if (gtime > B.critT) { B.critT = gtime + 0.6; popup('WEAK ×2'); } }
+  else { const s = i - 1; B.sfl[s] = 1; B.shp[s] -= pd; if (B.shp[s] <= 0) bossBreak(s, true); else if (!hitSnd++) sfx('hit'); }
+  if (B.hp <= 0 && B.st !== 4) { B.st = 4; B.dT = 0.4; B.hp = 0; banner('BOSS DOWN!'); sfx('bossdie'); for (const b of bolts) b.on = 0; }
+}
+// segment s (0-based) breaks: its boxes fly off, the body closes up behind it
+function bossBreak(s, scored) {
+  const B = boss, i = s + 1;
+  CAPO.x = BPX[i]; CAPO.y = BPY[i]; CAPO.z = BPZ[i]; CAPO.vx = B.vx * 0.3; CAPO.vy = B.vy * 0.3; CAPO.vz = B.vz * 0.3;
+  cap = CAPO; capV = 9; drawSeg(i); cap = null;
+  burst(BPX[i], BPY[i], BPZ[i], 8, BPS[i], 9, 0.3, 0.95, 1); sfx('segbreak');
+  for (let j = s; j < B.n - 1; j++) { B.shp[j] = B.shp[j + 1]; B.sfl[j] = B.sfl[j + 1]; }
+  for (let j = i + 1; j <= B.n + 1; j++) { const o = j * 3; B.tr[o] = B.tr[o + 3]; B.tr[o + 1] = B.tr[o + 4]; B.tr[o + 2] = B.tr[o + 5]; }
+  B.n--;
+  if (scored) {
+    B.hp -= B.mh * 0.04; const pts = Math.round(300 * mult * DF.sc); score += pts; popup(`+${pts}`, true); gainXp(12);
+    if (B.hp <= 0 && B.st !== 4) { B.st = 4; B.dT = 0.4; B.hp = 0; banner('BOSS DOWN!'); sfx('bossdie'); for (const b of bolts) b.on = 0; }
+  }
+}
+function bossDie() {
+  const B = boss;
+  CAPO.x = B.x; CAPO.y = B.y; CAPO.z = B.z; CAPO.vx = CAPO.vy = CAPO.vz = 0;
+  cap = CAPO; capV = 12; drawBossHead(); drawSeg(B.n + 1); cap = null;
+  burst(B.x, B.y, B.z, 30, BHS * 2, 16, 1, 0.4, 0.7); burst(B.x, B.y, B.z, 20, BHS, 10, 0.3, 0.95, 1); sfx('kill');
+  const pts = Math.round(4000 * (wave / BOSSW) * DF.sc * mult); score += pts; popup(`+${pts}`, true); gainXp(200);
+  dropChest(B.x, B.y, B.z, true); dexAdd('boss'); bossKills++;
+  B.on = 0;
+}
+
+// boss look: dark indigo armour, cyan glow lines (red-orange when enraged), pink weak points
+let basm = 0;
+function bpart(lx, ly, lz, sx, sy, sz, qx, qy, qz, qw, fl, r, g, b, gl) {
+  if (basm > 0) { const h = ++pIdx * 12.9898, k = basm * 9; lx += sin(h) * k; ly += cos(h * 1.37) * k; lz += sin(h * 0.71 + 1) * k; const m = 1 - basm * 0.5; sx *= m; sy *= m; sz *= m; gl += basm * 7; }
+  part(GP0[0], GP0[1], GP0[2], lx, ly, lz, sx, sy, sz, qx, qy, qz, qw, fl, r, g, b, gl);
+}
+const GP0 = new Float64Array(3);
+function glowC() { return boss.ph2 ? [1, 0.38, 0.15] : [0.3, 0.95, 1]; }
+function drawBossHead() {
+  const B = boss, s = BHS, a = B.an, fl = B.fl, [gr, gg, gb] = glowC(), eye = B.st === 2 ? 10 : 6 + 2 * sin(a * 5);
+  GBQ[0] = BPQ[0]; GBQ[1] = BPQ[1]; GBQ[2] = BPQ[2]; GBQ[3] = BPQ[3]; GP0[0] = B.x; GP0[1] = B.y; GP0[2] = B.z;
+  bpart(0, 0.15 * s, 0.1 * s, 0.82 * s, 0.6 * s, 0.95 * s, 0, 0, 0, 1, fl, 0.16, 0.2, 0.42, 1.2); // skull
+  const j = B.jaw;
+  bpart(0, 0.3 * s, -1.05 * s, 0.7 * s, 0.2 * s, 0.55 * s, sin(j * 0.35), 0, 0, cos(j * 0.35), fl, 0.18, 0.22, 0.46, 1.3); // upper jaw
+  bpart(0, -0.45 * s - 0.25 * j * s, -0.95 * s, 0.62 * s, 0.14 * s, 0.6 * s, sin(-j * 0.5), 0, 0, cos(-j * 0.5), fl, 0.14, 0.17, 0.36, 1.1); // lower jaw
+  for (let i = 0; i < 4; i++) { const tx = (i - 1.5) * 0.36 * s; // teeth
+    bpart(tx, 0.12 * s, -1.45 * s, 0.07 * s, 0.2 * s, 0.05 * s, 0, 0, 0, 1, fl, 1, 1, 0.95, 3);
+    bpart(tx + 0.18 * s, -0.3 * s - 0.25 * j * s, -1.42 * s, 0.07 * s, 0.18 * s, 0.05 * s, 0, 0, 0, 1, fl, 1, 1, 0.95, 3); }
+  bpart(0, -0.05 * s, -1.2 * s, 0.5 * s, 0.1 * s + 0.2 * j * s, 0.05 * s, 0, 0, 0, 1, fl, 1, 0.3 + 0.2 * j, 0.5, 2 + 6 * j); // throat glow
+  for (const sd of [-1, 1]) {
+    bpart(sd * 0.84 * s, 0.42 * s, -0.5 * s, 0.07 * s, 0.17 * s, 0.22 * s, 0, 0, 0, 1, fl, 1, 0.25, 0.6, eye); // eyes (weak point), on the sides of the skull
+    bpart(sd * 0.45 * s, 0.5 * s, -0.86 * s, 0.2 * s, 0.07 * s, 0.03 * s, 0, 0, sd * sin(0.2), cos(0.2), fl, 1, 0.25, 0.6, eye * 0.8); // glowing brows
+    bpart(sd * 0.88 * s, 0.05 * s, 0.1 * s, 0.07 * s, 0.4 * s, 0.6 * s, 0, 0, sin(sd * 0.25), cos(sd * 0.25), fl, gr, gg, gb, 3); // gill plates
+    const w = 0.25 * sin(a * 2.2 + sd); // whiskers
+    bpart(sd * 0.55 * s, -0.35 * s, -1.5 * s, 0.05 * s, 0.05 * s, 0.5 * s, sin(w / 2), 0, 0, cos(w / 2), fl, gr, gg, gb, 4);
+  }
+  for (let i = 0; i < 3; i++) bpart(0, (0.8 + 0.15 * i) * s, (-0.35 + 0.42 * i) * s, 0.06 * s, (0.35 - 0.06 * i) * s, 0.16 * s, sin(-0.3), 0, 0, cos(-0.3), fl, gr, gg, gb, 3.5); // crest
+}
+// segment i (1..n) or the tail fin (n + 1)
+function drawSeg(i) {
+  const B = boss, [gr, gg, gb] = glowC();
+  GBQ[0] = BPQ[i * 4]; GBQ[1] = BPQ[i * 4 + 1]; GBQ[2] = BPQ[i * 4 + 2]; GBQ[3] = BPQ[i * 4 + 3]; GP0[0] = BPX[i]; GP0[1] = BPY[i]; GP0[2] = BPZ[i];
+  if (i > B.n) { // tail: two glowing blades in a V (weak point)
+    const w = 0.35 * sin(B.an * 3), fl = B.fl;
+    bpart(0, 0, 0, 0.45, 0.45, 0.7, 0, 0, 0, 1, fl, 0.16, 0.2, 0.42, 1.2);
+    for (const sd of [-1, 1]) bpart(0, sd * 0.9, 1.2, 0.08, 1.1, 0.55, sin((sd * 0.55 + w) / 2), 0, 0, cos((sd * 0.55 + w) / 2), fl, 1, 0.3, 0.6, 5);
+    return;
+  }
+  const s = segS(i), fl = B.sfl[i - 1], dmg = 1 - B.shp[i - 1] / (B.mh * 0.055);
+  bpart(0, 0, 0, s, s * 0.92, BSP * 0.52, 0, 0, 0, 1, fl, i % 2 ? 0.16 : 0.2, i % 2 ? 0.2 : 0.25, i % 2 ? 0.42 : 0.5, 1.1 + 2.5 * dmg); // armour (glows hotter as it cracks)
+  bpart(0, s * 1.02 + 0.25 * s * (i % 2), 0, 0.06 * s, 0.35 * s + 0.25 * s * (i % 2), 0.4 * s, sin(-0.35), 0, 0, cos(-0.35), fl, gr, gg, gb, 3.5); // dorsal spike
+  if (i % 2 === 0 || cap) for (const sd of [-1, 1]) bpart(sd * s * 1.01, -0.1 * s, 0, 0.03 * s, 0.12 * s, BSP * 0.45, 0, 0, 0, 1, fl, gr, gg, gb, 5); // side lights
+  if (i % 4 === 1 && i < B.n - 2) for (const sd of [-1, 1]) { const w = 0.4 * sin(B.an * 3 + i) * sd; // fins
+    bpart(sd * s * 1.35, -0.4 * s, 0, 0.6 * s, 0.05 * s, 0.4 * s, 0, 0, sin(w / 2), cos(w / 2), fl, gr * 0.6, gg * 0.6, gb * 0.8, 2.5); }
+}
+function drawBoss() {
+  const B = boss; pIdx = 0; basm = B.st === 0 ? (1 - B.born) * (1 - B.born) : 0;
+  drawBossHead();
+  for (let i = 1; i <= B.n + 1; i++) drawSeg(i);
+  basm = 0;
+}
+
+// ---------------------------------------------------------------- codex (図鑑): rares, evolutions and the boss you have found
+let DEX = {}; try { DEX = JSON.parse(localStorage.cubeAbyssDex || '{}') || {}; } catch { DEX = {}; }
+function dexAdd(id) { DEX[id] = (DEX[id] || 0) + 1; keep('cubeAbyssDex', JSON.stringify(DEX)); }
+function dexRender() {
+  const L = UPS.filter((u) => u[5]), n = L.filter((u) => DEX[u[0]]).length + (DEX.boss ? 1 : 0);
+  $('dxn').textContent = `発見 ${n} / ${L.length + 1}`;
+  const cell = (cls, tag, name, desc, foot) => { const e = document.createElement('div'); e.className = 'de ' + cls; e.innerHTML = `<em>${tag}</em><strong>${name}</strong><span>${desc}</span>${foot ? `<small>${foot}</small>` : ''}`; return e; };
+  $('dxl').replaceChildren(
+    ...L.map((u) => {
+      const got = DEX[u[0]], ev = u[5] === 'e', tag = ev ? 'EVOLUTION' : 'RARE';
+      if (got) return cell(ev ? 'evo' : 'rare', tag, u[1], udesc(u), ev ? u[7] : '');
+      return cell('no', tag, '？？？', ev ? `${u[7].split(' ＋ ')[0]} ＋ ？？？ で宝箱を開けると…` : 'レベルアップか宝箱で出会えるかも', '');
+    }),
+    DEX.boss ? cell('boss', 'BOSS', 'キューブリヴァイアサン', `撃破 ${DEX.boss} 回`, `WAVE ${BOSSW} ごとに出現`) : cell('no', 'BOSS', '？？？', `WAVE ${BOSSW} に何かが来る`, ''));
+}
+$('dxb').addEventListener('click', () => { dexRender(); $('dx').classList.add('on'); });
+$('dxc').addEventListener('click', () => $('dx').classList.remove('on'));
+for (const b of [$('x'), $('d')]) b.addEventListener('click', () => $('dx').classList.remove('on'));
+
+// ---------------------------------------------------------------- models: enemies and the gun, built from boxes
+// quaternions on plain numbers (x, y, z, w); results land in QA / QB, nothing is allocated per frame
+const QA = new Float64Array(4), QB = new Float64Array(4), GBQ = new Float64Array(4), GP = new Float64Array(3), GMZ = new Float64Array(3);
+function qmul(ax, ay, az, aw, bx, by, bz, bw) { // QA = a * b
+  QA[0] = aw * bx + ax * bw + ay * bz - az * by; QA[1] = aw * by - ax * bz + ay * bw + az * bx;
+  QA[2] = aw * bz + ax * by - ay * bx + az * bw; QA[3] = aw * bw - ax * bx - ay * by - az * bz;
+}
+// QB = the camera's convention: local -z looks along (yaw, pitch), x is right, then a roll about the view axis
+function qlook(yaw, pit, roll) {
+  qmul(0, sin(-yaw / 2), 0, cos(-yaw / 2), sin(pit / 2), 0, 0, cos(pit / 2));
+  qmul(QA[0], QA[1], QA[2], QA[3], 0, 0, sin(roll / 2), cos(roll / 2));
+  QB[0] = QA[0]; QB[1] = QA[1]; QB[2] = QA[2]; QB[3] = QA[3];
+}
+// V3 = (x, y, z) rotated by GBQ
+function brot(x, y, z) {
+  const qx = GBQ[0], qy = GBQ[1], qz = GBQ[2], w = GBQ[3], tx = 2 * (qy * z - qz * y), ty = 2 * (qz * x - qx * z), tz = 2 * (qx * y - qy * x);
+  V3[0] = x + w * tx + qy * tz - qz * ty; V3[1] = y + w * ty + qz * tx - qx * tz; V3[2] = z + w * tz + qx * ty - qy * tx;
+}
+let cn = 0; // boxes written this frame
+function put(x, y, z, sx, sy, sz, fl, q0, q1, q2, q3, r, g, b, gl) {
+  if (cap) { // breaking apart: this box becomes debris flying out from the enemy's centre
+    const p = debris.find((o) => !o.on); if (!p) return;
+    let dx = x - cap.x, dy = y - cap.y, dz = z - cap.z; const l = hypot(dx, dy, dz);
+    if (l < 0.05) { dx = R_(-1, 1); dy = R_(-1, 1); dz = R_(-1, 1); } const m = hypot(dx, dy, dz) || 1, v = capV * R_(0.5, 1.2);
+    p.on = 1; p.x = x; p.y = y; p.z = z; p.vx = dx / m * v + cap.vx * 0.5; p.vy = dy / m * v + cap.vy * 0.5 + R_(0, 2); p.vz = dz / m * v + cap.vz * 0.5;
+    p.sx = sx; p.sy = sy; p.sz = sz; p.q0 = q0; p.q1 = q1; p.q2 = q2; p.q3 = q3; p.r = r; p.g = g; p.b = b; p.gl = max(gl, 2.5);
+    const ax = R_(-1, 1), ay = R_(-1, 1), az = R_(-1, 1), al = hypot(ax, ay, az) || 1;
+    p.ax = ax / al; p.ay = ay / al; p.az = az / al; p.sp = R_(3, 9); p.an = 0; p.l0 = p.life = R_(0.9, 1.6);
+    return;
+  }
+  if (cn >= CUBEMAX) return; const o = cn++ * 16;
+  CUBE[o] = x; CUBE[o + 1] = y; CUBE[o + 2] = z; CUBE[o + 3] = 0;
+  CUBE[o + 4] = sx; CUBE[o + 5] = sy; CUBE[o + 6] = sz; CUBE[o + 7] = fl;
+  CUBE[o + 8] = q0; CUBE[o + 9] = q1; CUBE[o + 10] = q2; CUBE[o + 11] = q3;
+  CUBE[o + 12] = r; CUBE[o + 13] = g; CUBE[o + 14] = b; CUBE[o + 15] = gl;
+}
+// a box in the frame GBQ anchored at (bx, by, bz): local centre, half size, local rotation (quaternion)
+function part(bx, by, bz, lx, ly, lz, sx, sy, sz, qx, qy, qz, qw, fl, r, g, b, gl) {
+  brot(lx, ly, lz); const px = V3[0], py = V3[1], pz = V3[2];
+  qmul(GBQ[0], GBQ[1], GBQ[2], GBQ[3], qx, qy, qz, qw);
+  put(bx + px, by + py, bz + pz, sx, sy, sz, fl, QA[0], QA[1], QA[2], QA[3], r, g, b, gl);
+}
+const S8 = sin(PI / 8), C8 = cos(PI / 8); // 45° about one axis
+
+// ---------------------------------------------------------------- enemy looks: deep-sea creatures built from boxes
+// The hit box is still one box of half size s with rotation q (see shoot); these are only looks. Local -z is front.
+//   0 キューブクラゲ (jellyfish): a pulsing bell, a glowing core, 4 tentacles that hang and trail
+//   1 キューブカマス (barracuda): a head with jaws and eyes, a body of segments that follows it, a tail fin
+//   2 キューブガメ (turtle): a glowing body under 8 shell plates (one breaks off per 1/8 HP), head, paddling flippers
+//   3 キューブアンコウ (anglerfish): a big jaw with teeth, a lure on a stalk that flares up before it spits
+// Tentacles and segments follow the trail in f.tr (follow-the-leader, fixed spacing).
+
+// trail: point 0 is the anchor (bell bottom / tail root), each next point keeps `sp` metres from the one before;
+// jelly tentacles also sink a little so they hang when the jelly is still
+function foeTrail(f) {
+  const s = FT[f.k].s, T = f.tr;
+  if (f.k === 0) { T[0] = f.x; T[1] = f.y - 0.35 * s; T[2] = f.z; }
+  else { qlook(f.yw, f.pt, 0); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3]; brot(0, 0, (f.k === 1 ? 1.1 : 0.9) * s); T[0] = f.x + V3[0]; T[1] = f.y + V3[1]; T[2] = f.z + V3[2]; }
+  const sp = f.k === 0 ? 0.42 * s : f.k === 1 ? 0.95 * s : 0.6 * s, sink = f.k === 0 ? 0.5 : 0;
+  for (let j = 1; j < TRN; j++) {
+    const o = j * 3; let dx = T[o] - T[o - 3], dy = T[o + 1] - T[o - 2] - sink * sp, dz = T[o + 2] - T[o - 1];
+    const l = hypot(dx, dy, dz) || 1; T[o] = T[o - 3] + dx / l * sp; T[o + 1] = T[o - 2] + dy / l * sp; T[o + 2] = T[o - 1] + dz / l * sp;
+  }
+}
+// capture: while set, put() turns boxes into flying debris instead of drawing them
+let cap = null, capV = 0;
+function shatter(f, v) { cap = f; capV = v; drawFoe(f, 0); cap = null; }
+// one shell plate breaks off (index i of the 8 in drawTurtle)
+function plateOff(f, i) {
+  const s = FT[2].s; GBQ[0] = f.q0; GBQ[1] = f.q1; GBQ[2] = f.q2; GBQ[3] = f.q3;
+  cap = f; capV = 7; turtlePlate(f, i, s, 0); cap = null; sfx('bolt');
+}
+let pIdx = 0, asmK = 0; // part index within the current enemy, assembly amount (1 = scattered, 0 = built)
+function fpart(f, lx, ly, lz, sx, sy, sz, qx, qy, qz, qw, r, g, b, gl) {
+  if (asmK > 0) { // scattered, smaller and brighter while the enemy is being assembled
+    const h = ++pIdx * 12.9898, k = asmK * 3.5 * FT[f.k].s;
+    lx += sin(h) * k; ly += cos(h * 1.37) * k; lz += sin(h * 0.71 + 1) * k;
+    const m = 1 - asmK * 0.6; sx *= m; sy *= m; sz *= m; gl += asmK * 6;
+  }
+  part(f.x, f.y, f.z, lx, ly, lz, sx, sy, sz, qx, qy, qz, qw, f.fl, r, g, b, gl);
+}
+// a box at a world point (trail segment), rotated to point from (ax..) to (bx..); fl and assembly as fpart
+function seg(f, x, y, z, ax, ay, az, sx, sy, sz, roll, r, g, b, gl) {
+  const dx = x - ax, dy = y - ay, dz = z - az, l = hypot(dx, dy, dz) || 1;
+  qlook(atan2(dx / l, -dz / l), atan2(dy / l, hypot(dx, dz) / l), roll);
+  if (asmK > 0) { const h = ++pIdx * 12.9898, k = asmK * 3.5 * FT[f.k].s; x += sin(h) * k; y += cos(h * 1.37) * k; z += sin(h * 0.71 + 1) * k; gl += asmK * 6; const m = 1 - asmK * 0.6; sx *= m; sy *= m; sz *= m; }
+  put(x, y, z, sx, sy, sz, f.fl, QB[0], QB[1], QB[2], QB[3], r, g, b, gl);
+}
+
+function drawJelly(f, s, a, r, g, b, far) {
+  qlook(f.yw, 0.25 * sin(a * 0.9 + f.ph), 0.2 * sin(a * 1.3 + f.ph)); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3];
+  const pu = sin(a * 3.2 + f.ph), w = s * (1 + 0.13 * pu), h = s * (0.5 - 0.07 * pu);
+  fpart(f, 0, 0.25 * s, 0, w, h, w, 0, 0, 0, 1, r * 0.55, g * 0.55, b * 0.6, 1.4); // bell
+  fpart(f, 0, 0.12 * s, 0, 0.42 * s, 0.32 * s, 0.42 * s, 0, 0, 0, 1, 1, 0.75, 0.6, 7); // glowing core
+  if (far) return;
+  fpart(f, 0, 0.82 * s - 0.05 * pu * s, 0, 0.55 * w, 0.18 * s, 0.55 * w, 0, 0, 0, 1, r * 0.75, g * 0.75, b * 0.8, 2); // crown
+  fpart(f, 0, -0.27 * s, 0, w * 1.08, 0.07 * s, w * 1.08, 0, 0, 0, 1, r, g * 1.4, b * 1.2, 4.5); // rim
+  const T = f.tr;
+  for (let i = 0; i < 4; i++) { // tentacles: the trail offset to the 4 corners of the rim, swaying
+    const o = i * PI / 2 + PI / 4, ox = cos(o + f.yw) * 0.62 * w, oz = sin(o + f.yw) * 0.62 * w;
+    let px = T[0] + ox, py = T[1], pz = T[2] + oz;
+    for (let j = 1; j <= 6; j++) {
+      const k = j * 3, sw = 0.12 * s * j * sin(a * 2.4 - j * 0.8 + i * 1.7), q = 1 - j / 8;
+      const x = T[k] + ox * q + sw * cos(o), y = T[k + 1], z = T[k + 2] + oz * q + sw * sin(o), tip = j === 6;
+      seg(f, x, y, z, px, py, pz, 0.11 * s * (1.15 - j * 0.12), 0.11 * s * (1.15 - j * 0.12), 0.24 * s, 0, tip ? 1 : r, tip ? 0.85 : g * 1.3, tip ? 0.7 : b, tip ? 8 : 2.6);
+      px = x; py = y; pz = z;
+    }
+  }
+}
+function drawCuda(f, s, a, r, g, b, far) {
+  fpart(f, 0, 0, -0.1 * s, 0.42 * s, 0.48 * s, 0.85 * s, 0, 0, 0, 1, r * 0.6, g * 0.6, b * 0.55, 1.5); // head
+  fpart(f, 0, -0.06 * s, -0.95 * s, 0.3 * s, 0.22 * s, 0.25 * s, 0, 0, 0, 1, r * 0.7, g * 0.7, b * 0.6, 1.6); // snout
+  if (far) return;
+  const jaw = 0.12 + 0.1 * max(0, sin(a * 5 + f.ph));
+  fpart(f, 0, -0.42 * s, -0.75 * s, 0.26 * s, 0.07 * s, 0.5 * s, sin(-jaw), 0, 0, cos(-jaw), r * 0.5, g * 0.5, b * 0.45, 1.2); // lower jaw
+  for (let i = 0; i < 3; i++) fpart(f, 0, -0.3 * s, -0.55 * s - i * 0.22 * s, 0.22 * s, 0.05 * s, 0.03 * s, 0, 0, 0, 1, 1, 1, 0.95, 3); // teeth
+  for (const sd of [-1, 1]) fpart(f, sd * 0.43 * s, 0.17 * s, -0.55 * s, 0.03 * s, 0.11 * s, 0.11 * s, 0, 0, 0, 1, 1, 0.3, 0.15, 9); // eyes
+  const T = f.tr; let px = T[0], py = T[1], pz = T[2];
+  for (let j = 1; j <= 5; j++) { // body: the segments follow the head
+    const k = j * 3, q = 1 - j * 0.13, x = T[k], y = T[k + 1], z = T[k + 2];
+    seg(f, px, py, pz, x, y, z, 0.38 * s * q, 0.44 * s * q, 0.55 * s, f.rl * 0.3, j % 2 ? r * 0.55 : r * 0.7, j % 2 ? g * 0.55 : g * 0.7, b * 0.5, j % 2 ? 1.4 : 2.2);
+    if (j === 1) { // dorsal fin
+      const dx = px - x, dy = py - y, dz = pz - z, l = hypot(dx, dy, dz) || 1;
+      seg(f, (px + x) / 2, (py + y) / 2 + 0.55 * s, (pz + z) / 2, (px + x) / 2 + dx / l, (py + y) / 2 + 0.55 * s + dy / l, (pz + z) / 2 + dz / l, 0.04 * s, 0.32 * s, 0.4 * s, 0, r, g, b, 3.5);
+    }
+    px = x; py = y; pz = z;
+  }
+  const k = 18, dx = T[k - 3] - T[k], dy = T[k - 2] - T[k + 1], dz = T[k - 1] - T[k + 2], l = hypot(dx, dy, dz) || 1, fl2 = sin(a * 9 + f.ph) * 0.5; // tail fin
+  seg(f, T[k] - dx / l * 0.4 * s, T[k + 1] - dy / l * 0.4 * s, T[k + 2] - dz / l * 0.4 * s, T[k], T[k + 1], T[k + 2], 0.04 * s, 0.75 * s, 0.4 * s, fl2 * 0.4, r, g * 1.1, b, 4);
+}
+// turtle shell plate i (0-7) in the frame GBQ; o = 1 while drawing, 0 when breaking off (capture)
+function turtlePlate(f, i, s, o) {
+  const P = [ // centre x y z, half size x y z: top 4, sides 2, back, front rim
+    [-0.5, 0.95, -0.45, 0.48, 0.14, 0.43], [0.5, 0.95, -0.45, 0.48, 0.14, 0.43], [-0.5, 0.95, 0.45, 0.48, 0.14, 0.43], [0.5, 0.95, 0.45, 0.48, 0.14, 0.43],
+    [-1.02, 0.25, 0, 0.13, 0.62, 0.95], [1.02, 0.25, 0, 0.13, 0.62, 0.95], [0, 0.3, 1.02, 0.88, 0.6, 0.13], [0, 0.72, -0.98, 0.9, 0.18, 0.12]];
+  const p = P[i], c = i % 2 ? 0.48 : 0.4;
+  fpart(f, p[0] * s, p[1] * s, p[2] * s, p[3] * s, p[4] * s, p[5] * s, 0, 0, 0, 1, FT[2].r * c, FT[2].g * c, FT[2].b * c, 1.6);
+}
+function drawTurtle(f, s, a, r, g, b, far) {
+  const hurt = 1 - f.hp / f.mh, beat = 2.2 + 2.5 * hurt + 1.2 * sin(a * (3 + 5 * hurt));
+  fpart(f, 0, 0, 0, 0.85 * s, 0.7 * s, 0.85 * s, 0, 0, 0, 1, r * 0.75, g * 0.6, b * 0.8, beat); // body (glows more as it breaks)
+  if (far) { fpart(f, 0, 0.7 * s, 0, s, 0.3 * s, s, 0, 0, 0, 1, r * 0.4, g * 0.4, b * 0.4, 1.6); return; }
+  for (let i = 0; i < f.pl; i++) turtlePlate(f, i, s, 1);
+  fpart(f, 0, 0.05 * s, -1.15 * s, 0.38 * s, 0.32 * s, 0.38 * s, 0, 0, 0, 1, r * 0.6, g * 0.5, b * 0.7, 1.6); // head
+  for (const sd of [-1, 1]) fpart(f, sd * 0.2 * s, 0.15 * s, -1.53 * s, 0.07 * s, 0.07 * s, 0.03 * s, 0, 0, 0, 1, 1, 0.9, 1, 9); // eyes
+  for (let i = 0; i < 4; i++) { // flippers: front pair paddle, back pair trail
+    const sd = i % 2 ? 1 : -1, fr = i < 2, ang = (fr ? 0.6 : 0.25) * sin(a * 2.6 + (fr ? 0 : 1.2)) * sd;
+    fpart(f, sd * 1.05 * s, -0.35 * s, (fr ? -0.55 : 0.65) * s, (fr ? 0.6 : 0.38) * s, 0.07 * s, (fr ? 0.26 : 0.22) * s, 0, 0, sin(ang / 2), cos(ang / 2), r * 0.55, g * 0.45, b * 0.65, 1.8);
+  }
+}
+function drawAngler(f, s, a, r, g, b, far) {
+  const ch = f.los && f.cd < 0.8 ? 1 - max(0, f.cd) / 0.8 : 0, lg = 5 + 9 * ch + 1.5 * sin(a * 6);
+  fpart(f, 0, 0.05 * s, 0.1 * s, 0.82 * s, 0.7 * s, 0.85 * s, 0, 0, 0, 1, r * 0.35, g * 0.4, b * 0.4, 1.3); // body
+  if (far) { fpart(f, 0, 1.3 * s, -0.9 * s, 0.17 * s, 0.17 * s, 0.17 * s, 0, 0, 0, 1, 1, 0.8, 0.35, lg); return; }
+  const op = 0.15 + 0.25 * ch + 0.06 * sin(a * 2);
+  fpart(f, 0, -0.55 * s, -0.55 * s, 0.86 * s, 0.16 * s, 0.6 * s, sin(op / 2), 0, 0, cos(op / 2), r * 0.3, g * 0.35, b * 0.35, 1.2); // jaw
+  for (let i = 0; i < 5; i++) { const tx = (i - 2) * 0.32 * s; // teeth, top and bottom
+    fpart(f, tx, -0.3 * s, -0.9 * s, 0.05 * s, 0.13 * s, 0.03 * s, 0, 0, 0, 1, 1, 1, 0.9, 3);
+    fpart(f, tx + 0.16 * s, -0.5 * s, -1.0 * s - 0.25 * op * s, 0.05 * s, 0.12 * s, 0.03 * s, 0, 0, 0, 1, 1, 1, 0.9, 3); }
+  fpart(f, 0, -0.28 * s, -0.92 * s, 0.7 * s, 0.12 * s, 0.03 * s, 0, 0, 0, 1, 1, 0.45 + 0.3 * ch, 0.15, 2 + 6 * ch); // throat glow
+  for (const sd of [-1, 1]) fpart(f, sd * 0.5 * s, 0.45 * s, -0.72 * s, 0.1 * s, 0.1 * s, 0.05 * s, 0, 0, 0, 1, 0.9, 1, 0.9, 6); // eyes
+  for (let i = 0; i < 3; i++) { // lure stalk: arcs up and forward
+    const t = (i + 0.5) / 3, sw = 0.12 * s * sin(a * 2 + i);
+    fpart(f, sw, 0.75 * s + t * 0.55 * s, -0.25 * s - t * t * 0.65 * s, 0.05 * s, 0.17 * s, 0.05 * s, sin(-0.5 * t), 0, 0, cos(-0.5 * t), r * 0.5, g * 0.5, b * 0.5, 1.5);
+  }
+  const ls = (0.15 + 0.08 * ch) * s; // lure: amber, white-hot right before it spits
+  fpart(f, 0.12 * s * sin(a * 2 + 3), 1.3 * s, -0.9 * s, ls, ls, ls, S8, 0, 0, C8, 1, 0.75 + 0.25 * ch, 0.3 + 0.6 * ch, lg);
+  const tf = 0.4 * sin(a * 4 + f.ph); // tail and side fins
+  fpart(f, 0, 0.05 * s, 1.15 * s, 0.05 * s, 0.55 * s, 0.32 * s, 0, sin(tf / 2), 0, cos(tf / 2), r * 0.8, g * 0.8, b * 0.8, 3);
+  for (const sd of [-1, 1]) { const fa = 0.4 * sin(a * 5 + sd) * sd;
+    fpart(f, sd * 0.95 * s, -0.05 * s, 0.15 * s, 0.25 * s, 0.04 * s, 0.22 * s, 0, 0, sin(fa / 2), cos(fa / 2), r * 0.8, g * 0.8, b * 0.8, 2.5); }
+}
+// d: distance from the camera (beyond LODD only a couple of boxes); the hit box frame is GBQ = q
+function drawFoe(f, d) {
+  const t = FT[f.k], s = t.s, a = f.an, far = d > LODD;
+  GBQ[0] = f.q0; GBQ[1] = f.q1; GBQ[2] = f.q2; GBQ[3] = f.q3;
+  pIdx = 0; asmK = cap ? 0 : (1 - f.born) * (1 - f.born);
+  if (f.k === 0) drawJelly(f, s, a, t.r, t.g, t.b, far);
+  else if (f.k === 1) drawCuda(f, s, a, t.r, t.g, t.b, far);
+  else if (f.k === 2) drawTurtle(f, s, a, t.r, t.g, t.b, far);
+  else drawAngler(f, s, a, t.r, t.g, t.b, far);
+  asmK = 0;
+}
+
+// the gun: an energy gun in camera space, bottom right; kicks back on each shot, tips over while reloading, bobs
+// when you swim. gunPose() leaves its rotation in GBQ, its anchor in GP and the muzzle offset in GMZ.
+let gRec = 0, gFlash = 0, gBob = 0;
+function gunPose() {
+  const rp = reloadT > 0 ? 1 - reloadT / RELOAD : 0, d = sin(rp * PI), sw = min(1, hypot(F[VX], F[VY], F[VZ]) / 7);
+  const lx = 0.2 + 0.008 * sin(gBob) * sw, ly = -0.205 - 0.09 * d + 0.007 * abs(cos(gBob)) * sw - 0.008 * gRec, lz = -0.52 + 0.045 * gRec;
+  qlook(F[YAW], F[PIT], 0); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3]; brot(lx, ly, lz); GP[0] = F[CX] + V3[0]; GP[1] = F[CY] + V3[1]; GP[2] = F[CZ] + V3[2];
+  const cx = GBQ[0], cy = GBQ[1], cz = GBQ[2], cw = GBQ[3], px = (0.13 * gRec + 0.3 * d) / 2, rz = 0.6 * d / 2;
+  // toe-in towards the crosshair, kick up, roll over while reloading
+  qmul(0, sin(0.045), 0, cos(0.045), sin(px), 0, 0, cos(px));
+  qmul(QA[0], QA[1], QA[2], QA[3], 0, 0, sin(rz), cos(rz));
+  qmul(cx, cy, cz, cw, QA[0], QA[1], QA[2], QA[3]);
+  GBQ[0] = QA[0]; GBQ[1] = QA[1]; GBQ[2] = QA[2]; GBQ[3] = QA[3];
+  brot(0, 0.012, -0.33); GMZ[0] = V3[0]; GMZ[1] = V3[1]; GMZ[2] = V3[2];
+}
+function drawGun() {
+  gunPose();
+  const x = GP[0], y = GP[1], z = GP[2], rp = reloadT > 0 ? 1 - reloadT / RELOAD : 0, mag = sin(rp * PI);
+  const am = reloadT > 0 ? rp : ammo / MAG, lo = am < 0.25 && reloadT <= 0;
+  const M = [0.3, 0.36, 0.42], D = [0.16, 0.19, 0.23]; // metal, dark metal
+  part(x, y, z, 0, 0, 0, 0.034, 0.042, 0.12, 0, 0, 0, 1, 0, M[0], M[1], M[2], 0.35); // receiver
+  part(x, y, z, 0, 0.012, -0.2, 0.017, 0.017, 0.1, 0, 0, 0, 1, 0, D[0], D[1], D[2], 0.3); // barrel
+  const rr = frenzyOn ? 1 : 0.3, rg = frenzyOn ? 0.45 : 0.95, rb = frenzyOn ? 0.2 : 1; // glowing rings (orange in 狂乱)
+  part(x, y, z, 0, 0.012, -0.15, 0.023, 0.023, 0.007, 0, 0, 0, 1, 0, rr, rg, rb, 3.5);
+  part(x, y, z, 0, 0.012, -0.25, 0.023, 0.023, 0.007, 0, 0, 0, 1, 0, rr, rg, rb, 3.5);
+  const tip = 1 - gRec; // the emitter crystal, back in place as the kick fades
+  if (tip > 0.2) part(x, y, z, 0, 0.012, -0.31 - 0.01 * tip, 0.011 * tip, 0.011 * tip, 0.028, 0, 0, S8, C8, 0, 0.5, 1, 1, 6);
+  part(x, y, z, 0, -0.07, 0.065, 0.017, 0.045, 0.024, sin(-0.14), 0, 0, cos(-0.14), 0, D[0], D[1], D[2], 0.2); // grip
+  part(x, y, z, 0, -0.058 - 0.12 * mag, -0.045 + 0.02 * mag, 0.02, 0.035, 0.028, 0, 0, 0, 1, 0, 0.12, 0.5, 0.6, 2.2 * (1 - mag) + 0.4); // power cell
+  part(x, y, z, 0, 0.052, -0.03, 0.008, 0.009, 0.042, 0, 0, 0, 1, 0, D[0], D[1], D[2], 0.25); // sight
+  part(x, y, z, 0, 0.052, -0.074, 0.006, 0.006, 0.003, 0, 0, 0, 1, 0, 0.4, 1, 1, 5);
+  part(x, y, z, 0, 0.004, 0.13, 0.028, 0.034, 0.016, 0, 0, 0, 1, 0, M[0], M[1], M[2], 0.5); // stock plate
+  // ammo strip on the side facing you: shrinks as you shoot, refills during the reload, red when low
+  if (am > 0.01) part(x, y, z, -0.036, 0.014, -0.005 + 0.085 * (1 - am), 0.003, 0.007, 0.085 * am, 0, 0, 0, 1, 0, lo ? 1 : 0.3, lo ? 0.25 : 0.95, lo ? 0.2 : 1, lo ? 7 : 5);
+  for (let i = 0; i < MULTI; i++) for (const side of [-1, 1]) // spread-shot barrels
+    part(x, y, z, side * 0.03, 0.03 - 0.045 * i, -0.17, 0.008, 0.008, 0.07, 0, 0, 0, 1, 0, 0.3, 0.95, 1, 2.5);
+  if (gFlash > 0) { // muzzle flash
+    const k = gFlash / 0.05, e = 0.012 + 0.014 * k, ro = gBob * 7 + gtime * 40;
+    part(x, y, z, 0, 0.012, -0.35, e, e, 0.012 + 0.012 * k, 0, 0, sin(ro), cos(ro), 0.3, 0.55, 1, 1, 6);
+  }
+}
+
+// treasure chest: a gold-banded box that turns and bobs, a light beam above it and three orbiting sparks
+function drawChest(c) {
+  const y = c.y + 0.25 * sin(c.t * 2.2), x = c.x, z = c.z, gl = 3 + sin(c.t * 5);
+  qlook(c.t * 1.2, 0, 0); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3];
+  part(x, y, z, 0, 0, 0, 0.6, 0.34, 0.42, 0, 0, 0, 1, 0, 0.55, 0.3, 0.08, 1.2);
+  part(x, y, z, 0, 0.44, 0, 0.64, 0.12, 0.46, 0, 0, 0, 1, 0, 1, 0.75, 0.2, gl);
+  part(x, y, z, 0.4, 0.05, 0, 0.07, 0.37, 0.44, 0, 0, 0, 1, 0, 1, 0.75, 0.2, gl);
+  part(x, y, z, -0.4, 0.05, 0, 0.07, 0.37, 0.44, 0, 0, 0, 1, 0, 1, 0.75, 0.2, gl);
+  part(x, y, z, 0, 0.18, -0.45, 0.1, 0.12, 0.03, 0, 0, 0, 1, 0.3, 1, 1, 0.7, 8);
+  const top = min(c.y + 24, -0.5), hh = max(0.5, (top - c.y - 0.6) / 2);
+  put(x, c.y + 0.6 + hh, z, 0.05, hh, 0.05, 0, 0, 0, 0, 1, 1, 0.85, 0.3, gl);
+  for (let i = 0; i < 3; i++) { const o = c.t * 2.5 + i * TAU / 3; put(x + cos(o) * 1.1, y + 0.3 * sin(o * 1.7), z + sin(o) * 1.1, 0.06, 0.06, 0.06, 0.4, 0, 0, 0, 1, 1, 0.9, 0.5, 8); }
+}
 // writes every box into CUBE for render() and refreshes the HUD
 function gameDraw() {
-  let n = 0;
-  const put = (x, y, z, sx, sy, sz, fl, q0, q1, q2, q3, r, g, b, gl) => {
-    if (n >= CUBEMAX) return; const o = n++ * 16;
-    CUBE[o] = x; CUBE[o + 1] = y; CUBE[o + 2] = z; CUBE[o + 3] = 0;
-    CUBE[o + 4] = sx; CUBE[o + 5] = sy; CUBE[o + 6] = sz; CUBE[o + 7] = fl;
-    CUBE[o + 8] = q0; CUBE[o + 9] = q1; CUBE[o + 10] = q2; CUBE[o + 11] = q3;
-    CUBE[o + 12] = r; CUBE[o + 13] = g; CUBE[o + 14] = b; CUBE[o + 15] = gl;
-  };
-  for (const f of foes) if (f.on) { const t = FT[f.k]; put(f.x, f.y, f.z, t.s, t.s, t.s, f.fl, f.q0, f.q1, f.q2, f.q3, t.r, t.g, t.b, t.gl); }
+  cn = 0;
+  for (const f of foes) if (f.on) drawFoe(f, hypot(f.x - F[CX], f.y - F[CY], f.z - F[CZ]));
   for (const b of bolts) if (b.on) { const h = sin(b.an / 2) * 0.577; put(b.x, b.y, b.z, 0.28, 0.28, 0.28, 0.5, h, h, h, cos(b.an / 2), 1, 0.5, 0.1, 5); }
-  for (const p of debris) if (p.on) { const s = p.s * min(1, p.life / p.l0 * 1.5), h = sin(p.an / 2); put(p.x, p.y, p.z, s, s, s, 0, p.ax * h, p.ay * h, p.az * h, cos(p.an / 2), p.r, p.g, p.b, 4 * p.life / p.l0); }
-  for (const t of tracers) if (t.on) put(t.x, t.y, t.z, 0.022, 0.022, t.l, 0.6, t.q0, t.q1, t.q2, t.q3, 0.5, 1, 1, 7);
-  nCube = n;
+  for (const p of debris) if (p.on) { // own rotation, then tumbling; shrinks and fades at the end
+    const k = min(1, p.life / p.l0 * 1.5), h = sin(p.an / 2);
+    qmul(p.ax * h, p.ay * h, p.az * h, cos(p.an / 2), p.q0, p.q1, p.q2, p.q3);
+    put(p.x, p.y, p.z, p.sx * k, p.sy * k, p.sz * k, 0, QA[0], QA[1], QA[2], QA[3], p.r, p.g, p.b, p.gl * p.life / p.l0);
+  }
+  for (const t of tracers) if (t.on) put(t.x, t.y, t.z, 0.006, 0.006, t.l, 0.6, t.q0, t.q1, t.q2, t.q3, t.cr, t.cg, t.cb, 7);
+  for (const c of chests) if (c.on) drawChest(c);
+  if (boss.on) drawBoss();
+  if (!over) drawGun();
+  nCube = cn;
   hudUpdate();
 }
 
 // ---------------------------------------------------------------- input
-addEventListener('mousedown', (e) => { if (battle && !menu && !choosing && e.button === 0 && document.pointerLockElement === canvas) firing = 1; });
+addEventListener('mousedown', (e) => { if (battle && !menu && !choosing && !chestOpen && e.button === 0 && document.pointerLockElement === canvas) firing = 1; });
 addEventListener('mouseup', (e) => { if (e.button === 0) firing = 0; });
 addEventListener('blur', () => { firing = 0; });
 document.addEventListener('pointerlockchange', () => { firing = 0; });
 addEventListener('keydown', (e) => {
   if (!battle || menu || e.repeat) return;
+  if (chestOpen) { if (e.code === 'Enter' || e.code === 'Space') chestAdvance(); return; }
   if (choosing) { if (e.code >= 'Digit1' && e.code <= 'Digit3') pick(e.code.charCodeAt(5) - 49); return; }
   if (e.code === 'KeyR') gameReload();
-  else if (e.code === 'Enter' && over) gameStart();
+  else if (e.code === 'Enter' && over) retry();
 });
-function gameReload() { if (battle && !menu && !over && !choosing && ammo < MAG && reloadT <= 0) { reloadT = RELOAD; sfx('reload'); } }
+// chest overlay: any click / tap (also with the mouse captured) skips the reveal, then closes it
+addEventListener('pointerdown', (e) => { if (chestOpen && battle && !menu && !(e.target.closest && e.target.closest('button'))) chestAdvance(); });
+function gameReload() { if (battle && !menu && !over && !choosing && !chestOpen && ammo < MAG && reloadT <= 0) { reloadT = RELOAD; sfx('reload'); } }
 // touch / click buttons: reload, retry
 $('tr').addEventListener('pointerdown', (e) => { e.preventDefault(); gameReload(); });
-$('uoa').addEventListener('click', () => { if (battle && over) gameStart(); });
+$('uoa').addEventListener('click', retry);
+function retry() { if (!battle || !over) return; gameStart(); if (!mob && !document.pointerLockElement) capture(); }
 
 // ---------------------------------------------------------------- difficulty buttons and the ranking in the menu
 const diffBtns = [...$('dq').querySelectorAll('button')];
@@ -3168,6 +4020,100 @@ function setDiff(i) {
 }
 diffBtns.forEach((b, i) => b.addEventListener('click', () => setDiff(i)));
 setDiff(DI);
+
+// gold pieces for the chest overlay: random flight vectors, created once
+{
+  const cc = $('cbc');
+  for (let i = 0; i < 28; i++) {
+    const e = document.createElement('i'), a = Math.random() * TAU, d = 20 + Math.random() * 30;
+    e.style.cssText = `--x:${(cos(a) * d).toFixed(1)}vmin;--y:${(sin(a) * d - 12).toFixed(1)}vmin;--r:${(Math.random() * 720 - 360) | 0}deg;animation-delay:${(1.4 + Math.random() * 0.15).toFixed(2)}s`;
+    cc.appendChild(e);
+  }
+}
+
+// ---------------------------------------------------------------- share: result card image + post to X
+// The card is drawn on a 2D canvas (1200 x 630, the large link-card size). X's post intent can only carry text and a
+// link, so the image is offered separately: saved as a PNG, or attached through the system share sheet where the
+// browser supports sharing files (mostly phones).
+function gameOverRelease() { const r = overRelease; overRelease = false; return r; }
+let bossKills = 0, maxCombo = 0, overRelease = false, shareText = '', shareBlob = null;
+const shareURL = () => (/^https?:/.test(location.protocol) ? location.origin + location.pathname : '');
+function shareMake(place) {
+  const evo = UPS.filter((u) => u[5] === 'e' && owned[u[0]]).map((u) => u[1]);
+  const rare = UPS.filter((u) => u[5] === 'r' && owned[u[0]]).map((u) => u[1]);
+  const best = place === 1 ? '（自己ベスト更新！）' : '';
+  shareText = `CUBE ABYSS【${DF.name}】WAVE ${wave} / ${score.toLocaleString()}点${best}\n` +
+    `Lv ${level} ・ 最大 ${maxCombo} コンボ` + (bossKills ? ` ・ ボス撃破 ${bossKills}` : '') + '\n' +
+    (evo.length ? `進化：${evo.join('・')}\n` : '') + (rare.length ? `レア：${rare.join('・')}\n` : '') + '#CUBEABYSS';
+  const cv = $('shc'), c = cv.getContext('2d'), W = 1200, H = 630, F0 = "'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif";
+  // background: deep water, light rays, scattered cubes
+  let g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0d4a60'); g.addColorStop(0.55, '#06222f'); g.addColorStop(1, '#020b10');
+  c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.save(); c.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < 7; i++) {
+    const x = 120 + i * 170 + 40 * sin(i * 3.1), w = 40 + 30 * (i % 3);
+    g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#9ff6ff22'); g.addColorStop(1, '#9ff6ff00');
+    c.fillStyle = g; c.beginPath(); c.moveTo(x, 0); c.lineTo(x + w, 0); c.lineTo(x + w * 2.4 - 160, H); c.lineTo(x - 160, H); c.fill();
+  }
+  c.restore();
+  const COL = ['#ff5a3c', '#ffd21a', '#b862ff', '#30ff95', '#ffd84a'];
+  for (let i = 0; i < 26; i++) {
+    const x = (i * 337) % W, y = 40 + ((i * 211) % (H - 80)), s = 6 + (i * 7) % 18, a = i * 0.7;
+    if (x > 60 && x < 760 && y > 60 && y < 560) continue; // keep the text area clear
+    c.save(); c.translate(x, y); c.rotate(a); c.globalAlpha = 0.35 + 0.4 * ((i * 13) % 10) / 10;
+    c.fillStyle = COL[i % 5]; c.shadowColor = COL[i % 5]; c.shadowBlur = 14; c.fillRect(-s, -s, s * 2, s * 2); c.restore();
+  }
+  // title
+  c.save(); c.transform(1, 0, -0.14, 1, 0, 0);
+  g = c.createLinearGradient(0, 40, 0, 120); g.addColorStop(0, '#ffffff'); g.addColorStop(0.5, '#ffd2c4'); g.addColorStop(1, '#ff5e3c');
+  c.font = `italic 900 76px Impact, 'Arial Black', ${F0}`; c.fillStyle = '#03131c'; c.fillText('CUBE ABYSS', 92, 126); c.fillStyle = g; c.fillText('CUBE ABYSS', 88, 120);
+  c.restore();
+  c.font = `800 22px ${F0}`; c.fillStyle = '#7ff3ff'; c.fillText('深 海 キ ュ ー ブ 迎 撃 戦', 84, 160);
+  // difficulty badge
+  const dc = ['#19c3d6', '#ffb21a', '#ff5e3c', '#ff3ccf', '#ffd84a'][DI];
+  c.fillStyle = dc; c.beginPath(); c.roundRect(84, 196, 150, 54, 12); c.fill();
+  c.font = `900 30px ${F0}`; c.fillStyle = '#03131c'; c.textAlign = 'center'; c.fillText(`難易度 ${DF.name}`, 159, 234); c.textAlign = 'left';
+  c.font = `900 30px ${F0}`; c.fillStyle = '#e8fbff'; c.fillText(`WAVE ${wave}`, 256, 234);
+  // score
+  c.font = `800 22px ${F0}`; c.fillStyle = '#9ff6ff'; c.fillText('SCORE', 84, 300);
+  g = c.createLinearGradient(0, 300, 0, 400); g.addColorStop(0, '#fff6c8'); g.addColorStop(1, '#ffb21a');
+  c.font = `italic 900 96px Impact, 'Arial Black', ${F0}`; c.fillStyle = g; c.shadowColor = '#ff9a1a'; c.shadowBlur = 24; c.fillText(score.toLocaleString(), 80, 392); c.shadowBlur = 0;
+  if (place === 1) { c.font = `900 24px ${F0}`; c.fillStyle = '#ff3c8c'; c.fillText('★ 自己ベスト更新！', 84, 432); }
+  c.font = `700 26px ${F0}`; c.fillStyle = '#e8fbff';
+  c.fillText(`Lv ${level}   ・   最大 ${maxCombo} コンボ` + (bossKills ? `   ・   ボス撃破 ${bossKills}` : ''), 84, place === 1 ? 476 : 446);
+  // evolutions and rares as chips (right column)
+  const chips = [...evo.map((n) => [n, 1]), ...rare.map((n) => [n, 0])].slice(0, 8);
+  let y = 210; c.font = `800 20px ${F0}`; c.fillStyle = '#ffd84a'; if (chips.length) c.fillText('進化 / レア', 800, y - 18);
+  for (const [n, e] of chips) {
+    c.font = `900 26px ${F0}`; const w = c.measureText(n).width + 44;
+    g = c.createLinearGradient(800, y, 800 + w, y); if (e) { g.addColorStop(0, '#c86bff'); g.addColorStop(1, '#3ce0ff'); } else { g.addColorStop(0, '#ffd84a'); g.addColorStop(1, '#ff9a1a'); }
+    c.fillStyle = g; c.beginPath(); c.roundRect(800, y, w, 44, 10); c.fill();
+    c.fillStyle = e ? '#fff' : '#2d1a00'; c.fillText(n, 822, y + 32); y += 54;
+  }
+  if (!chips.length) { c.font = `700 22px ${F0}`; c.fillStyle = '#7aa'; c.fillText('レア・進化：なし', 800, 210); }
+  // footer
+  c.fillStyle = '#ffffff18'; c.fillRect(0, H - 64, W, 64);
+  c.font = `700 22px ${F0}`; c.fillStyle = '#bfe9f2'; c.fillText(shareURL().replace(/^https?:\/\//, '') || 'ブラウザで遊べる深海ローグライクFPS', 84, H - 24);
+  c.textAlign = 'right'; c.fillStyle = '#ffd84a'; c.fillText('#CUBEABYSS', W - 60, H - 24); c.textAlign = 'left';
+  shareBlob = null; cv.toBlob((b) => { shareBlob = b; }, 'image/png');
+  $('shi').src = cv.toDataURL('image/png');
+  $('shf').hidden = !(navigator.canShare && navigator.share);
+}
+$('shx').addEventListener('click', () => {
+  const u = shareURL(), q = `text=${encodeURIComponent(shareText)}` + (u ? `&url=${encodeURIComponent(u)}` : '');
+  open(`https://x.com/intent/post?${q}`, '_blank', 'noopener');
+});
+$('shs').addEventListener('click', () => {
+  const a = document.createElement('a'); a.download = `cube-abyss-${Date.now()}.png`; a.href = $('shc').toDataURL('image/png'); a.click();
+});
+$('shf').addEventListener('click', async () => { // phones: share sheet with the image attached
+  try {
+    const file = new File([shareBlob], 'cube-abyss.png', { type: 'image/png' }), u = shareURL();
+    const data = { text: shareText + (u ? `\n${u}` : '') };
+    if (shareBlob && navigator.canShare({ files: [file] })) data.files = [file];
+    await navigator.share(data);
+  } catch {}
+});
 
 })().catch(e=>{console.error(e);document.body.className='l e';document.getElementById('s').textContent=(e.cause?'':'起動に失敗しました: ')+e.message});
 </script>

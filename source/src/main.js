@@ -122,7 +122,7 @@ const pSnow = scenePipe(mSpr, 'vsSnow', 'fsSnow', [ibSnow], { strip: true, blend
 const pGl = scenePipe(mLeaf, 'vsGl', 'fsGl', [ibBub], { strip: true, blend: ADD, constants: { ROWS: 7 } });
 // battle mode: instanced boxes (enemies, bolts, debris, tracers), filled by game.js every frame
 const pCube = scenePipe(mod(W_CUBE), 'vs', 'fs', [ibCubeL]);
-const CUBEMAX = 768, CUBE = new Float32Array(CUBEMAX * 16);
+const CUBEMAX = 2048, CUBE = new Float32Array(CUBEMAX * 16);
 const ibCubeB = device.createBuffer({ size: CUBE.byteLength, usage: BU.VERTEX | BU.COPY_DST });
 let nCube = 0;
 const pSolidSh = shadowPipe(mSolid, 'vs', [vbSolid, ibSolid]), pTerrSh = shadowPipe(mSolid, 'vs', [vbSolid, ibSolid], { cull: 'front' });
@@ -568,7 +568,9 @@ function frame(now) {
     dynN = dynT = dynG = dynGN = 0; resize();
   }
   F[TIME] += dt;
-  {
+  // while an upgrade is being chosen the diver holds still: no swimming, no turning, input is dropped
+  if (battle && gameFrozen()) { mdx = mdy = lkx = lky = l2x = l2y = 0; F[VX] = F[VY] = F[VZ] = 0; }
+  else {
     // mouse look through two cascaded low-pass stages
     const kq = 1 - exp(-dt * 30); lkx += mdx * 0.0022; lky += mdy * 0.0022; mdx = 0; mdy = 0;
     const ax = lkx * kq, ay = lky * kq; lkx -= ax; lky -= ay; l2x += ax; l2y += ay;
@@ -672,7 +674,11 @@ const go = (fight) => {
 bDive.onclick = () => go(false); bBattle.onclick = () => go(true); $('o').onclick = () => ui(true);
 // detail buttons: the current level is lit, the others reload the page with theirs
 $('q').querySelectorAll('button').forEach((b, i) => { if (i === 2 - LV) b.className = 'on'; else b.onclick = () => { keep('abyssal', 2 - i); location.reload(); }; });
-document.addEventListener('pointerlockchange', () => ui(!document.pointerLockElement));
+// losing the mouse opens the menu, except when the game-over screen let it go on purpose (for its buttons)
+document.addEventListener('pointerlockchange', () => {
+  if (!document.pointerLockElement && battle && gameOverRelease()) { ui(false); return; }
+  ui(!document.pointerLockElement);
+});
 
 // draw the first frame and wait for the GPU to finish it (pipelines get compiled on first use) before the reveal
 lookAt(...POSES[0]);
