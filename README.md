@@ -16,6 +16,9 @@
 ## クレジット
 [Abyssal Garden](https://github.com/Noniv/abyssal-garden)（Maksymilian Dendura 作、MIT License）を改変して作っています。元の著作権表示とライセンスは [LICENSE](LICENSE) にあります。
 
+## 公開サイト
+https://totqkke.github.io/cube-abyss-PvE/
+
 ## ビルド
 `source/` に分割前のソースがあります。
 
