@@ -328,7 +328,7 @@ svg { width: 1.5em; height: 1.5em; fill: currentColor; }
     <div id=l>
       <div id=lw><button id=lm aria-label="つつく"></button><span id=ly></span></div>
       <div id=p><i id=b></i></div><p id=s>潜航準備中…</p>
-      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：宝箱に触れると強化が手に入る。組み合わせ次第で「進化」も</span><span>ヒント：敵を倒して経験値をためるとレベルアップ、強化を1つ選べる</span><span>ヒント：5ウェーブごとに巨大な何かがやってくる。頭と尾が弱点</span><span>待ってる間、そのキューブをつついてもいい</span></p>
+      <p id=lt><span>ヒント：コンボが続くほどスコア倍率が上がる</span><span>ヒント：緑のキューブは弾を撃つ。弾は撃ち落とせる</span><span>ヒント：宝箱に触れると強化が手に入る。組み合わせ次第で「進化」も</span><span>ヒント：敵を倒して経験値をためるとレベルアップ、強化を1つ選べる</span><span>ヒント：5ウェーブごとにボスが来る。光る目や核が弱点、部位は壊せる</span><span>待ってる間、そのキューブをつついてもいい</span></p>
       <p id=lc hidden></p>
       <p id=w hidden>Google Chrome / Edge での起動を推奨します</p>
     </div>
@@ -2786,12 +2786,19 @@ document.addEventListener('visibilitychange', () => { if (AC) document.hidden ? 
 //     around); touching it opens it with a show and grants 1 (70 %), 3 (25 %) or 5 (5 %) upgrades. A chest only
 //     gives evolutions (first, when a recipe is met: a maxed upgrade + a partner, see UPS kind 'e') or another stack
 //     of an upgrade you already own and have not maxed; with nothing left it gives score and a full heal.
-//   - Boss: every BOSSW-th wave キューブリヴァイアサン joins a few minions. It assembles (2.4 s, untouchable), circles you,
+//   - Bosses rotate every BOSSW-th wave: キューブリヴァイアサン, キューブクラーケン, 巨大キューブクラゲ, then again (HP grows
+//     each time). Leviathan: キューブリヴァイアサン joins a few minions. It assembles (2.4 s, untouchable), circles you,
 //     spits a fan of bolts, and every few seconds roars (eyes flare, the screen edge pulses red) and charges. Head
 //     and tail fin are weak points (x2). Each body segment has its own HP; breaking one shortens the body and costs
 //     the boss 4 % of its HP. Below 50 % it enrages (faster, wider fans, summons jellies). It drops a big chest
 //     (3 upgrades, 25 % 5). Chests drop only from Lv 2 on; the first is guaranteed (last enemy of wave 1, or the
 //     first kill after reaching Lv 2).
+//     Kraken: hovers 17 m away; its cube mantle is armoured (35 % damage) while any of its 6 tentacles is left, the
+//     big eye is the weak point (x2). Tentacles wind up (glow red, the screen edge pulses) and slam where you were;
+//     each can be shot off. It sprays fans of ink bolts; enraged it slams more often and calls darts.
+//     Giant jelly: drifts with pulses, its 4 brood sacs bud small jellies (shoot them off to stop it), the core under
+//     the bell is the weak point (x2), the bell takes 60 %. It charges and releases rings of bolts; its tentacles
+//     sting anyone under the bell. Enraged: faster budding, double rings.
 //   - Codex (図鑑, menu): rares, evolutions and the boss you have found, kept in this browser (cubeAbyssDex).
 //   - Difficulty (低 / 中 / 高 / 鬼 / 龍, chosen in the menu, kept): scales enemy count, speed, HP and damage, healing and
 //     score; 中 is the base values above. See DIFFS.
@@ -3024,6 +3031,8 @@ function sfx(kind, p = 0) {
     case 'evo': tone('sawtooth', 110, 880, 0.7, 0.05); [523.3, 659.3, 784, 987.8, 1318.5].forEach((f, i) => tone('triangle', f, f, 0.9, 0.06, 0.55 + i * 0.03)); break;
     case 'zap': tone('square', 2200, 280, 0.09, 0.035); noise(7000, 1500, 0.09, 0.08); break;
     case 'slow': tone('sine', 700, 120, 0.9, 0.09); break;
+    case 'charge': tone('sine', 260, 1300, 1.1, 0.06); noise(400, 3000, 1.1, 0.12); break;
+    case 'bud': tone('triangle', 420, 900, 0.16, 0.06); tone('sine', 700, 1400, 0.12, 0.04, 0.08); break;
     case 'siren': for (let i = 0; i < 3; i++) tone('sawtooth', 380, 760, 0.45, 0.05, i * 0.75); break;
     case 'roar': noise(500, 70, 1.1, 0.4); tone('sawtooth', 75, 42, 1.1, 0.13); tone('square', 110, 55, 0.9, 0.05, 0.05); break;
     case 'dash': noise(2600, 200, 0.7, 0.3); tone('sine', 220, 55, 0.6, 0.12); break;
@@ -3078,13 +3087,13 @@ function hudUpdate() {
   for (const f of foes) if (f.on) dot(f.x, f.y, f.z, f.k === 2 ? 5 : 3.5, f.k === 0 ? '#ff5a3c' : f.k === 1 ? '#ffd21a' : f.k === 2 ? '#b862ff' : '#30ff95');
   for (const b of bolts) if (b.on) dot(b.x, b.y, b.z, 2, '#ff9a30');
   for (const c of chests) if (c.on) dot(c.x, c.y, c.z, 5, '#ffd84a');
-  if (boss.on) { for (let i = 1; i <= boss.n; i += 2) dot(BPX[i], BPY[i], BPZ[i], 2.5, '#7c8cff'); dot(boss.x, boss.y, boss.z, 6.5, '#ff3c8c'); }
+  if (boss.on) { for (let i = 1; i < boss.nb; i += 2) if (BPS[i] > 0) dot(BPX[i], BPY[i], BPZ[i], 2.5, '#7c8cff'); dot(boss.x, boss.y, boss.z, 6.5, '#ff3c8c'); }
   const bh = boss.on ? Math.ceil(max(0, boss.hp) / boss.mh * 300) : -1;
   if (bh !== shownBoss) {
     shownBoss = bh; hud2.root.classList.toggle('boss', bh >= 0);
-    if (bh >= 0) { hud2.bb.style.transform = `scaleX(${bh / 300})`; hud2.bb.className = boss.ph2 ? 'ph2' : ''; hud2.bn.textContent = boss.ph2 ? 'キューブリヴァイアサン ― 激昂' : 'キューブリヴァイアサン'; }
+    if (bh >= 0) { hud2.bb.style.transform = `scaleX(${bh / 300})`; hud2.bb.className = boss.ph2 ? 'ph2' : ''; hud2.bn.textContent = BOSSN[boss.kind] + (boss.ph2 ? ' ― 激昂' : ''); }
   }
-  const chg = boss.on && boss.st === 2; if (chg !== shownCharge) { shownCharge = chg; hud2.root.classList.toggle('charge', chg); }
+  const chg = !!(boss.on && (boss.st === 2 || boss.warn)); if (chg !== shownCharge) { shownCharge = chg; hud2.root.classList.toggle('charge', chg); }
   if ((slowT > 0) !== shownSlow) { shownSlow = slowT > 0; hud2.root.classList.toggle('slow', shownSlow); }
   c.globalAlpha = 1; c.fillStyle = '#e8fbff'; c.beginPath(); c.moveTo(80, 73); c.lineTo(85, 85); c.lineTo(75, 85); c.fill();
 }
@@ -3318,7 +3327,8 @@ function ray(sx, sy, sz, ox, oy, oz, dx, dy, dz, pd, range, bounce, cr, cg, cb) 
   HITS.length = 0;
   for (const f of foes) if (f.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, f.x, f.y, f.z, FT[f.k].s * 1.15, f.q0, f.q1, f.q2, f.q3, bt); if (t >= 0) HITS.push(t, f); }
   for (const b of bolts) if (b.on) { const t = rayBox(ox, oy, oz, dx, dy, dz, b.x, b.y, b.z, 0.5, 0, 0, 0, 1, bt); if (t >= 0) HITS.push(t, b); }
-  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i <= boss.n + 1; i++) {
+  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i < boss.nb; i++) {
+    if (BPS[i] <= 0) continue;
     const t = rayBox(ox, oy, oz, dx, dy, dz, BPX[i], BPY[i], BPZ[i], BPS[i], BPQ[i * 4], BPQ[i * 4 + 1], BPQ[i * 4 + 2], BPQ[i * 4 + 3], bt);
     if (t >= 0) HITS.push(t, BPROX[i]);
   }
@@ -3326,7 +3336,7 @@ function ray(sx, sy, sz, ox, oy, oz, dx, dy, dz, pd, range, bounce, cr, cg, cb) 
   let left = 1 + PIERCE + EVSHOT, end = bt;
   for (const i of order) {
     const t = HITS[i], o = HITS[i + 1]; if (!o.on) continue;
-    if (o.bp) { if (!boss.on || boss.st === 4 || o.i > boss.n + 1) continue; bossHit(o.i, pd); }
+    if (o.bp) { if (!boss.on || boss.st === 4 || o.i >= boss.nb || BPS[o.i] <= 0) continue; bossHit(o.i, pd); }
     else if ('k' in o) {
       o.hp -= pd; o.fl = 1; if (o.hs !== shotId) { o.hs = shotId; hit(); } if (!firstHit) firstHit = o;
       if (o.hp <= 0) kill(o, true); else if (!hitSnd++) sfx('hit');
@@ -3391,8 +3401,8 @@ function shoot() {
 function onTarget() {
   camDir(); const dx = V3[0], dy = V3[1], dz = V3[2];
   for (const f of foes) if (f.on && rayBox(F[CX], F[CY], F[CZ], dx, dy, dz, f.x, f.y, f.z, FT[f.k].s * 1.3, f.q0, f.q1, f.q2, f.q3, 70) >= 0) return true;
-  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i <= boss.n + 1; i++)
-    if (rayBox(F[CX], F[CY], F[CZ], dx, dy, dz, BPX[i], BPY[i], BPZ[i], BPS[i] * 1.2, BPQ[i * 4], BPQ[i * 4 + 1], BPQ[i * 4 + 2], BPQ[i * 4 + 3], 70) >= 0) return true;
+  if (boss.on && boss.st > 0 && boss.st < 4) for (let i = 0; i < boss.nb; i++)
+    if (BPS[i] > 0 && rayBox(F[CX], F[CY], F[CZ], dx, dy, dz, BPX[i], BPY[i], BPZ[i], BPS[i] * 1.2, BPQ[i * 4], BPQ[i * 4 + 1], BPQ[i * 4 + 2], BPQ[i * 4 + 3], 70) >= 0) return true;
   return false;
 }
 
@@ -3495,13 +3505,18 @@ function gameStep(dt) {
 // A head and BSEG body segments that follow it on a trail (fixed spacing BSP), then a tail fin. States (st):
 // 0 assembling, 1 circling (spits fans of bolts), 2 roaring before a charge, 3 charging, 4 dying (blows up tail first)
 const BOSSW = 5, BSEG = 22, BSP = 2.3, BHS = 2.2;
-const boss = { on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, yw: 0, pt: 0, hp: 1, mh: 1, n: 0, born: 0, st: 0, stT: 0, th: 0, side: 1,
+const KS = 2.6, KT = 6, KJ = 7, KDUR = [0, 0.9, 0.42, 0.75]; // kraken: mantle half size, tentacles, segments, windup / strike / recover
+const JS = 3.4, JSAC = 4, JTN = 8, JTJ = 10; // giant jelly: bell half size, brood sacs, tentacles, segments
+const NBOX = 2 + KT * KJ; // most hit boxes any boss has
+const BOSSN = ['キューブリヴァイアサン', 'キューブクラーケン', '巨大キューブクラゲ'], BOSSK = ['boss', 'boss1', 'boss2'];
+const boss = { kind: 0, nb: 0, warn: 0, ks: new Int8Array(KT), kT: new Float32Array(KT), kx: new Float32Array(KT), ky: new Float32Array(KT),
+  kz: new Float32Array(KT), khit: new Int8Array(KT), thp: new Float32Array(8), tfl: new Float32Array(8), on: 0, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, yw: 0, pt: 0, hp: 1, mh: 1, n: 0, born: 0, st: 0, stT: 0, th: 0, side: 1,
   ph2: 0, cd: 0, spT: 0, sumT: 0, hitT: 0, fl: 0, dT: 0, hs: 0, an: 0, jaw: 0, gx: 0, gy: 0, gz: 0, critT: 0,
   tr: new Float32Array((BSEG + 2) * 3), shp: new Float32Array(BSEG), sfl: new Float32Array(BSEG) };
 let bossT = 0; // > 0: seconds until the boss of this wave appears
 // hit boxes, 0 head, 1..n segments, n + 1 tail fin (cube half size BPS, rotation BPQ), refreshed by bossPose()
-const BPX = new Float64Array(BSEG + 2), BPY = new Float64Array(BSEG + 2), BPZ = new Float64Array(BSEG + 2), BPS = new Float64Array(BSEG + 2), BPQ = new Float64Array((BSEG + 2) * 4);
-const BPROX = pool(BSEG + 2, (_, i) => ({ on: 1, bp: 1, i })); // stand-ins for the boss boxes in ray()
+const BPX = new Float64Array(NBOX), BPY = new Float64Array(NBOX), BPZ = new Float64Array(NBOX), BPS = new Float64Array(NBOX), BPQ = new Float64Array(NBOX * 4), BPL = new Float64Array(NBOX);
+const BPROX = pool(NBOX, (_, i) => ({ on: 1, bp: 1, i })); // stand-ins for the boss boxes in ray()
 const CAPO = { x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0 }; // capture origin when the boss breaks apart
 const segS = (i) => BHS * 0.78 * (1 - 0.5 * (i - 1) / BSEG); // half size of segment i (1-based)
 
@@ -3515,18 +3530,28 @@ function bossSpawn() {
     const c = cellOf(px, py, pz); if (c < 0 || !OPEN[c] || DA[c] === FAR) continue;
     x = px; y = py; z = pz; break;
   }
+  B.kind = ((wave / BOSSW | 0) - 1) % 3; B.warn = 0;
   B.on = 1; B.x = x; B.y = y; B.z = z; B.vx = B.vy = B.vz = 0; B.st = 0; B.born = 0; B.n = BSEG; B.ph2 = 0; B.fl = 0; B.an = 0; B.jaw = 0;
-  B.mh = B.hp = Math.round(3600 * DF.hp * (1 + 0.6 * (wave / BOSSW - 1)));
-  for (let i = 0; i < BSEG; i++) { B.shp[i] = Math.round(B.mh * 0.055); B.sfl[i] = 0; }
+  B.mh = B.hp = Math.round([3600, 3400, 3000][B.kind] * DF.hp * (1 + 0.6 * (wave / BOSSW - 1)));
   B.yw = atan2(F[CX] - x, -(F[CZ] - z)); B.pt = 0; B.th = atan2(z - F[CZ], x - F[CX]); B.side = Math.random() < 0.5 ? -1 : 1;
-  B.cd = 7; B.spT = 3.5; B.sumT = 6; B.hitT = 0;
-  const bx = -sin(B.yw), bz = cos(B.yw); // behind the head
-  for (let j = 0; j < BSEG + 2; j++) { B.tr[j * 3] = x + bx * (BHS + j * BSP); B.tr[j * 3 + 1] = y; B.tr[j * 3 + 2] = z + bz * (BHS + j * BSP); }
+  B.hitT = 0; B.critT = 0; B.los = 1; B.losT = 0;
+  if (B.kind === 0) {
+    B.cd = 7; B.spT = 3.5; B.sumT = 6;
+    for (let i = 0; i < BSEG; i++) { B.shp[i] = Math.round(B.mh * 0.055); B.sfl[i] = 0; }
+    const bx = -sin(B.yw), bz = cos(B.yw); // behind the head
+    for (let j = 0; j < BSEG + 2; j++) { B.tr[j * 3] = x + bx * (BHS + j * BSP); B.tr[j * 3 + 1] = y; B.tr[j * 3 + 2] = z + bz * (BHS + j * BSP); }
+  } else if (B.kind === 1) {
+    B.cd = 4; B.spT = 3; B.sumT = 9;
+    for (let t = 0; t < KT; t++) { B.thp[t] = Math.round(B.mh * 0.06); B.tfl[t] = 0; B.ks[t] = 0; B.kT[t] = 0; }
+  } else {
+    B.cd = 6; B.sumT = 3;
+    for (let k = 0; k < JSAC; k++) { B.thp[k] = Math.round(B.mh * 0.07); B.tfl[k] = 0; }
+  }
   bossPose(); sfx('roar');
 }
 // head heading → trail → hit boxes
-function bossPose() {
-  const B = boss, T = B.tr;
+function levPose() {
+  const B = boss, T = B.tr; B.nb = B.n + 2;
   qlook(B.yw, B.pt, 0.15 * sin(B.an * 1.3));
   BPX[0] = B.x; BPY[0] = B.y; BPZ[0] = B.z; BPS[0] = BHS; BPQ[0] = QB[0]; BPQ[1] = QB[1]; BPQ[2] = QB[2]; BPQ[3] = QB[3];
   GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3]; brot(0, 0, BHS * 1.05);
@@ -3543,16 +3568,14 @@ function bossPose() {
     BPQ[i * 4] = QB[0]; BPQ[i * 4 + 1] = QB[1]; BPQ[i * 4 + 2] = QB[2]; BPQ[i * 4 + 3] = QB[3];
   }
 }
-function bossStep(dt, cx, cy, cz) {
-  const B = boss; B.an += dt; B.fl = max(0, B.fl - dt * 8);
+function levStep(dt, cx, cy, cz) {
+  const B = boss;
   for (let i = 0; i < B.n; i++) B.sfl[i] = max(0, B.sfl[i] - dt * 8);
   if (B.st === 4) { // dying: segments burst from the tail to the head, then the head
     if ((B.dT -= dt) <= 0) { if (B.n > 0) { B.dT = 0.075; bossBreak(B.n - 1, false); } else bossDie(); }
     return;
   }
-  if (B.st === 0 && (B.born = min(1, B.born + dt / 2.4)) >= 1) { B.st = 1; banner('キューブリヴァイアサン'); }
   let dx = cx - B.x, dy = cy - B.y, dz = cz - B.z; const d = hypot(dx, dy, dz) || 1; dx /= d; dy /= d; dz /= d;
-  if (!B.ph2 && B.hp < B.mh * 0.5) { B.ph2 = 1; banner('激昂！'); sfx('roar'); }
   const rage = B.ph2 ? 1.22 : 1, base = 9.5 * rage * (0.8 + 0.2 * DF.sp);
   let gx, gy, gz, spd = base, turn = 1.4;
   if (B.st === 3) { gx = B.gx; gy = B.gy; gz = B.gz; spd = 30 * rage; turn = 5; }
@@ -3562,6 +3585,8 @@ function bossStep(dt, cx, cy, cz) {
     gx = cx + cos(B.th) * R - B.x; gy = clamp(cy + 5 * sin(B.an * 0.45), -44, -7) - B.y; gz = cz + sin(B.th) * R - B.z;
     const l = hypot(gx, gy, gz) || 1; gx /= l; gy /= l; gz /= l;
     if (B.st === 0) spd = 2;
+    bossLos(dt, cx, cy, cz); // rock between you: come round it along the flow field
+    if (B.st === 1 && !B.los && flowDir(B.x, B.y, B.z)) { gx = V3[0]; gy = V3[1]; gz = V3[2]; B.th = atan2(B.z - cz, B.x - cx); }
   }
   // rock ahead: follow the flow field round it (or rise); a charge that would hit rock ends
   const vl = hypot(B.vx, B.vy, B.vz) || 1, fx = B.vx / vl, fy = B.vy / vl, fz = B.vz / vl;
@@ -3582,7 +3607,7 @@ function bossStep(dt, cx, cy, cz) {
     B.yw += atan2(sin(atan2(hx, -hz) - B.yw), cos(atan2(hx, -hz) - B.yw)) * kt; B.pt += (atan2(hy, hypot(hx, hz)) - B.pt) * kt;
   }
   B.jaw += ((B.st === 2 ? 0.75 : B.st === 3 ? 0.5 : B.spT < 0.6 ? 0.45 : 0.08) - B.jaw) * min(1, dt * 8);
-  bossPose();
+  levPose();
   if (B.st === 0) return;
   // attacks
   const near = d < 70;
@@ -3624,14 +3649,11 @@ function bossStep(dt, cx, cy, cz) {
     }
   }
 }
-// a hit on boss box i (0 head, n + 1 tail: weak points x2)
-function bossHit(i, pd) {
-  const B = boss; if (B.st === 0 || B.st === 4) return;
-  const weak = i === 0 || i === B.n + 1;
-  B.hp -= weak ? pd * 2 : pd; if (B.hs !== shotId) { B.hs = shotId; hit(); }
-  if (weak) { B.fl = 1; if (!hitSnd++) sfx('crit'); if (gtime > B.critT) { B.critT = gtime + 0.6; popup('WEAK ×2'); } }
-  else { const s = i - 1; B.sfl[s] = 1; B.shp[s] -= pd; if (B.shp[s] <= 0) bossBreak(s, true); else if (!hitSnd++) sfx('hit'); }
-  if (B.hp <= 0 && B.st !== 4) { B.st = 4; B.dT = 0.4; B.hp = 0; banner('BOSS DOWN!'); sfx('bossdie'); for (const b of bolts) b.on = 0; }
+// leviathan box i: 0 head and n + 1 tail are weak points (x2), the rest are segments with their own HP
+function levHit(i, pd) {
+  const B = boss;
+  if (i === 0 || i === B.n + 1) { weakHit(pd); return; }
+  B.hp -= pd; const s = i - 1; B.sfl[s] = 1; B.shp[s] -= pd; if (B.shp[s] <= 0) bossBreak(s, true); else if (!hitSnd++) sfx('hit');
 }
 // segment s (0-based) breaks: its boxes fly off, the body closes up behind it
 function bossBreak(s, scored) {
@@ -3644,16 +3666,19 @@ function bossBreak(s, scored) {
   B.n--;
   if (scored) {
     B.hp -= B.mh * 0.04; const pts = Math.round(300 * mult * DF.sc); score += pts; popup(`+${pts}`, true); gainXp(12);
-    if (B.hp <= 0 && B.st !== 4) { B.st = 4; B.dT = 0.4; B.hp = 0; banner('BOSS DOWN!'); sfx('bossdie'); for (const b of bolts) b.on = 0; }
+    bossDown();
   }
 }
 function bossDie() {
   const B = boss;
   CAPO.x = B.x; CAPO.y = B.y; CAPO.z = B.z; CAPO.vx = CAPO.vy = CAPO.vz = 0;
-  cap = CAPO; capV = 12; drawBossHead(); drawSeg(B.n + 1); cap = null;
-  burst(B.x, B.y, B.z, 30, BHS * 2, 16, 1, 0.4, 0.7); burst(B.x, B.y, B.z, 20, BHS, 10, 0.3, 0.95, 1); sfx('kill');
+  cap = CAPO; capV = 12; pIdx = 0; basm = 0;
+  if (B.kind === 0) { drawBossHead(); drawSeg(B.n + 1); } else if (B.kind === 1) krakDraw(-1); else jellyDraw(-1);
+  cap = null;
+  const C = [[1, 0.4, 0.7, 0.3, 0.95, 1], [1, 0.55, 0.2, 0.55, 0.12, 0.2], [1, 0.45, 0.9, 0.75, 1, 0.35]][B.kind];
+  burst(B.x, B.y, B.z, 30, BHS * 2, 16, C[0], C[1], C[2]); burst(B.x, B.y, B.z, 20, BHS, 10, C[3], C[4], C[5]); sfx('kill');
   const pts = Math.round(4000 * (wave / BOSSW) * DF.sc * mult); score += pts; popup(`+${pts}`, true); gainXp(200);
-  dropChest(B.x, B.y, B.z, true); dexAdd('boss'); bossKills++;
+  dropChest(B.x, B.y, B.z, true); dexAdd(BOSSK[B.kind]); bossKills++;
   B.on = 0;
 }
 
@@ -3704,17 +3729,334 @@ function drawSeg(i) {
 }
 function drawBoss() {
   const B = boss; pIdx = 0; basm = B.st === 0 ? (1 - B.born) * (1 - B.born) : 0;
-  drawBossHead();
-  for (let i = 1; i <= B.n + 1; i++) drawSeg(i);
+  if (B.kind === 0) { drawBossHead(); for (let i = 1; i <= B.n + 1; i++) drawSeg(i); }
+  else if (B.kind === 1) krakDraw(-2); else jellyDraw(-2);
   basm = 0;
+}
+
+// ---------------------------------------------------------------- bosses: shared parts
+function bossPose() { if (boss.kind === 0) levPose(); else if (boss.kind === 1) krakPose(); else jellyPose(); }
+function bossStep(dt, cx, cy, cz) {
+  const B = boss; B.an += dt; B.fl = max(0, B.fl - dt * 8);
+  if (B.st === 0 && (B.born = min(1, B.born + dt / 2.4)) >= 1) { B.st = 1; banner(BOSSN[B.kind]); }
+  if (B.st !== 4 && !B.ph2 && B.hp < B.mh * 0.5) { B.ph2 = 1; banner('激昂！'); sfx('roar'); }
+  if (B.kind === 0) levStep(dt, cx, cy, cz); else if (B.kind === 1) krakStep(dt, cx, cy, cz); else jellyStep(dt, cx, cy, cz);
+}
+function bossHit(i, pd) {
+  const B = boss; if (B.st === 0 || B.st === 4) return;
+  if (B.hs !== shotId) { B.hs = shotId; hit(); }
+  if (B.kind === 0) levHit(i, pd); else if (B.kind === 1) krakHit(i, pd); else jellyHit(i, pd);
+  bossDown();
+}
+function weakHit(pd) {
+  const B = boss; B.hp -= pd * 2; B.fl = 1;
+  if (!hitSnd++) sfx('crit'); if (gtime > B.critT) { B.critT = gtime + 0.6; popup('WEAK ×2'); }
+}
+function bossDown() {
+  const B = boss;
+  if (B.hp <= 0 && B.st !== 4) { B.st = 4; B.dT = 0.4; B.hp = 0; B.warn = 0; banner('BOSS DOWN!'); sfx('bossdie'); for (const b of bolts) b.on = 0; }
+}
+// hit box i at (x, y, z), half size s, rotation = the last qlook (QB)
+function setBox(i, x, y, z, s) {
+  BPX[i] = x; BPY[i] = y; BPZ[i] = z; BPS[i] = s;
+  BPQ[i * 4] = QB[0]; BPQ[i * 4 + 1] = QB[1]; BPQ[i * 4 + 2] = QB[2]; BPQ[i * 4 + 3] = QB[3];
+}
+function useBox(i) { // anchor bpart() on hit box i
+  GP0[0] = BPX[i]; GP0[1] = BPY[i]; GP0[2] = BPZ[i];
+  GBQ[0] = BPQ[i * 4]; GBQ[1] = BPQ[i * 4 + 1]; GBQ[2] = BPQ[i * 4 + 2]; GBQ[3] = BPQ[i * 4 + 3];
+}
+function bossFace(dt, cx, cy, cz, k) {
+  const B = boss, dx = cx - B.x, dy = cy - B.y, dz = cz - B.z, kt = min(1, dt * k), ty = atan2(dx, -dz);
+  B.yw += atan2(sin(ty - B.yw), cos(ty - B.yw)) * kt; B.pt += (atan2(dy, hypot(dx, dz)) - B.pt) * kt;
+}
+function bossLos(dt, cx, cy, cz) { // B.los: can it see you (refreshed 3 times a second)
+  const B = boss;
+  if ((B.losT -= dt) <= 0) { B.losT = 0.3; const x = cx - B.x, y = cy - B.y, z = cz - B.z, d = hypot(x, y, z) || 1; B.los = rayRock(B.x, B.y, B.z, x / d, y / d, z / d, d) < 0 ? 1 : 0; }
+}
+// circle you at radius R (speed spd), hy above you. When rock hides you it follows the flow field round it (like the
+// minions); rock right ahead on its way is avoided the same way.
+function bossDrift(dt, cx, cy, cz, R, spd, hy) {
+  const B = boss;
+  bossLos(dt, cx, cy, cz);
+  B.th += dt * spd * 0.6 / R * B.side;
+  let gx = cx + cos(B.th) * R - B.x, gy = clamp(cy + hy, -44, -8) - B.y, gz = cz + sin(B.th) * R - B.z;
+  const l = hypot(gx, gy, gz) || 1; let v = min(spd * 2, l * 0.9 + 0.5); gx /= l; gy /= l; gz /= l;
+  if (!B.los && flowDir(B.x, B.y, B.z)) { gx = V3[0]; gy = V3[1]; gz = V3[2]; v = spd * 2; B.th = atan2(B.z - cz, B.x - cx); }
+  else if (rockAt(B.x + gx * 5, B.y + gy * 5, B.z + gz * 5) > -0.99) { if (flowDir(B.x, B.y, B.z)) { gx = V3[0]; gy = V3[1] + 0.3; gz = V3[2]; } else { gx *= 0.3; gy = 1; gz *= 0.3; } }
+  const k = 1 - exp(-dt * 1.5);
+  B.vx += (gx * v - B.vx) * k; B.vy += (gy * v - B.vy) * k; B.vz += (gz * v - B.vz) * k;
+  B.x += B.vx * dt; B.y += B.vy * dt; B.z += B.vz * dt;
+  const r0 = rockAt(B.x, B.y, B.z); if (r0 > -1 && rockGrad(B.x, B.y, B.z)) { B.x -= V3[0] * (r0 + 1); B.y -= V3[1] * (r0 + 1); B.z -= V3[2] * (r0 + 1); }
+  const rr = hypot(B.x, B.z); if (rr > 140) { B.x *= 140 / rr; B.z *= 140 / rr; }
+  B.y = clamp(B.y, -46, -6);
+}
+function bossBolt(x, y, z, dx, dy, dz, sp) {
+  const b = bolts.find((o) => !o.on); if (!b) return;
+  b.on = 1; b.x = x; b.y = y; b.z = z; b.vx = dx * sp; b.vy = dy * sp; b.vz = dz * sp; b.life = 6; b.an = Math.random() * 6;
+}
+function bossCall(k, n, x, y, z) { // summons n minions of type k near (x, y, z)
+  let alive = 0; for (const f of foes) alive += f.on;
+  for (let j = 0; j < n && alive < ALIVE; j++) {
+    const f = foes.find((o) => !o.on); if (!f) break;
+    const px = x + R_(-2, 2), py = y + R_(-1, 1), pz = z + R_(-2, 2); if (rockAt(px, py, pz) > -0.99) continue;
+    initFoe(f, k, px, py, pz); alive++;
+  }
+}
+function bossKnock(px, py, pz, dmg, push) { // hurt and push you away from (px, py, pz)
+  const B = boss; hurt(dmg); B.hitT = 0.9;
+  let x = F[CX] - px, y = F[CY] - py, z = F[CZ] - pz; const l = hypot(x, y, z) || 1;
+  F[VX] += x / l * push; F[VY] += y / l * push; F[VZ] += z / l * push;
+}
+function bossReward(pts, xp, txt) {
+  const p = Math.round(pts * mult * DF.sc); score += p; popup(`+${p}`, true); gainXp(xp); if (txt) banner(txt);
+}
+
+// ---------------------------------------------------------------- boss 2: キューブクラーケン
+// boxes: 0 mantle, 1 eye, 2 + t * KJ + j tentacle t segment j. Tentacle states (ks): 0 idle (hangs and sways),
+// 1 windup (rises, glows), 2 strike (whips to where you were when it started), 3 recover. A tentacle is a quadratic
+// Bezier from its base under the mantle to its end point; the boxes sit between the curve points.
+const KB = new Float64Array((KJ + 1) * 3);
+function krakPose() {
+  const B = boss; B.nb = 2 + KT * KJ;
+  qlook(B.yw, B.pt * 0.4, 0.08 * sin(B.an * 0.9)); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3];
+  setBox(0, B.x, B.y, B.z, KS);
+  brot(0, 0.25 * KS, -1.02 * KS); setBox(1, B.x + V3[0], B.y + V3[1], B.z + V3[2], 0.8);
+  const q0 = QB[0], q1 = QB[1], q2 = QB[2], q3 = QB[3];
+  for (let t = 0; t < KT; t++) {
+    GBQ[0] = q0; GBQ[1] = q1; GBQ[2] = q2; GBQ[3] = q3;
+    const a = t * TAU / KT + PI / KT;
+    brot(cos(a) * KS * 0.75, -KS, sin(a) * KS * 0.75); const bx = B.x + V3[0], by = B.y + V3[1], bz = B.z + V3[2];
+    brot(cos(a), 0, sin(a)); const ox = V3[0], oz = V3[2];
+    const sw = B.an * 1.3 + t * 1.7, st = B.ks[t], p = st ? clamp(1 - B.kT[t] / KDUR[st], 0, 1) : 0, e = p * p * (3 - 2 * p);
+    const ix = bx + ox * 6 + 1.6 * sin(sw), iy = by - 6.5 + 1.2 * cos(sw * 0.8), iz = bz + oz * 6 + 1.6 * cos(sw * 1.1); // idle end
+    const rx = bx + ox * 3, ry = by + 7, rz = bz + oz * 3; // raised for the windup
+    let ex = ix, ey = iy, ez = iz;
+    if (st === 1) { ex = ix + (rx - ix) * e; ey = iy + (ry - iy) * e; ez = iz + (rz - iz) * e; }
+    else if (st === 2) { const f = sqrt(p); ex = rx + (B.kx[t] - rx) * f; ey = ry + (B.ky[t] - ry) * f; ez = rz + (B.kz[t] - rz) * f; }
+    else if (st === 3) { ex = B.kx[t] + (ix - B.kx[t]) * e; ey = B.ky[t] + (iy - B.ky[t]) * e; ez = B.kz[t] + (iz - B.kz[t]) * e; }
+    const qx = bx + ox * 3 + (ex - bx) * 0.3, qy = by - 1 + (ey - by) * 0.3, qz = bz + oz * 3 + (ez - bz) * 0.3;
+    KB[0] = bx; KB[1] = by; KB[2] = bz;
+    for (let j = 1; j <= KJ; j++) {
+      const u = j / KJ, a0 = (1 - u) * (1 - u), a1 = 2 * (1 - u) * u, a2 = u * u, w = 0.5 * u * sin(B.an * 2.2 - j * 0.9 + t) * (st ? 0.3 : 1);
+      KB[j * 3] = a0 * bx + a1 * qx + a2 * ex + w; KB[j * 3 + 1] = a0 * by + a1 * qy + a2 * ey; KB[j * 3 + 2] = a0 * bz + a1 * qz + a2 * ez + w * 0.7;
+    }
+    const alive = B.thp[t] > 0;
+    for (let j = 1; j <= KJ; j++) {
+      const o = j * 3, px = KB[o - 3], py = KB[o - 2], pz = KB[o - 1], x = KB[o], y = KB[o + 1], z = KB[o + 2];
+      const dx = x - px, dy = y - py, dz = z - pz, l = hypot(dx, dy, dz) || 1, i = 1 + t * KJ + j;
+      qlook(atan2(dx / l, -dz / l), atan2(dy / l, hypot(dx, dz) / l), 0);
+      setBox(i, (px + x) / 2, (py + y) / 2, (pz + z) / 2, alive ? 0.62 * (1 - 0.55 * (j - 1) / KJ) : 0); BPL[i] = l / 2;
+    }
+  }
+}
+function krakStep(dt, cx, cy, cz) {
+  const B = boss;
+  for (let t = 0; t < KT; t++) B.tfl[t] = max(0, B.tfl[t] - dt * 8);
+  if (B.st === 4) { // dying: tentacles come off one by one, then the mantle bursts
+    if ((B.dT -= dt) <= 0) { let t = -1; for (let k = 0; k < KT; k++) if (B.thp[k] > 0) { t = k; break; } if (t < 0) { bossDie(); return; } B.dT = 0.22; krakBreak(t, false); }
+    krakPose(); return;
+  }
+  const rage = B.ph2 ? 1.3 : 1;
+  bossDrift(dt, cx, cy, cz, 17 + 2 * sin(B.an * 0.4), B.st === 0 ? 0.8 : 3.2 * rage, 3 + 2 * sin(B.an * 0.6));
+  bossFace(dt, cx, cy, cz, 2);
+  // tentacle states; the windup keeps aiming at you, the strike then goes there (up to 20 m from the mantle)
+  B.warn = 0;
+  for (let t = 0; t < KT; t++) if (B.ks[t]) {
+    if (B.ks[t] === 1) {
+      let x = cx - B.x, y = cy - B.y, z = cz - B.z; const l = hypot(x, y, z) || 1, m = min(1, 20 / l);
+      B.kx[t] = B.x + x * m; B.ky[t] = B.y + y * m; B.kz[t] = B.z + z * m; B.warn = 1;
+    }
+    if ((B.kT[t] -= dt) <= 0) { const s = B.ks[t]; B.ks[t] = s === 3 ? 0 : s + 1; B.kT[t] = KDUR[B.ks[t]]; if (s === 1) sfx('dash'); }
+  }
+  krakPose();
+  if (B.st === 0) return;
+  let dx = cx - B.x, dy = cy - B.y, dz = cz - B.z; const d = hypot(dx, dy, dz) || 1; dx /= d; dy /= d; dz /= d;
+  // slam: the free tentacle whose tip is nearest to you
+  if ((B.cd -= dt) <= 0) {
+    B.cd = (B.ph2 ? 2.1 : 3.3) * (0.7 + 0.3 * DF.cd);
+    let bt = -1, bd = 1e9;
+    for (let t = 0; t < KT; t++) if (B.thp[t] > 0 && !B.ks[t]) { const i = 1 + t * KJ + KJ, e = hypot(cx - BPX[i], cy - BPY[i], cz - BPZ[i]); if (e < bd) { bd = e; bt = t; } }
+    if (bt >= 0 && d < 28) { B.ks[bt] = 1; B.kT[bt] = KDUR[1]; B.khit[bt] = 0; sfx('charge'); }
+  }
+  // ink: a fan of bolts from the eye
+  if ((B.spT -= dt) <= 0) {
+    B.spT = (B.ph2 ? 3.6 : 5.2) * DF.cd;
+    if (d < 70 && rayRock(BPX[1], BPY[1], BPZ[1], dx, dy, dz, d) < 0) {
+      const m = B.ph2 ? 9 : 7;
+      for (let j = 0; j < m; j++) { const a = (j - (m - 1) / 2) * 0.16, ca = cos(a), sa = sin(a); bossBolt(BPX[1] + dx * 1.5, BPY[1] + dy * 1.5, BPZ[1] + dz * 1.5, dx * ca - dz * sa, dy + R_(-0.06, 0.06), dx * sa + dz * ca, BOLTSP); }
+      sfx('spit');
+    }
+  }
+  if (B.ph2 && (B.sumT -= dt) <= 0) { B.sumT = 9; bossCall(1, 2, B.x, B.y + KS, B.z); }
+  // a striking tentacle hurts once; touching the mantle hurts too
+  for (let t = 0; t < KT; t++) if (B.ks[t] === 2 && !B.khit[t] && B.kT[t] < KDUR[2] * 0.65)
+    for (let j = 0; j < KJ; j++) { const i = 2 + t * KJ + j; if (hypot(cx - BPX[i], cy - BPY[i], cz - BPZ[i]) < BPS[i] + 1.2) { B.khit[t] = 1; bossKnock(BPX[i], BPY[i], BPZ[i], 20, 15); break; } }
+  if ((B.hitT -= dt) <= 0 && d < KS * 1.4 + 1) bossKnock(B.x, B.y, B.z, 16, 16);
+}
+function krakHit(i, pd) {
+  const B = boss;
+  if (i === 1) { weakHit(pd); return; }
+  if (i === 0) { // the mantle is armoured while any tentacle is left
+    let n = 0; for (let t = 0; t < KT; t++) n += B.thp[t] > 0;
+    B.hp -= n ? pd * 0.35 : pd; B.fl = 1;
+    if (n && gtime > B.critT) { B.critT = gtime + 1.2; popup('ARMOR'); }
+    if (!hitSnd++) sfx('hit'); return;
+  }
+  const t = (i - 2) / KJ | 0; if (B.thp[t] <= 0) return;
+  B.hp -= pd; B.tfl[t] = 1; B.thp[t] -= pd;
+  if (B.thp[t] <= 0) krakBreak(t, true); else if (!hitSnd++) sfx('hit');
+}
+function krakBreak(t, scored) {
+  const B = boss, i = 2 + t * KJ + (KJ >> 1);
+  CAPO.x = BPX[i]; CAPO.y = BPY[i]; CAPO.z = BPZ[i]; CAPO.vx = B.vx * 0.3; CAPO.vy = B.vy * 0.3; CAPO.vz = B.vz * 0.3;
+  cap = CAPO; capV = 8; pIdx = 0; krakDraw(t); cap = null;
+  B.thp[t] = 0; B.ks[t] = 0; for (let j = 0; j < KJ; j++) BPS[2 + t * KJ + j] = 0;
+  burst(BPX[i], BPY[i], BPZ[i], 10, 1, 9, 1, 0.55, 0.2); sfx('segbreak');
+  if (scored) { B.hp -= B.mh * 0.04; bossReward(400, 15, '触手破壊！'); }
+}
+// only: -2 everything alive, -1 the body, t >= 0 tentacle t alone (used when it breaks off)
+function krakDraw(only) {
+  const B = boss, G = B.ph2 ? [1, 0.25, 0.12] : [1, 0.6, 0.22], fl = B.fl, a = B.an;
+  if (only < 0) {
+    useBox(0);
+    bpart(0, 0, 0, KS, KS * 1.05, KS, 0, 0, 0, 1, fl, 0.42, 0.1, 0.16, 1.1); // mantle
+    bpart(0, KS * 1.4, KS * 0.2, KS * 0.72, KS * 0.5, KS * 0.72, sin(0.1), 0, 0, cos(0.1), fl, 0.48, 0.12, 0.2, 1.2); // dome
+    bpart(0, KS * 2.05, KS * 0.45, KS * 0.36, KS * 0.32, KS * 0.36, sin(0.2), 0, 0, cos(0.2), fl, 0.52, 0.14, 0.22, 1.3);
+    for (const sd of [-1, 1]) {
+      const w = (0.35 * sin(a * 2.4) + 0.2) * sd; // fins
+      bpart(sd * KS * 1.2, KS * 1.6, KS * 0.4, KS * 0.55, 0.12 * KS, KS * 0.45, 0, 0, sin(w / 2), cos(w / 2), fl, G[0] * 0.7, G[1] * 0.5, G[2] * 0.6, 2.4);
+      for (let k = 0; k < 3; k++) bpart(sd * KS * 1.01, KS * (0.5 - k * 0.45), KS * (-0.4 + k * 0.4), 0.04, 0.16, 0.16, 0, 0, 0, 1, fl, G[0], G[1], G[2], 4 + 2 * sin(a * 3 + k)); // photophores
+    }
+    const ey = B.warn ? 10 : 5 + sin(a * 4); // the eye (weak point), slit pupil, brow
+    bpart(0, 0.25 * KS, -1.02 * KS, 0.8, 0.62, 0.1, 0, 0, 0, 1, fl, 1, 0.85, 0.45, ey);
+    bpart(0, 0.25 * KS, -1.07 * KS, 0.14, 0.5, 0.05, 0, 0, 0, 1, 0, 0.05, 0.02, 0.04, 0.2);
+    bpart(0, 0.25 * KS + 0.75, -1.03 * KS, 0.95, 0.08, 0.08, 0, 0, 0, 1, fl, G[0], G[1], G[2], 4);
+    bpart(0, -KS * 1.05, -KS * 0.15, 0.45, 0.4, 0.45, 0, S8, 0, C8, fl, 0.15, 0.08, 0.06, 1); // beak
+  }
+  if (only === -1) return;
+  for (let t = 0; t < KT; t++) {
+    if (only >= 0 ? t !== only : B.thp[t] <= 0) continue;
+    const wind = B.ks[t] === 1 || B.ks[t] === 2, tf = B.tfl[t];
+    for (let j = 0; j < KJ; j++) {
+      const i = 2 + t * KJ + j, s = BPS[i]; if (s <= 0) continue;
+      useBox(i); const c = j % 2 ? 0.46 : 0.38;
+      bpart(0, 0, 0, s, s, BPL[i] * 1.05, 0, 0, 0, 1, tf, wind ? 0.9 : c, wind ? 0.2 : c * 0.24, wind ? 0.15 : c * 0.36, wind ? 4 : 1.2);
+      bpart(0, -s * 0.95, 0, s * 0.45, 0.05, s * 0.45, 0, 0, 0, 1, tf, G[0], G[1], G[2], wind ? 8 : 3.5); // suckers
+    }
+  }
+}
+
+// ---------------------------------------------------------------- boss 3: 巨大キューブクラゲ
+// boxes: 0 bell, 1 core (weak point, hangs under the bell), 2.. brood sacs on the rim. st 2 = charging a pulse.
+function jellyPose() {
+  const B = boss; B.nb = 2 + JSAC;
+  qlook(B.yw, 0.12 * sin(B.an * 0.7), 0.12 * sin(B.an * 0.5)); GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3];
+  brot(0, 0.3 * JS, 0); setBox(0, B.x + V3[0], B.y + V3[1], B.z + V3[2], JS * 0.78);
+  brot(0, -0.98 * JS, 0); setBox(1, B.x + V3[0], B.y + V3[1], B.z + V3[2], 0.95);
+  for (let k = 0; k < JSAC; k++) {
+    const a = k * TAU / JSAC + PI / 4; brot(cos(a) * JS * 1.08, -0.15 * JS, sin(a) * JS * 1.08);
+    setBox(2 + k, B.x + V3[0], B.y + V3[1], B.z + V3[2], B.thp[k] > 0 ? 0.8 : 0);
+  }
+}
+function jellyStep(dt, cx, cy, cz) {
+  const B = boss;
+  for (let k = 0; k < JSAC; k++) B.tfl[k] = max(0, B.tfl[k] - dt * 6);
+  if (B.st === 4) { // dying: the sacs pop, then the bell
+    if ((B.dT -= dt) <= 0) { let k = -1; for (let j = 0; j < JSAC; j++) if (B.thp[j] > 0) { k = j; break; } if (k < 0) { bossDie(); return; } B.dT = 0.3; jellyBreak(k, false); }
+    jellyPose(); return;
+  }
+  const rage = B.ph2 ? 1.3 : 1, pu = max(0, sin(B.an * 2.2));
+  bossDrift(dt, cx, cy, cz, 21 + 3 * sin(B.an * 0.3), (B.st === 0 ? 0.6 : 1.6 + 2.6 * pu) * rage, 6 + 3 * sin(B.an * 0.5));
+  B.yw += dt * 0.25;
+  jellyPose();
+  if (B.st === 0) return;
+  let dx = cx - BPX[1], dy = cy - BPY[1], dz = cz - BPZ[1]; const d = hypot(dx, dy, dz) || 1; dx /= d; dy /= d; dz /= d;
+  if ((B.sumT -= dt) <= 0) { // brood: sacs bud small jellies
+    B.sumT = B.ph2 ? 4 : 6.5; let n = 0;
+    for (let k = 0; k < JSAC && n < 2; k++) if (B.thp[k] > 0 && Math.random() < 0.7) { bossCall(0, 1, BPX[2 + k], BPY[2 + k] - 1.2, BPZ[2 + k]); B.tfl[k] = 1; n++; }
+    if (n) sfx('bud');
+  }
+  if (B.st === 1 && (B.cd -= dt) <= 0) { B.st = 2; B.stT = 1.3; sfx('charge'); }
+  else if (B.st === 2 && (B.stT -= dt) <= 0) { // pulse: rings of bolts round the core, plus three at you
+    B.st = 1; B.cd = (B.ph2 ? 4.6 : 6.5) * DF.cd;
+    const x = BPX[1], y = BPY[1], z = BPZ[1];
+    for (const e of B.ph2 ? [0.28, -0.28] : [0]) for (let k = 0; k < 14; k++) { const a = k * TAU / 14 + B.an; bossBolt(x, y, z, cos(a) * cos(e), sin(e), sin(a) * cos(e), BOLTSP * 0.8); }
+    if (d < 70) for (let k = -1; k <= 1; k++) { const ca = cos(k * 0.1), sa = sin(k * 0.1); bossBolt(x, y, z, dx * ca - dz * sa, dy, dx * sa + dz * ca, BOLTSP); }
+    burst(x, y, z, 14, 1.5, 10, 0.6, 0.85, 1); sfx('zap');
+  }
+  // stings: the bell, and the tentacles hanging under it
+  if ((B.hitT -= dt) <= 0) {
+    const hx = cx - B.x, hz = cz - B.z, hr = hypot(hx, hz), hy = cy - B.y;
+    if (hypot(hx, hy - 0.3 * JS, hz) < JS + 1.2) bossKnock(B.x, B.y, B.z, 14, 15);
+    else if (hr < JS * 0.95 && hy < -2 && hy > -JTJ * 1.2 - 2) { bossKnock(B.x, cy, B.z, 10, 12); sfx('zap'); }
+  }
+}
+function jellyHit(i, pd) {
+  const B = boss;
+  if (i === 1) { weakHit(pd); return; }
+  if (i === 0) { B.hp -= pd * 0.6; B.fl = 1; if (!hitSnd++) sfx('hit'); return; }
+  const k = i - 2; if (B.thp[k] <= 0) return;
+  B.hp -= pd; B.tfl[k] = 1; B.thp[k] -= pd;
+  if (B.thp[k] <= 0) jellyBreak(k, true); else if (!hitSnd++) sfx('hit');
+}
+function jellyBreak(k, scored) {
+  const B = boss, i = 2 + k;
+  CAPO.x = BPX[i]; CAPO.y = BPY[i]; CAPO.z = BPZ[i]; CAPO.vx = B.vx * 0.3; CAPO.vy = B.vy * 0.3; CAPO.vz = B.vz * 0.3;
+  cap = CAPO; capV = 7; pIdx = 0; jellyDraw(k); cap = null;
+  B.thp[k] = 0; BPS[i] = 0;
+  burst(BPX[i], BPY[i], BPZ[i], 12, 1, 8, 0.75, 1, 0.35); sfx('segbreak');
+  if (scored) { B.hp -= B.mh * 0.05; bossReward(400, 15, '卵嚢破壊！'); }
+}
+// only: -2 everything alive, -1 the body, k >= 0 brood sac k alone
+function jellyDraw(only) {
+  const B = boss, a = B.an, pu = sin(a * 2.2), G = B.ph2 ? [0.45, 0.85, 1] : [1, 0.45, 0.9], fl = B.fl, chg = B.st === 2 ? clamp(1 - B.stT / 1.3, 0, 1) : 0;
+  const w = JS * (1 + 0.08 * pu), h = JS * (0.5 - 0.05 * pu);
+  if (only < 0) {
+    GP0[0] = B.x; GP0[1] = B.y; GP0[2] = B.z; GBQ[0] = BPQ[0]; GBQ[1] = BPQ[1]; GBQ[2] = BPQ[2]; GBQ[3] = BPQ[3];
+    bpart(0, 0.45 * JS, 0, w, h, w, 0, 0, 0, 1, fl, 0.42, 0.22, 0.6, 1.3 + 4 * chg); // bell
+    bpart(0, 0.45 * JS + h * 1.3, 0, w * 0.6, h * 0.45, w * 0.6, 0, 0, 0, 1, fl, 0.5, 0.28, 0.68, 1.5 + 3 * chg); // crown
+    bpart(0, 0.45 * JS - h, 0, w * 1.06, 0.1 * JS, w * 1.06, 0, 0, 0, 1, fl, G[0], G[1], G[2], 4 + 4 * chg); // rim
+    for (let k = 0; k < 4; k++) { const b = k * PI / 2; bpart(cos(b) * 0.42 * JS, 0.5 * JS, sin(b) * 0.42 * JS, 0.5, 0.25, 0.5, 0, sin(b / 2), 0, cos(b / 2), fl, G[0], G[1], G[2], 5 + 3 * chg); } // glow under the dome
+    const cs = sin(a * 1.7) * 0.5;
+    bpart(0, -0.55 * JS, 0, 0.3, 0.25 * JS, 0.3, 0, 0, 0, 1, fl, 0.6, 0.35, 0.7, 2); // stalk
+    bpart(0, -0.98 * JS, 0, 0.95, 0.95, 0.95, 0, sin(cs), 0, cos(cs), fl, 1, 0.85, 0.95, 7 + 3 * sin(a * 5) + 8 * chg); // core (weak point)
+    for (let k = 0; k < 4; k++) for (let j = 0; j < 4; j++) { // frilly oral arms
+      const b = k * PI / 2 + PI / 4 + 0.25 * sin(a * 1.4 + j * 0.8 + k), r = 0.5 + 0.12 * j;
+      bpart(cos(b) * r, -1.2 * JS - j * 1.0, sin(b) * r, 0.32, 0.5, 0.1, 0, sin(-b / 2 + PI / 4), 0, cos(-b / 2 + PI / 4), fl, G[0] * 0.8, G[1] * 0.6, G[2] * 0.85, 2.5);
+    }
+  }
+  if (only === -1) return;
+  for (let k = 0; k < JSAC; k++) { // brood sacs: glowing green cubes that swell before they bud
+    if (only >= 0 ? k !== only : B.thp[k] <= 0) continue;
+    useBox(2 + k); const sw = 0.8 * (1 + 0.15 * sin(a * 3 + k) + 0.25 * B.tfl[k]), sp = a * 1.5 + k;
+    bpart(0, 0, 0, sw, sw, sw, 0, sin(sp / 2), 0, cos(sp / 2), B.tfl[k] * 0.5, 0.75, 1, 0.35, 4 + 2 * sin(a * 4 + k));
+    bpart(0, sw + 0.15, 0, 0.25, 0.2, 0.25, 0, 0, 0, 1, 0, 1, 1, 0.8, 8);
+  }
+  if (only !== -2) return;
+  for (let t = 0; t < JTN; t++) { // tentacles: hang from the rim, sway, trail behind as it swims
+    const b = t * TAU / JTN + B.yw;
+    let px = B.x + cos(b) * JS * 0.92, py = B.y + 0.45 * JS - h, pz = B.z + sin(b) * JS * 0.92;
+    for (let j = 1; j <= JTJ; j++) {
+      const sw = 0.18 * j * sin(a * 1.6 - j * 0.5 + t * 1.3);
+      const x = B.x + cos(b) * JS * (0.92 - 0.03 * j) + sw * cos(b + 1.5) - B.vx * j * 0.1;
+      const y = B.y + 0.45 * JS - h - 1.2 * j - B.vy * j * 0.05;
+      const z = B.z + sin(b) * JS * (0.92 - 0.03 * j) + sw * sin(b + 1.5) - B.vz * j * 0.1;
+      const dx = x - px, dy = y - py, dz = z - pz, l = hypot(dx, dy, dz) || 1;
+      qlook(atan2(dx / l, -dz / l), atan2(dy / l, hypot(dx, dz) / l), 0);
+      GP0[0] = (px + x) / 2; GP0[1] = (py + y) / 2; GP0[2] = (pz + z) / 2; GBQ[0] = QB[0]; GBQ[1] = QB[1]; GBQ[2] = QB[2]; GBQ[3] = QB[3];
+      const tip = j === JTJ;
+      bpart(0, 0, 0, 0.13, 0.13, l * 0.52, 0, 0, 0, 1, 0, tip ? 1 : G[0] * 0.7, tip ? 1 : G[1] * 0.6, tip ? 1 : G[2] * 0.8, tip ? 9 : 2.4 + 2 * chg);
+      px = x; py = y; pz = z;
+    }
+  }
 }
 
 // ---------------------------------------------------------------- codex (図鑑): rares, evolutions and the boss you have found
 let DEX = {}; try { DEX = JSON.parse(localStorage.cubeAbyssDex || '{}') || {}; } catch { DEX = {}; }
 function dexAdd(id) { DEX[id] = (DEX[id] || 0) + 1; keep('cubeAbyssDex', JSON.stringify(DEX)); }
 function dexRender() {
-  const L = UPS.filter((u) => u[5]), n = L.filter((u) => DEX[u[0]]).length + (DEX.boss ? 1 : 0);
-  $('dxn').textContent = `発見 ${n} / ${L.length + 1}`;
+  const L = UPS.filter((u) => u[5]), n = L.filter((u) => DEX[u[0]]).length + BOSSK.filter((k) => DEX[k]).length;
+  $('dxn').textContent = `発見 ${n} / ${L.length + BOSSK.length}`;
   const cell = (cls, tag, name, desc, foot) => { const e = document.createElement('div'); e.className = 'de ' + cls; e.innerHTML = `<em>${tag}</em><strong>${name}</strong><span>${desc}</span>${foot ? `<small>${foot}</small>` : ''}`; return e; };
   $('dxl').replaceChildren(
     ...L.map((u) => {
@@ -3722,7 +4064,8 @@ function dexRender() {
       if (got) return cell(ev ? 'evo' : 'rare', tag, u[1], udesc(u), ev ? u[7] : '');
       return cell('no', tag, '？？？', ev ? `${u[7].split(' ＋ ')[0]} ＋ ？？？ で宝箱を開けると…` : 'レベルアップか宝箱で出会えるかも', '');
     }),
-    DEX.boss ? cell('boss', 'BOSS', 'キューブリヴァイアサン', `撃破 ${DEX.boss} 回`, `WAVE ${BOSSW} ごとに出現`) : cell('no', 'BOSS', '？？？', `WAVE ${BOSSW} に何かが来る`, ''));
+    ...BOSSK.map((k, i) => DEX[k] ? cell('boss', 'BOSS', BOSSN[i], `撃破 ${DEX[k]} 回`, `WAVE ${BOSSW * (i + 1)}, ${BOSSW * (i + 4)}, … に出現`)
+      : cell('no', 'BOSS', '？？？', `WAVE ${BOSSW * (i + 1)} に何かが来る`, '')));
 }
 $('dxb').addEventListener('click', () => { dexRender(); $('dx').classList.add('on'); });
 $('dxc').addEventListener('click', () => $('dx').classList.remove('on'));
