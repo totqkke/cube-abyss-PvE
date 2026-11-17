@@ -1,0 +1,27 @@
+# CUBE ABYSS — 深海キューブ迎撃戦
+
+ブラウザで遊べる、深海が舞台のローグライクFPSです。四角い敵が波のように押し寄せてくるのを、銛（もり）の銃で迎え撃ちます。
+
+**遊ぶ**：最新の Chrome / Edge（PC推奨）で公開ページを開いてください。WebGPU が必要です。
+
+- 難易度は 低 / 中 / 高 / 鬼 の4段階
+- ウェーブをクリアするたびに強化を1つ選ぶ（ローグライク）
+- コンボを続けるとスコア倍率が上がる
+- ランキングは難易度別に、遊んだブラウザの中に保存
+
+## 操作
+- PC：WASD で移動、Space / Ctrl で上昇 / 下降、Shift で加速、マウスで視点、左クリックで射撃、R でリロード、Esc でメニュー
+- スマホ：画面の左側をなぞって移動、右側をなぞって視点、▲▼ で上昇 / 下降、照準を敵に重ねると自動で射撃
+
+## クレジット
+[Abyssal Garden](https://github.com/Noniv/abyssal-garden)（Maksymilian Dendura 作、MIT License）を改変して作っています。元の著作権表示とライセンスは [LICENSE](LICENSE) にあります。
+
+## ビルド
+`source/` に分割前のソースがあります。
+
+```
+cd source
+npm install
+npm run build            # 圧縮版の ../index.html を作る（esbuild が必要）
+npm run build:readable   # 圧縮しない版の ../index.html を作る
+```
